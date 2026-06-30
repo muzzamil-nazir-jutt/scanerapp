@@ -7,6 +7,8 @@ import {
   TextInput,
   TouchableOpacity,
   FlatList,
+  ScrollView,
+  Image,
   ActivityIndicator,
   SafeAreaView,
   StatusBar,

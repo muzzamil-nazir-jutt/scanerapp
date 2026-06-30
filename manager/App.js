@@ -79,6 +79,44 @@ export default function App() {
     }
   };
 
+  // Sync / Restore from GitHub Cloud
+  const handleSyncFromCloud = () => {
+    Alert.alert(
+      'Sync from GitHub',
+      'This will download the database from GitHub and overwrite your local Manager database. Do you want to proceed?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Sync Now',
+          onPress: async () => {
+            try {
+              setLoading(true);
+              const response = await fetch('https://raw.githubusercontent.com/muzzamil-nazir-jutt/database/main/equipment.json', {
+                headers: { 'Cache-Control': 'no-cache' },
+              });
+              if (!response.ok) {
+                throw new Error(`Server returned status ${response.status}`);
+              }
+              const payload = await response.json();
+              const cleanData = Array.isArray(payload) ? payload : (payload.data || []);
+              
+              if (Array.isArray(cleanData)) {
+                await saveAssetsToStorage(cleanData);
+                Alert.alert('Sync Complete', `Database restored! Total ${cleanData.length} assets loaded.`);
+              } else {
+                throw new Error('Invalid JSON structure.');
+              }
+            } catch (err) {
+              Alert.alert('Sync Failed', 'Could not download database from GitHub. Check your internet connection.');
+            } finally {
+              setLoading(false);
+            }
+          }
+        }
+      ]
+    );
+  };
+
   // Auto-calculate next sequential number
   const getNextAssetNumber = () => {
     if (assets.length === 0) return '1';
@@ -322,13 +360,16 @@ export default function App() {
                 display: block;
               }
               .asset-name {
-                font-size: 13px;
+                font-size: 11px;
                 font-weight: 700;
                 color: #0f172a;
                 margin: 4px 0 2px 0;
-                white-space: nowrap;
+                line-height: 1.2;
+                height: 2.4em;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
                 overflow: hidden;
-                text-overflow: ellipsis;
               }
               .asset-num {
                 font-size: 11px;
@@ -420,11 +461,14 @@ export default function App() {
             <View style={{ flex: 1 }}>
               {/* Toolbar */}
               <View style={styles.toolbar}>
+                <TouchableOpacity style={[styles.toolButton, { backgroundColor: '#1e293b' }]} onPress={handleSyncFromCloud}>
+                  <Text style={styles.toolButtonText}>🔄 Sync Cloud</Text>
+                </TouchableOpacity>
                 <TouchableOpacity style={[styles.toolButton, { backgroundColor: '#1e293b' }]} onPress={handleExportJSON}>
                   <Text style={styles.toolButtonText}>📥 Export JSON</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[styles.toolButton, { backgroundColor: '#1e293b' }]} onPress={handleExportPDF}>
-                  <Text style={styles.toolButtonText}>📄 Print QRs PDF</Text>
+                  <Text style={styles.toolButtonText}>📄 Print QRs</Text>
                 </TouchableOpacity>
               </View>
 
