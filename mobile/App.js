@@ -313,50 +313,63 @@ export default function App() {
             </View>
 
             {asset ? (
-              <FlatList
-                data={[asset]}
-                keyExtractor={(item) => item.id.toString()}
-                contentContainerStyle={styles.detailsContent}
-                renderItem={({ item }) => (
-                  <View style={styles.detailsCard}>
+              <ScrollView contentContainerStyle={styles.detailsContent} showsVerticalScrollIndicator={false}>
+                <View style={styles.detailsCard}>
+                  {asset.image ? (
+                    <Image
+                      source={{ uri: `data:image/jpeg;base64,${asset.image}` }}
+                      style={styles.detailsImage}
+                    />
+                  ) : null}
+
+                  <View style={styles.detailsCardContent}>
                     <View style={styles.detailsRowHeader}>
-                      <Text style={styles.detailsAssetCode}>{item.asset_number}</Text>
+                      <Text style={styles.detailsAssetCode}>Asset #{asset.asset_number}</Text>
                       <View style={[
                         styles.badge,
-                        item.status === 'Working' && styles.badgeWorking,
-                        item.status === 'Maintenance' && styles.badgeMaintenance,
-                        item.status === 'Faulty' && styles.badgeFaulty,
+                        asset.status === 'Working' && styles.badgeWorking,
+                        asset.status === 'Maintenance' && styles.badgeMaintenance,
+                        asset.status === 'Faulty' && styles.badgeFaulty,
                       ]}>
                         <Text style={[
                           styles.badgeText,
-                          item.status === 'Working' && styles.badgeTextWorking,
-                          item.status === 'Maintenance' && styles.badgeTextMaintenance,
-                          item.status === 'Faulty' && styles.badgeTextFaulty,
-                        ]}>{item.status}</Text>
+                          asset.status === 'Working' && styles.badgeTextWorking,
+                          asset.status === 'Maintenance' && styles.badgeTextMaintenance,
+                          asset.status === 'Faulty' && styles.badgeTextFaulty,
+                        ]}>{asset.status}</Text>
                       </View>
                     </View>
 
-                    <Text style={styles.detailsName}>{item.name}</Text>
+                    <Text style={styles.detailsName}>{asset.name}</Text>
                     
                     <View style={styles.detailSection}>
                       <Text style={styles.sectionLabel}>Model / Manufacturer</Text>
-                      <Text style={styles.sectionValue}>{item.model}</Text>
+                      <Text style={styles.sectionValue}>{asset.model}</Text>
                     </View>
 
                     <View style={styles.detailSection}>
                       <Text style={styles.sectionLabel}>Technical Specifications</Text>
-                      <Text style={styles.sectionValue}>{item.specs || '—'}</Text>
+                      <Text style={styles.sectionValue}>{asset.specs || '—'}</Text>
                     </View>
 
-                    <View style={styles.detailSection}>
-                      <Text style={styles.sectionLabel}>Equipment Description & Logs</Text>
-                      <View style={styles.descriptionBox}>
-                        <Text style={styles.descriptionText}>{item.description || 'No description available.'}</Text>
+                    {asset.background ? (
+                      <View style={styles.detailSection}>
+                        <Text style={styles.sectionLabel}>Background & Procurement</Text>
+                        <Text style={styles.sectionValue}>{asset.background}</Text>
                       </View>
-                    </View>
+                    ) : null}
+
+                    {asset.instructions ? (
+                      <View style={styles.detailSection}>
+                        <Text style={styles.sectionLabel}>Installation & Setup Instructions</Text>
+                        <View style={styles.descriptionBox}>
+                          <Text style={styles.descriptionText}>{asset.instructions}</Text>
+                        </View>
+                      </View>
+                    ) : null}
                   </View>
-                )}
-              />
+                </View>
+              </ScrollView>
             ) : (
               <View style={styles.errorContainer}>
                 <Text style={styles.errorTitle}>Asset Not Found</Text>
@@ -435,7 +448,9 @@ const styles = StyleSheet.create({
   backButtonText: { color: '#e2e8f0', fontWeight: '600', fontSize: 13 },
   detailsHeaderTitle: { fontSize: 18, fontWeight: 'bold', color: '#ffffff' },
   detailsContent: { paddingVertical: 16 },
-  detailsCard: { backgroundColor: 'rgba(255,255,255,0.03)', borderWidth: 1, borderColor: 'rgba(255,255,255,0.08)', borderRadius: 12, padding: 20 },
+  detailsCard: { backgroundColor: 'rgba(255,255,255,0.03)', borderWidth: 1, borderColor: 'rgba(255,255,255,0.08)', borderRadius: 12, overflow: 'hidden' },
+  detailsImage: { width: '100%', height: 200, resizeMode: 'cover' },
+  detailsCardContent: { padding: 20 },
   detailsRowHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 },
   detailsAssetCode: { fontFamily: 'monospace', fontSize: 16, fontWeight: '700', color: '#22d3ee' },
   detailsName: { fontSize: 20, fontWeight: 'bold', color: '#ffffff', marginBottom: 20 },

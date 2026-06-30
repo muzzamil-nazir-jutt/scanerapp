@@ -1,0 +1,34 @@
+{
+  "expo": {
+    "name": "manager",
+    "slug": "manager",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-sharing",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you attach device pictures to the database.",
+          "cameraPermission": "The app accesses your camera to let you take photos of devices for the database."
+        }
+      ]
+    ]
+  }
+}
