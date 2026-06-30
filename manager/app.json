@@ -15,7 +15,11 @@
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.muzzamiljut.manager"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -29,6 +33,11 @@
           "cameraPermission": "The app accesses your camera to let you take photos of devices for the database."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "bc9a7c1f-5083-417b-9be9-20bd1f46fed9"
+      }
+    }
   }
 }

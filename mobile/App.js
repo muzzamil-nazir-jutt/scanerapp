@@ -20,7 +20,7 @@ import { Camera, CameraView } from 'expo-camera';
 
 // ─── CONFIGURATION ──────────────────────────────────────────────────────────
 // Aap ki GitHub Repository ka RAW JSON link
-const DATABASE_JSON_URL = 'https://raw.githubusercontent.com/muzzamil-nazir-jutt/database/main/equipment.json'; 
+const DATABASE_JSON_URL = 'https://raw.githubusercontent.com/muzzamil-nazir-jutt/scanerapp/main/equipment.json'; 
 
 const STORAGE_KEYS = {
   ASSETS: 'voltsync_assets',

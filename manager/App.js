@@ -91,7 +91,7 @@ export default function App() {
           onPress: async () => {
             try {
               setLoading(true);
-              const response = await fetch('https://raw.githubusercontent.com/muzzamil-nazir-jutt/database/main/equipment.json', {
+              const response = await fetch('https://raw.githubusercontent.com/muzzamil-nazir-jutt/scanerapp/main/equipment.json', {
                 headers: { 'Cache-Control': 'no-cache' },
               });
               if (!response.ok) {
