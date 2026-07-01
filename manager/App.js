@@ -287,16 +287,12 @@ export default function App() {
       });
 
       if (await Sharing.isAvailableAsync()) {
-        await Sharing.shareAsync(fileUri, {
-          mimeType: 'application/json',
-          dialogTitle: 'Export VoltSync Database',
-          UTI: 'public.json',
-        });
+        await Sharing.shareAsync(fileUri);
       } else {
         Alert.alert('Error', 'Sharing is not available on this device.');
       }
     } catch (e) {
-      Alert.alert('Error', 'Failed to export database.');
+      Alert.alert('Export Failed', 'Failed to export database: ' + e.message);
     }
   };
 
@@ -311,16 +307,16 @@ export default function App() {
       setLoading(true);
       let labelsHtml = '';
 
-      // Generate offline QR codes using qrcode library
+      // Generate offline QR codes as pure SVG strings using qrcode library (does not require canvas)
       for (const asset of assets) {
-        const qrDataUrl = await QRCodeLib.toDataURL(asset.asset_number, {
+        const qrSvg = await QRCodeLib.toString(asset.asset_number, {
+          type: 'svg',
           margin: 1,
-          width: 200,
         });
 
         labelsHtml += `
           <div class="label-card">
-            <img class="qr-img" src="${qrDataUrl}" />
+            <div class="qr-svg-container">${qrSvg}</div>
             <div class="asset-name">${escapeHtml(asset.name)}</div>
             <div class="asset-num">Asset #${asset.asset_number}</div>
           </div>
@@ -353,7 +349,7 @@ export default function App() {
                 page-break-inside: avoid;
                 background-color: #ffffff;
               }
-              .qr-img {
+              .qr-svg-container svg {
                 width: 130px;
                 height: 130px;
                 margin: 0 auto 8px auto;
@@ -393,16 +389,12 @@ export default function App() {
       const { uri } = await Print.printToFileAsync({ html: htmlContent });
 
       if (await Sharing.isAvailableAsync()) {
-        await Sharing.shareAsync(uri, {
-          mimeType: 'application/pdf',
-          dialogTitle: 'Print VoltSync QR Labels',
-          UTI: 'com.adobe.pdf',
-        });
+        await Sharing.shareAsync(uri);
       } else {
         Alert.alert('Error', 'Sharing is not available on this device.');
       }
     } catch (e) {
-      Alert.alert('Error', 'Failed to generate PDF labels.');
+      Alert.alert('PDF Generation Failed', 'Failed to generate PDF labels: ' + e.message);
     } finally {
       setLoading(false);
     }
