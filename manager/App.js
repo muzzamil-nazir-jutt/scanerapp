@@ -9,7 +9,6 @@ import {
   Image,
   Alert,
   ActivityIndicator,
-  Modal,
   SafeAreaView,
   StatusBar,
   Platform,
@@ -20,7 +19,7 @@ import * as ImagePicker from 'expo-image-picker';
 import * as ImageManipulator from 'expo-image-manipulator';
 import * as Print from 'expo-print';
 import * as Sharing from 'expo-sharing';
-import * as FileSystem from 'expo-file-system';
+import * as FileSystem from 'expo-file-system/legacy'; // Fixed deprecation issue
 import QRCodeLib from 'qrcode';
 
 const STORAGE_KEY = '@voltsync_assets';
@@ -43,10 +42,8 @@ export default function App() {
     name: '',
     model: '',
     status: 'Working',
-    specs: '',
-    background: '',
-    instructions: '',
-    image: null, // Base64 string
+    descriptionBlocks: [], // Array of { id, type, value }
+    instructionBlocks: [], // Array of { id, type, value }
   });
 
   // Load assets on mount
@@ -107,7 +104,7 @@ export default function App() {
                 throw new Error('Invalid JSON structure.');
               }
             } catch (err) {
-              Alert.alert('Sync Failed', 'Could not download database from GitHub. Check your internet connection.');
+              Alert.alert('Sync Failed', 'Could not download database from GitHub: ' + err.message);
             } finally {
               setLoading(false);
             }
@@ -133,31 +130,63 @@ export default function App() {
       name: '',
       model: '',
       status: 'Working',
-      specs: '',
-      background: '',
-      instructions: '',
-      image: null,
+      descriptionBlocks: [],
+      instructionBlocks: [],
     });
     setActiveTab('form');
   };
 
   const handleOpenEditForm = (asset) => {
     setIsEditing(true);
+
+    // Backward compatibility: Convert legacy strings to blocks if blocks don't exist
+    let descBlocks = asset.descriptionBlocks || [];
+    if (descBlocks.length === 0) {
+      if (asset.specs) {
+        descBlocks.push({
+          id: 'legacy-specs-' + Date.now(),
+          type: 'text',
+          value: asset.specs,
+        });
+      }
+      if (asset.background) {
+        descBlocks.push({
+          id: 'legacy-bg-' + Date.now(),
+          type: 'text',
+          value: asset.background,
+        });
+      }
+      if (asset.image) {
+        descBlocks.push({
+          id: 'legacy-img-' + Date.now(),
+          type: 'image',
+          value: asset.image,
+        });
+      }
+    }
+
+    let instBlocks = asset.instructionBlocks || [];
+    if (instBlocks.length === 0 && asset.instructions) {
+      instBlocks.push({
+        id: 'legacy-inst-' + Date.now(),
+        type: 'text',
+        value: asset.instructions,
+      });
+    }
+
     setFormData({
       asset_number: asset.asset_number,
       name: asset.name,
       model: asset.model,
       status: asset.status,
-      specs: asset.specs || '',
-      background: asset.background || '',
-      instructions: asset.instructions || '',
-      image: asset.image || null,
+      descriptionBlocks: descBlocks,
+      instructionBlocks: instBlocks,
     });
     setActiveTab('form');
   };
 
-  // Image Selection and Compression
-  const handlePickImage = async (useCamera = false) => {
+  // Generic Image Selection and Compression for block builder
+  const pickImageForBlocks = async (useCamera, blocks, setBlocks) => {
     try {
       let result;
       if (useCamera) {
@@ -193,10 +222,16 @@ export default function App() {
           [{ resize: { width: 800 } }], // Resize to max 800px width
           { compress: 0.7, format: ImageManipulator.SaveFormat.JPEG, base64: true }
         );
-        setFormData(prev => ({ ...prev, image: manipResult.base64 }));
+        
+        const newBlock = {
+          id: Date.now().toString() + Math.random().toString(36).substring(7),
+          type: 'image',
+          value: manipResult.base64,
+        };
+        setBlocks([...blocks, newBlock]);
       }
     } catch (e) {
-      Alert.alert('Error', 'Failed to process image.');
+      Alert.alert('Error', 'Failed to process image: ' + e.message);
     } finally {
       setFormLoading(false);
     }
@@ -222,16 +257,25 @@ export default function App() {
     setFormLoading(true);
     let updatedAssets = [...assets];
 
+    const firstImage = 
+      formData.descriptionBlocks.find(b => b.type === 'image')?.value || 
+      formData.instructionBlocks.find(b => b.type === 'image')?.value || 
+      null;
+
     const newAsset = {
       id: isEditing ? assets.find(a => a.asset_number === assetNum).id : Date.now(),
       asset_number: assetNum,
       name: formData.name.trim(),
       model: formData.model.trim(),
       status: formData.status,
-      specs: formData.specs.trim(),
-      background: formData.background.trim(),
-      instructions: formData.instructions.trim(),
-      image: formData.image,
+      descriptionBlocks: formData.descriptionBlocks,
+      instructionBlocks: formData.instructionBlocks,
+      
+      // Fallbacks for older Scanner Apps
+      specs: formData.descriptionBlocks.filter(b => b.type === 'text').map(b => b.value).join('\n'),
+      background: '',
+      instructions: formData.instructionBlocks.filter(b => b.type === 'text').map(b => b.value).join('\n'),
+      image: firstImage,
     };
 
     if (isEditing) {
@@ -242,6 +286,12 @@ export default function App() {
 
     await saveAssetsToStorage(updatedAssets);
     setFormLoading(false);
+    
+    // Refresh selected asset if viewing details
+    if (selectedAsset && selectedAsset.asset_number === assetNum) {
+      setSelectedAsset(newAsset);
+    }
+
     setActiveTab('list');
     Alert.alert('Success', isEditing ? 'Asset updated successfully.' : 'Asset added successfully.');
   };
@@ -307,7 +357,7 @@ export default function App() {
       setLoading(true);
       let labelsHtml = '';
 
-      // Generate offline QR codes as pure SVG strings using qrcode library (does not require canvas)
+      // Generate offline QR codes as pure SVG strings (no canvas dependency)
       for (const asset of assets) {
         const qrSvg = await QRCodeLib.toString(asset.asset_number, {
           type: 'svg',
@@ -430,7 +480,119 @@ export default function App() {
     }
   };
 
-  // Render Screens
+  // Block Builder UI Renderer
+  const renderBlockBuilder = (sectionName, blocks, setBlocks) => {
+    const addTextBlock = () => {
+      setBlocks([...blocks, { id: Date.now().toString() + Math.random(), type: 'text', value: '' }]);
+    };
+
+    const updateTextBlock = (id, text) => {
+      setBlocks(blocks.map(b => b.id === id ? { ...b, value: text } : b));
+    };
+
+    const deleteBlock = (id) => {
+      setBlocks(blocks.filter(b => b.id !== id));
+    };
+
+    const moveBlock = (index, direction) => {
+      const newBlocks = [...blocks];
+      const temp = newBlocks[index];
+      newBlocks[index] = newBlocks[index + direction];
+      newBlocks[index + direction] = temp;
+      setBlocks(newBlocks);
+    };
+
+    return (
+      <View style={styles.blockBuilderContainer}>
+        <Text style={styles.blockLabel}>{sectionName}</Text>
+        
+        {blocks.length === 0 ? (
+          <Text style={styles.noBlocksText}>No text or images added yet in this section.</Text>
+        ) : (
+          blocks.map((block, index) => (
+            <View key={block.id} style={styles.blockWrapper}>
+              <View style={styles.blockHeader}>
+                <Text style={styles.blockTypeText}>
+                  {block.type === 'text' ? '📝 TEXT BLOCK' : '🖼️ IMAGE BLOCK'}
+                </Text>
+                
+                {/* Rearrange Arrows */}
+                <View style={styles.blockNavButtons}>
+                  {index > 0 && (
+                    <TouchableOpacity style={styles.navButton} onPress={() => moveBlock(index, -1)}>
+                      <Text style={styles.navButtonText}>⬆️</Text>
+                    </TouchableOpacity>
+                  )}
+                  {index < blocks.length - 1 && (
+                    <TouchableOpacity style={styles.navButton} onPress={() => moveBlock(index, 1)}>
+                      <Text style={styles.navButtonText}>⬇️</Text>
+                    </TouchableOpacity>
+                  )}
+                  <TouchableOpacity style={styles.blockDeleteBtn} onPress={() => deleteBlock(block.id)}>
+                    <Text style={styles.deleteText}>❌ Delete</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+
+              {block.type === 'text' ? (
+                <TextInput
+                  style={[styles.inputField, styles.blockTextInput]}
+                  multiline
+                  placeholder="Enter details here..."
+                  placeholderTextColor="#64748b"
+                  value={block.value}
+                  onChangeText={(txt) => updateTextBlock(block.id, txt)}
+                />
+              ) : (
+                <View style={styles.blockImageWrapper}>
+                  <Image
+                    source={{ uri: `data:image/jpeg;base64,${block.value}` }}
+                    style={styles.blockImagePreview}
+                  />
+                </View>
+              )}
+            </View>
+          ))
+        )}
+
+        {/* Buttons to append new blocks */}
+        <View style={styles.blockActionRow}>
+          <TouchableOpacity style={styles.blockActionButton} onPress={addTextBlock}>
+            <Text style={styles.blockActionButtonText}>✍️ Add Text</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.blockActionButton} onPress={() => pickImageForBlocks(true, blocks, setBlocks)}>
+            <Text style={styles.blockActionButtonText}>📸 Take Photo</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.blockActionButton} onPress={() => pickImageForBlocks(false, blocks, setBlocks)}>
+            <Text style={styles.blockActionButtonText}>🖼️ Gallery</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  };
+
+  // Block View Renderer (Details Screen)
+  const renderBlockList = (blocks) => {
+    if (!blocks || blocks.length === 0) return <Text style={styles.sectionText}>—</Text>;
+    return blocks.map((block) => {
+      if (block.type === 'text') {
+        return (
+          <Text key={block.id} style={styles.detailsBlockText}>
+            {block.value}
+          </Text>
+        );
+      } else {
+        return (
+          <Image
+            key={block.id}
+            source={{ uri: `data:image/jpeg;base64,${block.value}` }}
+            style={styles.detailsBlockImage}
+          />
+        );
+      }
+    });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#05081a" />
@@ -494,7 +656,7 @@ export default function App() {
                 </View>
               </View>
 
-              {/* Assets List */}
+              {/* Asset Cards List */}
               <ScrollView style={styles.listContainer} contentContainerStyle={{ paddingBottom: 100 }}>
                 {filteredAssets.length === 0 ? (
                   <View style={styles.emptyContainer}>
@@ -511,16 +673,23 @@ export default function App() {
                         setActiveTab('detail');
                       }}
                     >
-                      {asset.image ? (
-                        <Image
-                          source={{ uri: `data:image/jpeg;base64,${asset.image}` }}
-                          style={styles.cardImage}
-                        />
-                      ) : (
-                        <View style={styles.cardImagePlaceholder}>
-                          <Text style={styles.placeholderText}>No Image</Text>
-                        </View>
-                      )}
+                      {/* Show the first image block if available, fallback to legacy image */}
+                      {(() => {
+                        const imgBase64 = 
+                          asset.descriptionBlocks?.find(b => b.type === 'image')?.value || 
+                          asset.instructionBlocks?.find(b => b.type === 'image')?.value || 
+                          asset.image;
+                        return imgBase64 ? (
+                          <Image
+                            source={{ uri: `data:image/jpeg;base64,${imgBase64}` }}
+                            style={styles.cardImage}
+                          />
+                        ) : (
+                          <View style={styles.cardImagePlaceholder}>
+                            <Text style={styles.placeholderText}>No Image</Text>
+                          </View>
+                        );
+                      })()}
                       
                       <View style={styles.cardDetails}>
                         <View style={styles.cardHeaderRow}>
@@ -544,7 +713,7 @@ export default function App() {
 
           {/* ADD / EDIT FORM VIEW */}
           {activeTab === 'form' && (
-            <ScrollView style={styles.formContainer} contentContainerStyle={{ paddingBottom: 50 }}>
+            <ScrollView style={styles.formContainer} contentContainerStyle={{ paddingBottom: 80 }} showsVerticalScrollIndicator={false}>
               <Text style={styles.sectionTitle}>{isEditing ? 'Edit Asset Details' : 'Add New Asset'}</Text>
               
               <Text style={styles.inputLabel}>Asset Number (Unique)</Text>
@@ -599,66 +768,22 @@ export default function App() {
                 ))}
               </View>
 
-              <Text style={styles.inputLabel}>Technical Specifications</Text>
-              <TextInput
-                style={styles.inputField}
-                value={formData.specs}
-                onChangeText={(text) => setFormData(prev => ({ ...prev, specs: text }))}
-                placeholder="e.g., Output: 150MW, RPM: 3000"
-                placeholderTextColor="#64748b"
-              />
+              {/* Block builder for Description & Specs */}
+              {renderBlockBuilder(
+                'Description & Technical Specs (Jitni marzi photos add karein)',
+                formData.descriptionBlocks,
+                (blks) => setFormData(prev => ({ ...prev, descriptionBlocks: blks }))
+              )}
 
-              <Text style={styles.inputLabel}>Background & Procurement Details</Text>
-              <TextInput
-                style={[styles.inputField, styles.textArea]}
-                value={formData.background}
-                onChangeText={(text) => setFormData(prev => ({ ...prev, background: text }))}
-                placeholder="Where was it bought? What is its main role in the plant? Full background..."
-                placeholderTextColor="#64748b"
-                multiline
-                numberOfLines={4}
-              />
-
-              <Text style={styles.inputLabel}>Installation & Setup Instructions</Text>
-              <TextInput
-                style={[styles.inputField, styles.textArea]}
-                value={formData.instructions}
-                onChangeText={(text) => setFormData(prev => ({ ...prev, instructions: text }))}
-                placeholder="Step-by-step installation instructions, manuals, or operational logs..."
-                placeholderTextColor="#64748b"
-                multiline
-                numberOfLines={4}
-              />
-
-              <Text style={styles.inputLabel}>Device Picture</Text>
-              <View style={styles.imagePickerContainer}>
-                {formData.image ? (
-                  <View style={styles.imagePreviewContainer}>
-                    <Image
-                      source={{ uri: `data:image/jpeg;base64,${formData.image}` }}
-                      style={styles.formImagePreview}
-                    />
-                    <TouchableOpacity
-                      style={styles.removeImageButton}
-                      onPress={() => setFormData(prev => ({ ...prev, image: null }))}
-                    >
-                      <Text style={styles.removeImageButtonText}>Remove Photo</Text>
-                    </TouchableOpacity>
-                  </View>
-                ) : (
-                  <View style={styles.imageButtonsRow}>
-                    <TouchableOpacity style={styles.imagePickerButton} onPress={() => handlePickImage(true)}>
-                      <Text style={styles.imagePickerButtonText}>📸 Take Photo</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.imagePickerButton} onPress={() => handlePickImage(false)}>
-                      <Text style={styles.imagePickerButtonText}>🖼️ Choose Gallery</Text>
-                    </TouchableOpacity>
-                  </View>
-                )}
-              </View>
+              {/* Block builder for Installation instructions */}
+              {renderBlockBuilder(
+                'Installation Instructions (Mix text & pictures sequentially)',
+                formData.instructionBlocks,
+                (blks) => setFormData(prev => ({ ...prev, instructionBlocks: blks }))
+              )}
 
               {formLoading ? (
-                <ActivityIndicator size="large" color="#00b4d8" style={{ marginTop: 20 }} />
+                <ActivityIndicator size="large" color="#00b4d8" style={{ marginTop: 30 }} />
               ) : (
                 <View style={styles.formButtonsRow}>
                   <TouchableOpacity style={[styles.formButton, styles.btnCancel]} onPress={() => setActiveTab('list')}>
@@ -674,7 +799,7 @@ export default function App() {
 
           {/* ASSET DETAIL VIEW */}
           {activeTab === 'detail' && selectedAsset && (
-            <ScrollView style={styles.detailContainer} contentContainerStyle={{ paddingBottom: 50 }}>
+            <ScrollView style={styles.detailContainer} contentContainerStyle={{ paddingBottom: 60 }} showsVerticalScrollIndicator={false}>
               {/* Back Button */}
               <TouchableOpacity style={styles.backButton} onPress={() => setActiveTab('list')}>
                 <Text style={styles.backButtonText}>← Back to List</Text>
@@ -682,16 +807,22 @@ export default function App() {
 
               {/* Top Details Card */}
               <View style={styles.detailCard}>
-                {selectedAsset.image ? (
-                  <Image
-                    source={{ uri: `data:image/jpeg;base64,${selectedAsset.image}` }}
-                    style={styles.detailImage}
-                  />
-                ) : (
-                  <View style={styles.detailImagePlaceholder}>
-                    <Text style={styles.placeholderText}>No Image Attached</Text>
-                  </View>
-                )}
+                {(() => {
+                  const imgBase64 = 
+                    selectedAsset.descriptionBlocks?.find(b => b.type === 'image')?.value || 
+                    selectedAsset.instructionBlocks?.find(b => b.type === 'image')?.value || 
+                    selectedAsset.image;
+                  return imgBase64 ? (
+                    <Image
+                      source={{ uri: `data:image/jpeg;base64,${imgBase64}` }}
+                      style={styles.detailImage}
+                    />
+                  ) : (
+                    <View style={styles.detailImagePlaceholder}>
+                      <Text style={styles.placeholderText}>No Image Attached</Text>
+                    </View>
+                  );
+                })()}
 
                 <View style={styles.detailMainInfo}>
                   <View style={styles.detailHeaderRow}>
@@ -707,7 +838,7 @@ export default function App() {
 
               {/* QR Code Container */}
               <View style={styles.detailSection}>
-                <Text style={styles.sectionTitle}>Asset QR Code</Text>
+                <Text style={styles.detailSectionTitle}>Asset QR Code</Text>
                 <View style={styles.qrContainer}>
                   <QRCode
                     value={selectedAsset.asset_number}
@@ -719,29 +850,25 @@ export default function App() {
                 </View>
               </View>
 
-              {/* Specifications */}
-              {selectedAsset.specs ? (
-                <View style={styles.detailSection}>
-                  <Text style={styles.sectionTitle}>Technical Specifications</Text>
-                  <Text style={styles.sectionText}>{selectedAsset.specs}</Text>
-                </View>
-              ) : null}
+              {/* Sequential Description Blocks */}
+              <View style={styles.detailSection}>
+                <Text style={styles.detailSectionTitle}>Description & Specs</Text>
+                {renderBlockList(selectedAsset.descriptionBlocks || [
+                  // Fallbacks to legacy data if empty
+                  ...(selectedAsset.specs ? [{ id: 'l-specs', type: 'text', value: selectedAsset.specs }] : []),
+                  ...(selectedAsset.background ? [{ id: 'l-bg', type: 'text', value: selectedAsset.background }] : []),
+                  ...(selectedAsset.image ? [{ id: 'l-img', type: 'image', value: selectedAsset.image }] : []),
+                ])}
+              </View>
 
-              {/* Background */}
-              {selectedAsset.background ? (
-                <View style={styles.detailSection}>
-                  <Text style={styles.sectionTitle}>Background & Procurement</Text>
-                  <Text style={styles.sectionText}>{selectedAsset.background}</Text>
-                </View>
-              ) : null}
-
-              {/* Instructions */}
-              {selectedAsset.instructions ? (
-                <View style={styles.detailSection}>
-                  <Text style={styles.sectionTitle}>Installation & Setup Instructions</Text>
-                  <Text style={styles.sectionText}>{selectedAsset.instructions}</Text>
-                </View>
-              ) : null}
+              {/* Sequential Installation Blocks */}
+              <View style={styles.detailSection}>
+                <Text style={styles.detailSectionTitle}>Installation Guide</Text>
+                {renderBlockList(selectedAsset.instructionBlocks || [
+                  // Fallbacks to legacy data if empty
+                  ...(selectedAsset.instructions ? [{ id: 'l-inst', type: 'text', value: selectedAsset.instructions }] : []),
+                ])}
+              </View>
 
               {/* Actions */}
               <View style={styles.detailActionsRow}>
@@ -790,7 +917,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#070c24',
   },
   headerTitle: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: 'bold',
     color: '#ffffff',
   },
@@ -957,19 +1084,19 @@ const styles = StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: 28,
-    backgroundColor: '#5c67f2',
+    backgroundColor: '#22d3ee',
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: '#5c67f2',
+    shadowColor: '#22d3ee',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 6,
     elevation: 8,
   },
   fabText: {
-    color: '#ffffff',
+    color: '#05081a',
     fontSize: 28,
-    fontWeight: '300',
+    fontWeight: 'bold',
     lineHeight: Platform.OS === 'ios' ? 28 : 34,
   },
   // Form Screen
@@ -1008,14 +1135,9 @@ const styles = StyleSheet.create({
     borderColor: '#0f172a',
   },
   helpText: {
-    color: '#e2e8f0',
+    color: '#94a3b8',
     fontSize: 11,
     marginTop: 4,
-  },
-  textArea: {
-    height: 80,
-    paddingTop: 10,
-    textAlignVertical: 'top',
   },
   statusPickerRow: {
     flexDirection: 'row',
@@ -1037,57 +1159,6 @@ const styles = StyleSheet.create({
   statusPickerText: {
     fontSize: 12,
     color: '#64748b',
-  },
-  imagePickerContainer: {
-    marginTop: 8,
-    borderWidth: 1,
-    borderColor: '#1c2541',
-    borderStyle: 'dashed',
-    borderRadius: 8,
-    padding: 15,
-    alignItems: 'center',
-    backgroundColor: '#0b1329',
-  },
-  imageButtonsRow: {
-    flexDirection: 'row',
-    gap: 12,
-  },
-  imagePickerButton: {
-    flex: 1,
-    height: 44,
-    backgroundColor: '#1e293b',
-    borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  imagePickerButtonText: {
-    color: '#e2e8f0',
-    fontSize: 12,
-    fontWeight: 'bold',
-  },
-  imagePreviewContainer: {
-    alignItems: 'center',
-    width: '100%',
-  },
-  formImagePreview: {
-    width: '100%',
-    height: 150,
-    borderRadius: 8,
-    resizeMode: 'cover',
-  },
-  removeImageButton: {
-    marginTop: 10,
-    paddingVertical: 6,
-    paddingHorizontal: 15,
-    backgroundColor: '#ef444420',
-    borderRadius: 6,
-    borderWidth: 1,
-    borderColor: '#ef4444',
-  },
-  removeImageButtonText: {
-    color: '#ef4444',
-    fontSize: 12,
-    fontWeight: 'bold',
   },
   formButtonsRow: {
     flexDirection: 'row',
@@ -1112,8 +1183,116 @@ const styles = StyleSheet.create({
     borderColor: '#334155',
   },
   btnSave: {
-    backgroundColor: '#5c67f2',
+    backgroundColor: '#22d3ee',
   },
+  
+  // Block Builder Styling
+  blockBuilderContainer: {
+    marginTop: 20,
+    backgroundColor: 'rgba(255,255,255,0.01)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.05)',
+    borderRadius: 12,
+    padding: 14,
+  },
+  blockLabel: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: '#22d3ee',
+    textTransform: 'uppercase',
+    marginBottom: 10,
+  },
+  noBlocksText: {
+    color: '#64748b',
+    fontSize: 12,
+    fontStyle: 'italic',
+    marginVertical: 10,
+  },
+  blockWrapper: {
+    backgroundColor: 'rgba(255,255,255,0.03)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.08)',
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 12,
+  },
+  blockHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(255,255,255,0.05)',
+    paddingBottom: 6,
+  },
+  blockTypeText: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    color: '#94a3b8',
+  },
+  blockNavButtons: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  navButton: {
+    padding: 4,
+    backgroundColor: 'rgba(255,255,255,0.05)',
+    borderRadius: 4,
+  },
+  navButtonText: {
+    fontSize: 12,
+  },
+  blockDeleteBtn: {
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: 'rgba(239, 68, 68, 0.3)',
+  },
+  deleteText: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    color: '#f87171',
+  },
+  blockTextInput: {
+    height: 70,
+    paddingTop: 8,
+    textAlignVertical: 'top',
+  },
+  blockImageWrapper: {
+    width: '100%',
+    height: 140,
+    borderRadius: 6,
+    overflow: 'hidden',
+  },
+  blockImagePreview: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+  },
+  blockActionRow: {
+    flexDirection: 'row',
+    gap: 8,
+    marginTop: 8,
+  },
+  blockActionButton: {
+    flex: 1,
+    height: 38,
+    backgroundColor: '#1e293b',
+    borderRadius: 6,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#334155',
+  },
+  blockActionButtonText: {
+    color: '#e2e8f0',
+    fontSize: 11,
+    fontWeight: 'bold',
+  },
+
   // Detail Screen
   detailContainer: {
     flex: 1,
@@ -1195,6 +1374,15 @@ const styles = StyleSheet.create({
     borderColor: '#1c2541',
     marginBottom: 15,
   },
+  detailSectionTitle: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#22d3ee',
+    marginBottom: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(255,255,255,0.05)',
+    paddingBottom: 6,
+  },
   sectionText: {
     color: '#e2e8f0',
     fontSize: 13,
@@ -1226,5 +1414,20 @@ const styles = StyleSheet.create({
   actionButtonText: {
     fontSize: 13,
     fontWeight: 'bold',
+  },
+
+  // Blocks details display
+  detailsBlockText: {
+    color: '#cbd5e1',
+    fontSize: 13,
+    lineHeight: 19,
+    marginBottom: 10,
+  },
+  detailsBlockImage: {
+    width: '100%',
+    height: 200,
+    borderRadius: 8,
+    resizeMode: 'cover',
+    marginVertical: 12,
   },
 });

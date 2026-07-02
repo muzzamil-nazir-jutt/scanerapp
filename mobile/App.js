@@ -13,6 +13,7 @@ import {
   StatusBar,
   Alert,
   Dimensions,
+  Platform,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Camera, CameraView } from 'expo-camera';
@@ -185,6 +186,28 @@ export default function App() {
     return matchesSearch && matchesStatus;
   });
 
+  // Render sequential blocks of text and images
+  const renderBlockList = (blocks) => {
+    if (!blocks || blocks.length === 0) return null;
+    return blocks.map((block) => {
+      if (block.type === 'text') {
+        return (
+          <Text key={block.id} style={styles.detailsBlockText}>
+            {block.value}
+          </Text>
+        );
+      } else {
+        return (
+          <Image
+            key={block.id}
+            source={{ uri: `data:image/jpeg;base64,${block.value}` }}
+            style={styles.detailsBlockImage}
+          />
+        );
+      }
+    });
+  };
+
   // Setup/Sync overlay on first launch
   if (isFirstLaunch && isSyncing) {
     return (
@@ -206,22 +229,29 @@ export default function App() {
         // DETAILS SCREEN OVERLAY
         (() => {
           const asset = assets.find((a) => a.asset_number.toUpperCase() === selectedAssetNumber?.toUpperCase());
+          
+          // Get the main background picture if available (first image block or legacy image)
+          const mainImageBase64 = 
+            asset?.descriptionBlocks?.find(b => b.type === 'image')?.value || 
+            asset?.instructionBlocks?.find(b => b.type === 'image')?.value || 
+            asset?.image;
+
           return (
             <View style={styles.detailsScreenContainer}>
               <View style={styles.detailsHeader}>
                 <TouchableOpacity style={styles.backButton} onPress={() => setCurrentScreen('Home')}>
                   <Text style={styles.backButtonText}>← Close</Text>
                 </TouchableOpacity>
-                <Text style={styles.detailsHeaderTitle}>Equipment details</Text>
+                <Text style={styles.detailsHeaderTitle}>Equipment Details</Text>
                 <View style={{ width: 60 }} />
               </View>
 
               {asset ? (
                 <ScrollView contentContainerStyle={styles.detailsContent} showsVerticalScrollIndicator={false}>
                   <View style={styles.detailsCard}>
-                    {asset.image ? (
+                    {mainImageBase64 ? (
                       <Image
-                        source={{ uri: `data:image/jpeg;base64,${asset.image}` }}
+                        source={{ uri: `data:image/jpeg;base64,${mainImageBase64}` }}
                         style={styles.detailsImage}
                       />
                     ) : (
@@ -255,23 +285,30 @@ export default function App() {
                         <Text style={styles.sectionValue}>{asset.model}</Text>
                       </View>
 
+                      {/* Display Description and Specs Blocks (or fallback to legacy specs/background/image) */}
                       <View style={styles.detailSection}>
-                        <Text style={styles.sectionLabel}>Technical Specs</Text>
-                        <Text style={styles.sectionValue}>{asset.specs || '—'}</Text>
+                        <Text style={styles.sectionLabel}>Technical Specs & Background</Text>
+                        {(asset.descriptionBlocks && asset.descriptionBlocks.length > 0) ? (
+                          renderBlockList(asset.descriptionBlocks)
+                        ) : (
+                          // Fallbacks for older data structures
+                          <View>
+                            {asset.specs ? <Text style={styles.detailsBlockText}>{asset.specs}</Text> : null}
+                            {asset.background ? <Text style={styles.detailsBlockText}>{asset.background}</Text> : null}
+                          </View>
+                        )}
                       </View>
 
-                      {asset.background ? (
-                        <View style={styles.detailSection}>
-                          <Text style={styles.sectionLabel}>History / Procurement</Text>
-                          <Text style={styles.sectionValue}>{asset.background}</Text>
-                        </View>
-                      ) : null}
-
-                      {asset.instructions ? (
+                      {/* Display Installation Blocks (or fallback to legacy instructions) */}
+                      {((asset.instructionBlocks && asset.instructionBlocks.length > 0) || asset.instructions) ? (
                         <View style={styles.detailSection}>
                           <Text style={styles.sectionLabel}>Installation Instructions</Text>
                           <View style={styles.descriptionBox}>
-                            <Text style={styles.descriptionText}>{asset.instructions}</Text>
+                            {(asset.instructionBlocks && asset.instructionBlocks.length > 0) ? (
+                              renderBlockList(asset.instructionBlocks)
+                            ) : (
+                              <Text style={styles.descriptionText}>{asset.instructions}</Text>
+                            )}
                           </View>
                         </View>
                       ) : null}
@@ -612,7 +649,7 @@ const styles = StyleSheet.create({
   detailsAssetCode: { fontFamily: 'monospace', fontSize: 16, fontWeight: '700', color: '#22d3ee' },
   detailsName: { fontSize: 18, fontWeight: 'bold', color: '#ffffff', marginBottom: 16 },
   detailSection: { marginBottom: 16 },
-  sectionLabel: { fontSize: 10, fontWeight: '700', color: '#64748b', textTransform: 'uppercase', marginBottom: 4 },
+  sectionLabel: { fontSize: 10, fontWeight: '700', color: '#64748b', textTransform: 'uppercase', marginBottom: 6 },
   sectionValue: { fontSize: 13, color: '#cbd5e1', lineHeight: 18 },
   descriptionBox: { backgroundColor: 'rgba(255,255,255,0.02)', borderWidth: 1, borderColor: 'rgba(255,255,255,0.04)', borderRadius: 8, padding: 12, marginTop: 4 },
   descriptionText: { fontSize: 13, color: '#cbd5e1', lineHeight: 18 },
@@ -635,4 +672,19 @@ const styles = StyleSheet.create({
   errorText: { fontSize: 13, color: '#94a3b8', textAlign: 'center', paddingHorizontal: 24, marginBottom: 24, lineHeight: 18 },
   errorButton: { backgroundColor: 'rgba(255,255,255,0.1)', paddingVertical: 10, paddingHorizontal: 20, borderRadius: 8 },
   errorButtonText: { color: '#ffffff', fontWeight: '600', fontSize: 13 },
+
+  // Block rendering inside Scanner Details Screen
+  detailsBlockText: {
+    color: '#cbd5e1',
+    fontSize: 13,
+    lineHeight: 19,
+    marginBottom: 8,
+  },
+  detailsBlockImage: {
+    width: '100%',
+    height: 200,
+    borderRadius: 8,
+    resizeMode: 'cover',
+    marginVertical: 10,
+  },
 });
