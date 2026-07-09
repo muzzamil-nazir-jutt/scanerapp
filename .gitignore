@@ -1,0 +1,17 @@
+# Ignore portable JDK
+jdk21/
+jdk-21.0.11+10/
+
+# Ignore dependency and build cache folders
+node_modules/
+.expo/
+dist/
+web-build/
+
+# Ignore compiled builds and logs
+*.apk
+*.log
+eas_*.txt
+.tempmediaStorage/
+*.jpg
+*.png
