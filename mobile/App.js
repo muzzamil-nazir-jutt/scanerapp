@@ -14,18 +14,23 @@ import {
   Alert,
   Dimensions,
   Platform,
+  Modal,
+  BackHandler,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Camera, CameraView } from 'expo-camera';
 
 // ─── CONFIGURATION ──────────────────────────────────────────────────────────
-// Raw link of your GitHub Repository
-const DATABASE_JSON_URL = 'https://raw.githubusercontent.com/muzzamil-nazir-jutt/scanerapp/main/equipment.json'; 
+// Raw links of your GitHub Repository files
+const DATABASE_DATA_URL = 'https://raw.githubusercontent.com/muzzamil-nazir-jutt/scanerapp/main/equipment_data.json';
+const DATABASE_IMAGES_URL = 'https://raw.githubusercontent.com/muzzamil-nazir-jutt/scanerapp/main/equipment_images.json';
+const AUTO_SYNC_INTERVAL_MS = 24 * 60 * 60 * 1000; // 24 hours
 
 const STORAGE_KEYS = {
   ASSETS: 'voltsync_assets',
   LAST_SYNC: 'voltsync_last_sync',
   IS_FIRST_LAUNCH: 'voltsync_is_first_launch',
+  IMAGES_SYNCED: 'voltsync_images_synced',
 };
 
 export default function App() {
@@ -38,6 +43,10 @@ export default function App() {
   const [lastSynced, setLastSynced] = useState(null);
   const [isSyncing, setIsSyncing] = useState(false);
   const [isFirstLaunch, setIsFirstLaunch] = useState(false);
+
+  // Zoom and navigation history states
+  const [zoomImage, setZoomImage] = useState(null);
+  const [navStack, setNavStack] = useState([]);
 
   // Manual Screen Search State
   const [manualCode, setManualCode] = useState('');
@@ -59,15 +68,25 @@ export default function App() {
         setAssets(parsedAssets);
 
         const syncTime = await AsyncStorage.getItem(STORAGE_KEYS.LAST_SYNC);
-        setLastSynced(syncTime);
+        if (syncTime) {
+          setLastSynced(new Date(syncTime).toLocaleString());
+        }
 
         const firstLaunchFlag = await AsyncStorage.getItem(STORAGE_KEYS.IS_FIRST_LAUNCH);
         
         if (firstLaunchFlag === null && parsedAssets.length === 0) {
           setIsFirstLaunch(true);
-          await triggerSync(true); 
+          await triggerDataSync(true); 
         } else {
           setIsFirstLaunch(false);
+          // Check for auto-update silently if 24 hours elapsed
+          if (syncTime) {
+            const lastSyncMs = new Date(syncTime).getTime();
+            const nowMs = Date.now();
+            if (nowMs - lastSyncMs > AUTO_SYNC_INTERVAL_MS) {
+              triggerDataSync(false, true); // silent update
+            }
+          }
         }
       } catch (err) {
         console.error('Error loading local storage:', err);
@@ -83,6 +102,34 @@ export default function App() {
     requestCameraPermission();
   }, []);
 
+  // BackHandler logic for Android
+  useEffect(() => {
+    const onBackPress = () => {
+      if (zoomImage) {
+        setZoomImage(null);
+        return true;
+      }
+      if (currentScreen === 'Details') {
+        handleDetailsBack();
+        return true;
+      }
+      return false; // let system handle (close app)
+    };
+
+    const subscription = BackHandler.addEventListener('hardwareBackPress', onBackPress);
+    return () => subscription.remove();
+  }, [currentScreen, zoomImage, navStack]);
+
+  const handleDetailsBack = () => {
+    if (navStack.length > 0) {
+      const prev = navStack[navStack.length - 1];
+      setNavStack(stack => stack.slice(0, -1));
+      setSelectedAssetNumber(prev);
+    } else {
+      setCurrentScreen('Home');
+    }
+  };
+
   // Request Camera Permission manually if denied
   const handleRequestCameraPermission = async () => {
     const { status } = await Camera.requestCameraPermissionsAsync();
@@ -93,10 +140,40 @@ export default function App() {
   };
 
   // ─── Sync Engine ───────────────────────────────────────────────────────────
-  const triggerSync = async (isInitial = false) => {
-    setIsSyncing(true);
+  const mergeImagesIntoData = (dataAssets, imagesPayload) => {
+    if (!imagesPayload || !imagesPayload.images) return dataAssets;
+
+    const imageMap = {};
+    for (const imgEntry of imagesPayload.images) {
+      imageMap[imgEntry.asset_id] = {};
+      for (const blk of imgEntry.blocks) {
+        imageMap[imgEntry.asset_id][blk.id] = blk.base64;
+      }
+    }
+
+    return dataAssets.map(asset => {
+      const assetImages = imageMap[asset.id];
+      if (!assetImages) return asset;
+
+      const mergeBlocks = (blocks) => blocks.map(blk => {
+        if (blk.type === 'image_ref' && assetImages[blk.id]) {
+          return { ...blk, type: 'image', value: assetImages[blk.id] };
+        }
+        return blk;
+      });
+
+      return {
+        ...asset,
+        descriptionBlocks: mergeBlocks(asset.descriptionBlocks || []),
+        instructionBlocks: mergeBlocks(asset.instructionBlocks || []),
+      };
+    });
+  };
+
+  const triggerDataSync = async (isInitial = false, isSilent = false) => {
+    if (!isSilent) setIsSyncing(true);
     try {
-      const response = await fetch(DATABASE_JSON_URL, {
+      const response = await fetch(DATABASE_DATA_URL, {
         headers: { 'Cache-Control': 'no-cache' }, 
       });
       
@@ -108,33 +185,73 @@ export default function App() {
       const cleanPayload = Array.isArray(payload) ? payload : (payload.data || []);
       
       if (Array.isArray(cleanPayload)) {
-        await AsyncStorage.setItem(STORAGE_KEYS.ASSETS, JSON.stringify(cleanPayload));
+        // Retrieve and merge existing images if present
+        const storedImagesRaw = await AsyncStorage.getItem(STORAGE_KEYS.IMAGES_SYNCED);
+        const storedImages = storedImagesRaw ? JSON.parse(storedImagesRaw) : null;
+        const mergedData = mergeImagesIntoData(cleanPayload, storedImages);
+
+        await AsyncStorage.setItem(STORAGE_KEYS.ASSETS, JSON.stringify(mergedData));
         
-        const timestamp = new Date().toLocaleString();
+        const timestamp = new Date().toISOString();
         await AsyncStorage.setItem(STORAGE_KEYS.LAST_SYNC, timestamp);
         await AsyncStorage.setItem(STORAGE_KEYS.IS_FIRST_LAUNCH, 'false');
 
-        setAssets(cleanPayload);
-        setLastSynced(timestamp);
+        setAssets(mergedData);
+        setLastSynced(new Date(timestamp).toLocaleString());
         setIsFirstLaunch(false);
 
-        if (!isInitial) {
-          Alert.alert('Sync Complete', `Database updated! Total ${cleanPayload.length} assets downloaded.`);
+        if (!isInitial && !isSilent) {
+          Alert.alert('Sync Complete', `Data updated! Total ${cleanPayload.length} assets downloaded.`);
         }
       } else {
         throw new Error('Invalid JSON format.');
       }
     } catch (err) {
       console.error('Sync failed:', err);
-      if (isInitial) {
-        Alert.alert(
-          'Offline Mode Active',
-          'Could not download the initial database from GitHub. You can refresh later in the "Sync" tab.',
-          [{ text: 'OK', onPress: () => setIsFirstLaunch(false) }]
-        );
-      } else {
-        Alert.alert('Sync Failed', 'Could not fetch database from GitHub. Using cached offline data.');
+      if (!isSilent) {
+        if (isInitial) {
+          Alert.alert(
+            'Offline Mode Active',
+            'Could not download the initial database from GitHub. You can refresh later in the "Sync" tab.',
+            [{ text: 'OK', onPress: () => setIsFirstLaunch(false) }]
+          );
+        } else {
+          Alert.alert('Sync Failed', 'Could not fetch database from GitHub. Using cached offline data.');
+        }
       }
+    } finally {
+      if (!isSilent) setIsSyncing(false);
+    }
+  };
+
+  const triggerImageSync = async () => {
+    setIsSyncing(true);
+    try {
+      const response = await fetch(DATABASE_IMAGES_URL, {
+        headers: { 'Cache-Control': 'no-cache' },
+      });
+      if (!response.ok) {
+        throw new Error(`Server returned status ${response.status}`);
+      }
+      const imagesPayload = await response.json();
+
+      if (imagesPayload && imagesPayload.images) {
+        await AsyncStorage.setItem(STORAGE_KEYS.IMAGES_SYNCED, JSON.stringify(imagesPayload));
+
+        // Merge with current data
+        const storedDataRaw = await AsyncStorage.getItem(STORAGE_KEYS.ASSETS);
+        const storedData = storedDataRaw ? JSON.parse(storedDataRaw) : [];
+        const mergedData = mergeImagesIntoData(storedData, imagesPayload);
+
+        await AsyncStorage.setItem(STORAGE_KEYS.ASSETS, JSON.stringify(mergedData));
+        setAssets(mergedData);
+
+        Alert.alert('Images Synced', 'All equipment images downloaded and merged successfully.');
+      } else {
+        throw new Error('Invalid Images JSON structure.');
+      }
+    } catch (err) {
+      Alert.alert('Image Sync Failed', 'Could not sync images: ' + err.message);
     } finally {
       setIsSyncing(false);
     }
@@ -186,6 +303,31 @@ export default function App() {
     return matchesSearch && matchesStatus;
   });
 
+  const renderFormattedText = (text) => {
+    if (!text) return null;
+    const parts = text.split(/(\*\*[^*]+\*\*|==[^=]+==)/g);
+    return (
+      <Text>
+        {parts.map((part, i) => {
+          if (part.startsWith('**') && part.endsWith('**')) {
+            return (
+              <Text key={i} style={{ fontWeight: 'bold', color: '#ffffff' }}>
+                {part.slice(2, -2)}
+              </Text>
+            );
+          } else if (part.startsWith('==') && part.endsWith('==')) {
+            return (
+              <Text key={i} style={{ backgroundColor: '#fbbf24', color: '#000000', borderRadius: 2, paddingHorizontal: 2 }}>
+                {part.slice(2, -2)}
+              </Text>
+            );
+          }
+          return <Text key={i}>{part}</Text>;
+        })}
+      </Text>
+    );
+  };
+
   // Render sequential blocks of text and images
   const renderBlockList = (blocks) => {
     if (!blocks || blocks.length === 0) return null;
@@ -193,18 +335,25 @@ export default function App() {
       if (block.type === 'text') {
         return (
           <Text key={block.id} style={styles.detailsBlockText}>
-            {block.value}
+            {renderFormattedText(block.value)}
           </Text>
         );
-      } else {
+      } else if ((block.type === 'image' || block.type === 'image_ref') && block.value) {
         return (
-          <Image
+          <TouchableOpacity
             key={block.id}
-            source={{ uri: `data:image/jpeg;base64,${block.value}` }}
-            style={styles.detailsBlockImage}
-          />
+            onPress={() => setZoomImage(block.value)}
+            activeOpacity={0.85}
+          >
+            <Image
+              source={{ uri: `data:image/jpeg;base64,${block.value}` }}
+              style={styles.detailsBlockImage}
+            />
+            <Text style={styles.tapToZoomHint}>👆 Tap to zoom</Text>
+          </TouchableOpacity>
         );
       }
+      return null;
     });
   };
 
@@ -239,8 +388,10 @@ export default function App() {
           return (
             <View style={styles.detailsScreenContainer}>
               <View style={styles.detailsHeader}>
-                <TouchableOpacity style={styles.backButton} onPress={() => setCurrentScreen('Home')}>
-                  <Text style={styles.backButtonText}>← Close</Text>
+                <TouchableOpacity style={styles.backButton} onPress={handleDetailsBack}>
+                  <Text style={styles.backButtonText}>
+                    {navStack.length > 0 ? '← Back' : '← Close'}
+                  </Text>
                 </TouchableOpacity>
                 <Text style={styles.detailsHeaderTitle}>Equipment Details</Text>
                 <View style={{ width: 60 }} />
@@ -250,10 +401,13 @@ export default function App() {
                 <ScrollView contentContainerStyle={styles.detailsContent} showsVerticalScrollIndicator={false}>
                   <View style={styles.detailsCard}>
                     {mainImageBase64 ? (
-                      <Image
-                        source={{ uri: `data:image/jpeg;base64,${mainImageBase64}` }}
-                        style={styles.detailsImage}
-                      />
+                      <TouchableOpacity onPress={() => setZoomImage(mainImageBase64)} activeOpacity={0.9}>
+                        <Image
+                          source={{ uri: `data:image/jpeg;base64,${mainImageBase64}` }}
+                          style={styles.detailsImage}
+                        />
+                        <Text style={styles.tapToZoomHint}>👆 Tap to zoom</Text>
+                      </TouchableOpacity>
                     ) : (
                       <View style={styles.noImagePlaceholder}>
                         <Text style={styles.noImageText}>No Image Attached</Text>
@@ -278,6 +432,9 @@ export default function App() {
                         </View>
                       </View>
 
+                      {asset.title ? (
+                        <Text style={styles.detailsTitle}>{asset.title}</Text>
+                      ) : null}
                       <Text style={styles.detailsName}>{asset.name}</Text>
                       
                       <View style={styles.detailSection}>
@@ -312,6 +469,39 @@ export default function App() {
                           </View>
                         </View>
                       ) : null}
+
+                      {/* Display Linked Assets */}
+                      {asset.linkedAssets && asset.linkedAssets.length > 0 && (
+                        <View style={styles.detailSection}>
+                          <Text style={styles.sectionLabel}>🔗 Related / Linked Parts</Text>
+                          {asset.linkedAssets.map((link, i) => {
+                            const linkedAsset = assets.find(
+                              a => a.asset_number.trim().toUpperCase() === link.asset_number.trim().toUpperCase()
+                            );
+                            return (
+                              <TouchableOpacity
+                                key={i}
+                                style={styles.linkedCard}
+                                onPress={() => {
+                                  if (linkedAsset) {
+                                    setNavStack(prev => [...prev, selectedAssetNumber]);
+                                    setSelectedAssetNumber(link.asset_number);
+                                  } else {
+                                    Alert.alert('Not Synced', `Asset #${link.asset_number} is not in the local database. Please sync.`);
+                                  }
+                                }}
+                              >
+                                <View style={{ flex: 1 }}>
+                                  <Text style={styles.linkedCardLabel}>{link.label || 'Related Asset'}</Text>
+                                  <Text style={styles.linkedCardName}>{linkedAsset ? linkedAsset.name : 'Unknown Equipment'}</Text>
+                                  <Text style={styles.linkedCardTag}>Asset #{link.asset_number}</Text>
+                                </View>
+                                <Text style={{ color: '#22d3ee', fontSize: 20 }}>→</Text>
+                              </TouchableOpacity>
+                            );
+                          })}
+                        </View>
+                      )}
                     </View>
                   </View>
                 </ScrollView>
@@ -321,7 +511,7 @@ export default function App() {
                   <Text style={styles.errorText}>
                     Code "{selectedAssetNumber}" is not registered in the offline database.
                   </Text>
-                  <TouchableOpacity style={styles.errorButton} onPress={() => setCurrentScreen('Home')}>
+                  <TouchableOpacity style={styles.errorButton} onPress={handleDetailsBack}>
                     <Text style={styles.errorButtonText}>Go Back</Text>
                   </TouchableOpacity>
                 </View>
@@ -422,17 +612,30 @@ export default function App() {
                   <Text style={styles.syncCardValue}>{assets.length} Assets Registered</Text>
                   <Text style={styles.syncCardTimestamp}>Last Sync: {lastSynced || 'Never'}</Text>
                 </View>
-                <TouchableOpacity 
-                  style={styles.syncButton} 
-                  onPress={() => triggerSync(false)}
-                  disabled={isSyncing}
-                >
-                  {isSyncing ? (
-                    <ActivityIndicator size="small" color="#22d3ee" />
-                  ) : (
-                    <Text style={styles.syncButtonText}>Sync Cloud</Text>
-                  )}
-                </TouchableOpacity>
+                <View style={{ gap: 8 }}>
+                  <TouchableOpacity 
+                    style={styles.syncButton} 
+                    onPress={() => triggerDataSync(false)}
+                    disabled={isSyncing}
+                  >
+                    {isSyncing ? (
+                      <ActivityIndicator size="small" color="#22d3ee" />
+                    ) : (
+                      <Text style={styles.syncButtonText}>📊 Sync Data</Text>
+                    )}
+                  </TouchableOpacity>
+                  <TouchableOpacity 
+                    style={[styles.syncButton, { borderColor: 'rgba(251,191,36,0.3)' }]} 
+                    onPress={triggerImageSync}
+                    disabled={isSyncing}
+                  >
+                    {isSyncing ? (
+                      <ActivityIndicator size="small" color="#fbbf24" />
+                    ) : (
+                      <Text style={[styles.syncButtonText, { color: '#fbbf24' }]}>🖼️ Sync Images</Text>
+                    )}
+                  </TouchableOpacity>
+                </View>
               </View>
 
               {/* Local List Search */}
@@ -535,6 +738,30 @@ export default function App() {
 
         </View>
       )}
+
+      {/* FULL SCREEN ZOOM MODAL */}
+      <Modal
+        visible={zoomImage !== null}
+        transparent={true}
+        animationType="fade"
+        onRequestClose={() => setZoomImage(null)}
+      >
+        <View style={styles.zoomModalOverlay}>
+          <TouchableOpacity
+            style={styles.zoomCloseBtn}
+            onPress={() => setZoomImage(null)}
+          >
+            <Text style={styles.zoomCloseBtnText}>✕ Close</Text>
+          </TouchableOpacity>
+          {zoomImage && (
+            <Image
+              source={{ uri: `data:image/jpeg;base64,${zoomImage}` }}
+              style={styles.zoomFullImage}
+              resizeMode="contain"
+            />
+          )}
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -686,5 +913,73 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     resizeMode: 'cover',
     marginVertical: 10,
+  },
+  detailsTitle: {
+    fontSize: 14,
+    color: '#22d3ee',
+    fontWeight: 'bold',
+    marginBottom: 4,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  },
+  linkedCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(34,211,238,0.05)',
+    borderWidth: 1.5,
+    borderColor: 'rgba(34,211,238,0.15)',
+    borderRadius: 10,
+    padding: 12,
+    marginTop: 8,
+  },
+  linkedCardLabel: {
+    fontSize: 9,
+    fontWeight: '700',
+    color: '#22d3ee',
+    textTransform: 'uppercase',
+    marginBottom: 2,
+  },
+  linkedCardName: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#ffffff',
+  },
+  linkedCardTag: {
+    fontSize: 11,
+    fontFamily: 'monospace',
+    color: '#64748b',
+    marginTop: 2,
+  },
+  zoomModalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.95)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  zoomCloseBtn: {
+    position: 'absolute',
+    top: Platform.OS === 'ios' ? 60 : 40,
+    right: 20,
+    backgroundColor: 'rgba(255,255,255,0.15)',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 20,
+    zIndex: 10,
+  },
+  zoomCloseBtnText: {
+    color: '#ffffff',
+    fontWeight: 'bold',
+    fontSize: 13,
+  },
+  zoomFullImage: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height * 0.75,
+  },
+  tapToZoomHint: {
+    fontSize: 10,
+    color: '#64748b',
+    textAlign: 'center',
+    marginTop: 4,
+    marginBottom: 12,
   },
 });

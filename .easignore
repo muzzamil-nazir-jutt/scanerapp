@@ -1,0 +1,15 @@
+# Ignore local portable JDK in the git root
+jdk21/
+
+# Ignore media files and screenshots only in the git root
+/*.jpg
+/*.png
+.tempmediaStorage/
+
+# Ignore manager native folders completely to force clean prebuild
+manager/android/
+manager/ios/
+mobile/android/build/
+mobile/android/.gradle/
+mobile/android/.cxx/
+mobile/android/app/build/

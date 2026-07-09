@@ -2,11 +2,9 @@
 jdk21/
 jdk-21.0.11+10/
 
-# Ignore Android build directories
-android/build/
-android/.gradle/
-android/.cxx/
-android/app/build/
+# Ignore Android and iOS native folders completely to force clean Expo prebuild on the cloud
+android/
+ios/
 
 # Ignore local build output APKs
 **/*.apk

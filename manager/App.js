@@ -12,6 +12,7 @@ import {
   SafeAreaView,
   StatusBar,
   Platform,
+  BackHandler,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import QRCode from 'react-native-qrcode-svg';
@@ -40,16 +41,32 @@ export default function App() {
   const [formData, setFormData] = useState({
     asset_number: '',
     name: '',
+    title: '',
     model: '',
     status: 'Working',
     descriptionBlocks: [], // Array of { id, type, value }
     instructionBlocks: [], // Array of { id, type, value }
+    linkedAssets: [], // Array of { asset_number, label }
   });
 
   // Load assets on mount
   useEffect(() => {
     loadAssets();
   }, []);
+
+  // Handle Android Back Button
+  useEffect(() => {
+    const onBackPress = () => {
+      if (activeTab === 'form' || activeTab === 'detail') {
+        setActiveTab('list');
+        return true; // handled
+      }
+      return false; // let system handle (close app)
+    };
+
+    const subscription = BackHandler.addEventListener('hardwareBackPress', onBackPress);
+    return () => subscription.remove();
+  }, [activeTab]);
 
   const loadAssets = async () => {
     try {
@@ -128,10 +145,12 @@ export default function App() {
     setFormData({
       asset_number: getNextAssetNumber(),
       name: '',
+      title: '',
       model: '',
       status: 'Working',
       descriptionBlocks: [],
       instructionBlocks: [],
+      linkedAssets: [],
     });
     setActiveTab('form');
   };
@@ -177,10 +196,12 @@ export default function App() {
     setFormData({
       asset_number: asset.asset_number,
       name: asset.name,
+      title: asset.title || '',
       model: asset.model,
       status: asset.status,
       descriptionBlocks: descBlocks,
       instructionBlocks: instBlocks,
+      linkedAssets: asset.linkedAssets || [],
     });
     setActiveTab('form');
   };
@@ -196,9 +217,8 @@ export default function App() {
           return;
         }
         result = await ImagePicker.launchCameraAsync({
-          allowsEditing: true,
-          aspect: [4, 3],
-          quality: 0.8,
+          allowsEditing: false,
+          quality: 0.85,
         });
       } else {
         const galleryPermission = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -208,9 +228,8 @@ export default function App() {
         }
         result = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.Images,
-          allowsEditing: true,
-          aspect: [4, 3],
-          quality: 0.8,
+          allowsEditing: false,
+          quality: 0.85,
         });
       }
 
@@ -266,10 +285,12 @@ export default function App() {
       id: isEditing ? assets.find(a => a.asset_number === assetNum).id : Date.now(),
       asset_number: assetNum,
       name: formData.name.trim(),
+      title: formData.title.trim(),
       model: formData.model.trim(),
       status: formData.status,
       descriptionBlocks: formData.descriptionBlocks,
       instructionBlocks: formData.instructionBlocks,
+      linkedAssets: formData.linkedAssets || [],
       
       // Fallbacks for older Scanner Apps
       specs: formData.descriptionBlocks.filter(b => b.type === 'text').map(b => b.value).join('\n'),
@@ -326,23 +347,90 @@ export default function App() {
     }
 
     try {
-      const exportData = {
-        success: true,
-        data: assets,
-      };
+      setLoading(true);
+      const now = new Date().toISOString();
 
-      const fileUri = `${FileSystem.documentDirectory}equipment.json`;
-      await FileSystem.writeAsStringAsync(fileUri, JSON.stringify(exportData, null, 2), {
+      // --- Build DATA file (no base64 images) ---
+      const dataAssets = assets.map(asset => ({
+        id: asset.id,
+        asset_number: asset.asset_number,
+        name: asset.name,
+        title: asset.title || '',
+        model: asset.model,
+        status: asset.status,
+        linkedAssets: asset.linkedAssets || [],
+        descriptionBlocks: (asset.descriptionBlocks || []).map(blk =>
+          blk.type === 'image'
+            ? { id: blk.id, type: 'image_ref', value: null }
+            : blk
+        ),
+        instructionBlocks: (asset.instructionBlocks || []).map(blk =>
+          blk.type === 'image'
+            ? { id: blk.id, type: 'image_ref', value: null }
+            : blk
+        ),
+      }));
+
+      const dataFile = { success: true, version: 2, exported_at: now, data: dataAssets };
+
+      // --- Build IMAGES file (only base64 images) ---
+      const imagesArr = assets.map(asset => {
+        const allImageBlocks = [
+          ...(asset.descriptionBlocks || []).filter(b => b.type === 'image'),
+          ...(asset.instructionBlocks || []).filter(b => b.type === 'image'),
+        ];
+        return {
+          asset_id: asset.id,
+          asset_number: asset.asset_number,
+          blocks: allImageBlocks.map(blk => ({ id: blk.id, base64: blk.value })),
+        };
+      }).filter(e => e.blocks.length > 0);
+
+      const imagesFile = { success: true, version: 2, exported_at: now, images: imagesArr };
+
+      // --- Save DATA file ---
+      const dataUri = `${FileSystem.documentDirectory}equipment_data.json`;
+      await FileSystem.writeAsStringAsync(dataUri, JSON.stringify(dataFile, null, 2), {
+        encoding: FileSystem.EncodingType.UTF8,
+      });
+
+      // --- Save IMAGES file ---
+      const imgUri = `${FileSystem.documentDirectory}equipment_images.json`;
+      await FileSystem.writeAsStringAsync(imgUri, JSON.stringify(imagesFile, null, 2), {
         encoding: FileSystem.EncodingType.UTF8,
       });
 
       if (await Sharing.isAvailableAsync()) {
-        await Sharing.shareAsync(fileUri);
+        Alert.alert(
+          'Exporting Database Files',
+          'We will now share both files. First, the Data file, followed by the Images file.',
+          [
+            {
+              text: 'Export Files',
+              onPress: async () => {
+                try {
+                  await Sharing.shareAsync(dataUri);
+                  setTimeout(async () => {
+                    try {
+                      await Sharing.shareAsync(imgUri);
+                    } catch (e) {
+                      Alert.alert('Images Export Failed', e.message);
+                    }
+                  }, 1000);
+                } catch (e) {
+                  Alert.alert('Data Export Failed', e.message);
+                }
+              }
+            }
+          ]
+        );
       } else {
         Alert.alert('Error', 'Sharing is not available on this device.');
       }
     } catch (e) {
       Alert.alert('Export Failed', 'Failed to export database: ' + e.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -535,14 +623,31 @@ export default function App() {
               </View>
 
               {block.type === 'text' ? (
-                <TextInput
-                  style={[styles.inputField, styles.blockTextInput]}
-                  multiline
-                  placeholder="Enter details here..."
-                  placeholderTextColor="#64748b"
-                  value={block.value}
-                  onChangeText={(txt) => updateTextBlock(block.id, txt)}
-                />
+                <View>
+                  <View style={styles.formatToolbar}>
+                    <TouchableOpacity
+                      style={styles.formatBtn}
+                      onPress={() => updateTextBlock(block.id, block.value + ' **bold text**')}
+                    >
+                      <Text style={[styles.formatBtnText, { fontWeight: 'bold' }]}>B</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={[styles.formatBtn, { backgroundColor: 'rgba(251,191,36,0.15)', borderColor: '#fbbf24' }]}
+                      onPress={() => updateTextBlock(block.id, block.value + ' ==highlighted text==')}
+                    >
+                      <Text style={[styles.formatBtnText, { color: '#fbbf24' }]}>H</Text>
+                    </TouchableOpacity>
+                    <Text style={styles.formatHint}>Use **bold** or ==highlight==</Text>
+                  </View>
+                  <TextInput
+                    style={[styles.inputField, styles.blockTextInput]}
+                    multiline
+                    placeholder="Enter details here..."
+                    placeholderTextColor="#64748b"
+                    value={block.value}
+                    onChangeText={(txt) => updateTextBlock(block.id, txt)}
+                  />
+                </View>
               ) : (
                 <View style={styles.blockImageWrapper}>
                   <Image
@@ -737,6 +842,15 @@ export default function App() {
                 placeholderTextColor="#64748b"
               />
 
+              <Text style={styles.inputLabel}>Title / Heading (Optional)</Text>
+              <TextInput
+                style={styles.inputField}
+                value={formData.title}
+                onChangeText={(text) => setFormData(prev => ({ ...prev, title: text }))}
+                placeholder="e.g., Siemens SST-600 Control Panel"
+                placeholderTextColor="#64748b"
+              />
+
               <Text style={styles.inputLabel}>Model / Manufacturer</Text>
               <TextInput
                 style={styles.inputField}
@@ -781,6 +895,62 @@ export default function App() {
                 formData.instructionBlocks,
                 (blks) => setFormData(prev => ({ ...prev, instructionBlocks: blks }))
               )}
+
+              {/* LINKED ASSETS SECTION */}
+              <View style={styles.blockBuilderContainer}>
+                <Text style={styles.blockLabel}>🔗 Linked / Related Assets</Text>
+                <Text style={styles.helpText}>
+                  Koi related part ya companion asset add karo (e.g., Asset #, label).
+                </Text>
+
+                {(formData.linkedAssets || []).map((link, index) => (
+                  <View key={index} style={styles.linkedAssetRow}>
+                    <TextInput
+                      style={[styles.inputField, { flex: 1, marginRight: 6 }]}
+                      placeholder="Asset #"
+                      placeholderTextColor="#64748b"
+                      keyboardType="numeric"
+                      value={link.asset_number}
+                      onChangeText={(val) => {
+                        const updated = [...formData.linkedAssets];
+                        updated[index] = { ...updated[index], asset_number: val };
+                        setFormData(prev => ({ ...prev, linkedAssets: updated }));
+                      }}
+                    />
+                    <TextInput
+                      style={[styles.inputField, { flex: 2, marginRight: 6 }]}
+                      placeholder="Label (e.g., Fuel Tank)"
+                      placeholderTextColor="#64748b"
+                      value={link.label}
+                      onChangeText={(val) => {
+                        const updated = [...formData.linkedAssets];
+                        updated[index] = { ...updated[index], label: val };
+                        setFormData(prev => ({ ...prev, linkedAssets: updated }));
+                      }}
+                    />
+                    <TouchableOpacity
+                      onPress={() => {
+                        const updated = formData.linkedAssets.filter((_, i) => i !== index);
+                        setFormData(prev => ({ ...prev, linkedAssets: updated }));
+                      }}
+                    >
+                      <Text style={{ color: '#ef4444', fontSize: 24, paddingHorizontal: 8, fontWeight: 'bold' }}>×</Text>
+                    </TouchableOpacity>
+                  </View>
+                ))}
+
+                <TouchableOpacity
+                  style={[styles.blockActionButton, { marginTop: 10 }]}
+                  onPress={() =>
+                    setFormData(prev => ({
+                      ...prev,
+                      linkedAssets: [...(prev.linkedAssets || []), { asset_number: '', label: '' }],
+                    }))
+                  }
+                >
+                  <Text style={styles.blockActionButtonText}>+ Add Linked Asset</Text>
+                </TouchableOpacity>
+              </View>
 
               {formLoading ? (
                 <ActivityIndicator size="large" color="#00b4d8" style={{ marginTop: 30 }} />
@@ -1429,5 +1599,42 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     resizeMode: 'cover',
     marginVertical: 12,
+  },
+  linkedAssetRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  formatToolbar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#0f172a',
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
+    borderWidth: 1,
+    borderColor: '#1c2541',
+    borderBottomWidth: 0,
+    padding: 6,
+    gap: 8,
+  },
+  formatBtn: {
+    width: 28,
+    height: 28,
+    borderRadius: 4,
+    backgroundColor: 'rgba(255,255,255,0.06)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.12)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  formatBtnText: {
+    color: '#ffffff',
+    fontSize: 12,
+  },
+  formatHint: {
+    color: '#64748b',
+    fontSize: 10,
+    marginLeft: 'auto',
+    marginRight: 4,
   },
 });
