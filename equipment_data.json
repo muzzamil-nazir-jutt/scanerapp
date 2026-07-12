@@ -1,0 +1,257 @@
+{
+  "success": true,
+  "version": 2,
+  "exported_at": "2026-07-10T12:59:51.238Z",
+  "data": [
+    {
+      "id": 1783310471987,
+      "asset_number": "10.001",
+      "name": "L.V. Access Point Distribution Box (JKF3008)",
+      "title": "",
+      "model": "Model: JKF3008 | Main Components: Schneider Electric & Chint",
+      "status": "Working",
+      "linkedAssets": [],
+      "descriptionBlocks": [
+        {
+          "id": "17833100618760.6345970238732278",
+          "type": "text",
+          "value": "    General Overview\n* Asset Tag/ID: JKF3008 (\u68c0\u4fee\u5206\u7bb1 - Access Points Panel)\n* Main Power Source: Incoming supply directly fed from L.V. Room (Panel Ref: GHL-26D5)\n* Main System Capacity: 100 AMP Rating (Total Box Panel controlled via 2Q1 main circuit)\n\n     Internal Component Breakdown\n* Main Busbars: 3-Phase Heavy Duty Copper Busbars (Red, Yellow, Blue) + Neutral Bar mounted with insulation boots on the chassis.\n* Main Molded Case Circuit Breakers (MCCBs): 2x Schneider Electric high-capacity industrial breakers with thermal-magnetic trip units for primary isolation.\n* Miniature Circuit Breakers (MCBs): 3x Chint/Schneider rail-mounted MCBs tagged as 1Q1, 2Q1, and 3Q1 for localized branch circuit distribution.\n* Heavy Duty AC Contactor: 1x Industrial power contactor (wired underneath the MCBs) with secondary auxiliary contacts for automation/remote switching control.\n* Terminal Blocks & Grounding: Multi-port ceramic/phenolic terminal strip array at the bottom right for field wiring connections, linked directly to the sub-station grounding grid.\n\n### External Enclosure Features\n* Enclosure Type: Wall-mounted IP-rated metallic distribution panel with protective top and bottom ventilated red grilles.\n* External Status Indicators: Door-mounted Phase Indication Pilot Lights (1x Green, 1x Red) showing real-time panel live status without opening the door.\n"
+        },
+        {
+          "id": "1783310495642fqn07r",
+          "type": "image_ref",
+          "value": null
+        }
+      ],
+      "instructionBlocks": [
+        {
+          "id": "17833105468820.3637786172443899",
+          "type": "text",
+          "value": "### Sequential Installation Guide\n\n* **Step 1: Structural Mounting**\n  Fix the IP-rated metallic enclosure securely to the designated wall structure using heavy-duty masonry rawlbolts. Ensure leveling is accurate to avoid physical stress on internal switchgear.\n\n* **Step 2: Main Supply Line Pulling**\n  Route the main 3-phase incoming armored cables safely from the L.V. Room (GHL-26D5) through the bottom cable gland plate of the panel.\n\n* **Step 3: Busbar & Core Cable Termination**\n  Terminate the main Red, Yellow, Blue (R-Y-B) phase lines and the Neutral line directly onto the copper busbar terminals. Tighten all nuts using a calibrated torque wrench to prevent future loose-contact heating.\n\n* **Step 4: Sub-distribution Wiring**\n  Connect the output loads to the respective Chint/Schneider 1Q1, 2Q1, and 3Q1 breaker terminals sequentially. Ensure the auxiliary contactor circuit is correctly looped to the control signal wires.\n\n* **Step 5: Earthing Connection**\n  Bond the panel's main chassis grounding terminal firmly to the plant's dedicated copper grounding loop to prevent accidental electric shock hazards.\n\n* **Step 6: Pilot Light & Door Interlock Check**\n  Wire the external door-mounted indicator lamps (Red/Green) to the incoming side of the main breaker. Test the mechanical door latch and lock system for final closure.\n"
+        },
+        {
+          "id": "17833105614560.4457572119724342",
+          "type": "text",
+          "value": "### CRITICAL SAFETY INSTRUCTIONS\n\n* **LOTO Protocol Mandatory:** Always execute complete Lockout/Tagout (LOTO) procedures at the upstream L.V. Room source breaker (GHL-26D5) before opening or working inside this panel.\n* **Voltage Verification:** Use a certified digital multimeter to verify zero voltage across all three copper busbars before attempting any component replacement.\n* **Cable Management:** Ensure all internal tangled wires at the bottom are neatly bundled and zipped using heat-resistant cable ties to prevent contact with sharp metallic edges.\n* **PPE Requirement:** Technicians must wear rated Arc Flash face shields, insulated safety boots, and 1000V-rated dielectric gloves during maintenance or live checking phases.\n"
+        }
+      ]
+    },
+    {
+      "id": 1783319512920,
+      "asset_number": "11",
+      "name": "Honeywell SmartLine Pressure Transmitter",
+      "title": "",
+      "model": "Model: SmartLine ST700/ST800 Series | Manufacturer: Honeywell",
+      "status": "Working",
+      "linkedAssets": [],
+      "descriptionBlocks": [
+        {
+          "id": "17833192728270.0435550906848663",
+          "type": "text",
+          "value": "### General Overview\n* **Device Type:** Industrial Smart Differential/Gauge Pressure Transmitter.\n* **Primary Application:** Real-time monitoring of high-pressure boiler feed water discharge line loops.\n* **Current Operational Display:** High-contrast digital LCD showing a live line pressure of **6.1 MPa** (Megapascals), which equals 61 Bar or approximately 884.7 PSI.\n\n### Core Component Breakdown\n* **Transmitter Housing/Enclosure:** Weatherproof, explosion-proof die-cast aluminum epoxy-coated blue/gray housing (IP66/67 rated) to protect internal electronics from extreme dust and moisture.\n* **Digital Display Window:** Circular glass cover housing a backlit alphanumeric LCD screen that provides real-time process variable (PV) tracking, unit display, and diagnostic bars.\n* **Process Connection (Impulse Inlet):** Bottom-mounted stainless steel female NPT connection linked directly via a rigid steel impulse pipe loop to avoid thermal transfer from the process fluid.\n* **Electrical/Signal Entry:** Side-mounted threaded conduit entry equipped with an armored cable gland for heavy-duty 2-wire loop power connection.\n* **Local Configuration Buttons:** Internal buttons hidden under the nameplate ring for zero/span calibration and field setup adjustments.\n\n\n\n"
+        },
+        {
+          "id": "1783319510548mehgjp",
+          "type": "image_ref",
+          "value": null
+        }
+      ],
+      "instructionBlocks": [
+        {
+          "id": "17833193135150.8783376270944513",
+          "type": "text",
+          "value": "### Sequential Installation Guide\n\n* **Step 1: Bracket Mounting & Positioning**\n  Fix the transmitter assembly securely to a stable 2-inch pipe mounting bracket or structural wall manifold to shield the internal sensor from heavy pipe vibrations.\n\n* **Step 2: Impulse Line Plumbing**\n  Run the small-bore stainless steel or copper impulse line from the main boiler feed pipe to the instrument's bottom adapter. Ensure an inline isolation valve (blue handle) is integrated for maintenance.\n\n* **Step 3: Signal Cable Routing & Termination**\n  Thread the shielded twisted-pair signal wire (usually 24V DC loop powered) through the explosion-proof conduit. Terminate the positive (+) and negative (-) leads onto the terminal block inside the rear compartment.\n\n* **Step 4: Mechanical Leak Check & Venting**\n  Crack open the process valve slightly to allow fluid into the transmitter sensor cavity. Carefully bleed any trapped air pockets using the integrated vent plug until a steady liquid stream appears, then tighten.\n\n* **Step 5: Loop Power & Calibration Verification**\n  Power up the instrument loop. Confirm that the local Honeywell LCD screen boots up properly and aligns perfectly with the telemetry system or DCS readings in the control room.\n\n\n\n\n\n\n\n### CRITICAL SAFETY INSTRUCTIONS\n\n* **High Pressure Risk:** The transmitter is monitoring an active pressure loop of **6.1 MPa**. Never attempt to loosen the device from its process connection, open the conduit, or unscrew the bleed ports while the line is live and under pressure.\n* **Isolation (LOTO) Requirement:** Before doing any calibration, replacement, or testing, completely close the primary isolation needle valve and safely vent down the residual internal pressure to **0.0 MPa**.\n* **Explosion-Proof Integrity:** Ensure the terminal enclosure cover is screwed on completely tight and the cable gland is securely sealed to maintain its flame-proof and weather-proof field ratings.\n* **Thermal Protection:** The process water line can transfer intense heat up the impulse piping. Always wear certified high-temperature safety gloves when interacting with the instrument manifold or venting valves.\n\n"
+        },
+        {
+          "id": "1783319492467w1dhub",
+          "type": "image_ref",
+          "value": null
+        }
+      ]
+    },
+    {
+      "id": 1783788313244,
+      "asset_number": "RO-4301-01",
+      "name": "Siemens MCC Panel 4301 - Feeder Drawer 1",
+      "title": "",
+      "model": "Model: Siemens SIVACON S8 MCCB",
+      "status": "Working",
+      "linkedAssets": [],
+      "descriptionBlocks": [
+        {
+          "id": "17837883132440.123456",
+          "type": "text",
+          "value": "### General Overview\\n* **Asset Number:** RO-4301-01\\n* **Specifications:** 400V, 100A, 3-Phase, 50Hz, 50kA short-circuit breaking capacity.\\n\\n### Working and Purpose\\nThis is a withdrawable motor control center (MCC) drawer. Working: It contains a Molded Case Circuit Breaker (MCCB), contactor, and thermal overload relay. When activated, the contactor closes the circuit to provide 3-phase power to the connected RO plant high-pressure pump motor. Purpose: To safely distribute low voltage power to individual motor loads in the RO plant, providing overload and short-circuit protection."
+        }
+      ],
+      "instructionBlocks": [
+        {
+          "id": "17837883132440.654321",
+          "type": "text",
+          "value": "### Maintenance Guide\n1. Isolate power using the front rotary handle.\n2. Rack out the drawer to the test position.\n3. Inspect contactor contacts for pitting.\n4. Verify thermal overload relay settings against motor nameplate."
+        }
+      ]
+    },
+    {
+      "id": 1783788313741,
+      "asset_number": "RO-4301-02",
+      "name": "Siemens MCC Panel 4301 - Feeder Drawer 2",
+      "title": "",
+      "model": "Model: Siemens SIVACON S8 Motor Starter",
+      "status": "Working",
+      "linkedAssets": [],
+      "descriptionBlocks": [
+        {
+          "id": "17837883137410.123456",
+          "type": "text",
+          "value": "### General Overview\\n* **Asset Number:** RO-4301-02\\n* **Specifications:** 400V, 63A, 3-Phase, 50Hz.\\n\\n### Working and Purpose\\nDirect-on-line (DOL) motor starter drawer. Working: Uses a combination of breaker and contactor to start RO chemical dosing pumps. Includes auxiliary contacts for DCS monitoring. Purpose: Controls and protects smaller auxiliary motors in the RO water treatment process."
+        }
+      ],
+      "instructionBlocks": [
+        {
+          "id": "17837883137410.654321",
+          "type": "text",
+          "value": "### Safety Protocol\nEnsure Lockout/Tagout (LOTO) is applied before opening the drawer. Test for dead voltage at the load terminals before servicing."
+        }
+      ]
+    },
+    {
+      "id": 1783788313764,
+      "asset_number": "RO-4302-01",
+      "name": "Siemens MCC Panel 4302 - Feeder Drawer 1",
+      "title": "",
+      "model": "Model: Siemens SIVACON S8 VFD Feeder",
+      "status": "Working",
+      "linkedAssets": [],
+      "descriptionBlocks": [
+        {
+          "id": "17837883137640.123456",
+          "type": "text",
+          "value": "### General Overview\\n* **Asset Number:** RO-4302-01\\n* **Specifications:** 400V, 250A, 3-Phase, 50Hz.\\n\\n### Working and Purpose\\nVariable Frequency Drive (VFD) feeder drawer. Working: Supplies regulated power to the VFD which controls the speed of the main RO feed water pump, allowing for variable flow control. Purpose: Main power supply for variable speed control of critical RO pumps, optimizing energy consumption."
+        }
+      ],
+      "instructionBlocks": [
+        {
+          "id": "17837883137640.654321",
+          "type": "text",
+          "value": "### Operation\nThis feeder must be engaged before attempting to start the VFD from the DCS. Ensure cooling fan on the panel door is operational due to higher heat dissipation."
+        }
+      ]
+    },
+    {
+      "id": 1783788313783,
+      "asset_number": "RO-4302-02",
+      "name": "Siemens MCC Panel 4302 - Feeder Drawer 2",
+      "title": "",
+      "model": "Model: Siemens SIVACON S8 MCCB",
+      "status": "Working",
+      "linkedAssets": [],
+      "descriptionBlocks": [
+        {
+          "id": "17837883137830.123456",
+          "type": "text",
+          "value": "### General Overview\\n* **Asset Number:** RO-4302-02\\n* **Specifications:** 400V, 160A, 3-Phase, 50Hz.\\n\\n### Working and Purpose\\nDistribution feeder. Working: Provides isolated power to secondary distribution boards within the RO plant building. Includes manual isolation handle on the front panel. Purpose: Safe distribution of power to lighting and auxiliary panels in the RO facility."
+        }
+      ],
+      "instructionBlocks": [
+        {
+          "id": "17837883137830.654321",
+          "type": "text",
+          "value": "### Inspection\nMonthly thermographic survey is recommended for the outgoing cable terminations to detect any loose connections."
+        }
+      ]
+    },
+    {
+      "id": 1783788313801,
+      "asset_number": "RO-GCK1-MAIN",
+      "name": "GCK-System 1 Main ACB",
+      "title": "",
+      "model": "Model: GCK Low Voltage Switchgear",
+      "status": "Working",
+      "linkedAssets": [],
+      "descriptionBlocks": [
+        {
+          "id": "17837883138010.123456",
+          "type": "text",
+          "value": "### General Overview\\n* **Asset Number:** RO-GCK1-MAIN\\n* **Specifications:** 400V, 1600A, 3-Phase, 50Hz, 65kA Icu.\\n\\n### Working and Purpose\\nMain incoming Air Circuit Breaker (ACB) for the GCK panel. Working: Receives power from the step-down transformer and distributes it to the GCK busbars. Features an electronic trip unit for precise overcurrent, short circuit, and ground fault protection. Purpose: Primary isolation and protection for the entire GCK switchgear lineup."
+        }
+      ],
+      "instructionBlocks": [
+        {
+          "id": "17837883138010.654321",
+          "type": "text",
+          "value": "### Reset Procedure\nIn case of a trip, identify the fault via the electronic trip unit display before attempting to rack in and close the breaker. Do not reset under loaded conditions without clearance."
+        }
+      ]
+    },
+    {
+      "id": 1783788314135,
+      "asset_number": "RO-GCK1-01",
+      "name": "GCK-System 1 Outgoing Feeder 1",
+      "title": "",
+      "model": "Model: GCK MCCB Module",
+      "status": "Working",
+      "linkedAssets": [],
+      "descriptionBlocks": [
+        {
+          "id": "17837883141350.123456",
+          "type": "text",
+          "value": "### General Overview\\n* **Asset Number:** RO-GCK1-01\\n* **Specifications:** 400V, 400A, 3-Phase.\\n\\n### Working and Purpose\\nOutgoing feeder module. Working: Taps power from the main busbar to supply large RO plant loads such as backwash pumps. Purpose: Secondary power distribution and localized fault protection."
+        }
+      ],
+      "instructionBlocks": [
+        {
+          "id": "17837883141350.654321",
+          "type": "text",
+          "value": "### Regular Maintenance\nCheck arc chutes and main contacts annually. Lubricate the withdrawal mechanism with approved dielectric grease."
+        }
+      ]
+    },
+    {
+      "id": 1783788314162,
+      "asset_number": "RO-GCK2-01",
+      "name": "GCK-System 2 Outgoing Feeder 1",
+      "title": "",
+      "model": "Model: GCK MCCB Module",
+      "status": "Working",
+      "linkedAssets": [],
+      "descriptionBlocks": [
+        {
+          "id": "17837883141620.123456",
+          "type": "text",
+          "value": "### General Overview\\n* **Asset Number:** RO-GCK2-01\\n* **Specifications:** 400V, 250A, 3-Phase.\\n\\n### Working and Purpose\\nOutgoing feeder module. Working: Taps power from the main busbar to supply UV sterilizer units and product water transfer pumps. Purpose: Power distribution for post-treatment equipment in the RO plant."
+        }
+      ],
+      "instructionBlocks": [
+        {
+          "id": "17837883141620.654321",
+          "type": "text",
+          "value": "### Testing\nUse primary injection testing every 5 years to verify the thermal and magnetic trip curve of the MCCB."
+        }
+      ]
+    },
+    {
+      "id": 1783788314187,
+      "asset_number": "RO-TX-INC",
+      "name": "Transformer / Chemical House Incomer",
+      "title": "",
+      "model": "Model: Siemens HV/LV Interface",
+      "status": "Working",
+      "linkedAssets": [],
+      "descriptionBlocks": [
+        {
+          "id": "17837883141870.123456",
+          "type": "text",
+          "value": "### General Overview\\n* **Asset Number:** RO-TX-INC\\n* **Specifications:** 11kV/400V Interface, 2000A Busbar.\\n\\n### Working and Purpose\\nInterface panel between the medium voltage transformer and the low voltage switchgear. Working: Houses the main bus ducts, metering CTs/PTs, and surge arresters. The High Voltage / Dangerous sign indicates the presence of primary feed lines. Purpose: To safely transition and meter power from the plant's main transformer to the RO plant MCCs."
+        }
+      ],
+      "instructionBlocks": [
+        {
+          "id": "17837883141870.654321",
+          "type": "text",
+          "value": "### Extreme Danger\nThis compartment contains unprotected live busbars. Only authorized high-voltage personnel may open this panel. Ensure upstream MV breaker is open and grounded before access."
+        }
+      ]
+    }
+  ]
+}

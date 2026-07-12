@@ -38,5 +38,85 @@
     "description": "Supercritical boiler providing steam for turbine units 2 and 3. Due for annual inspection July 2026.",
     "status": "Faulty",
     "created_at": "2026-06-28 09:28:31"
+  },
+  {
+    "id": 7,
+    "asset_number": "RO-4301-01",
+    "name": "Siemens MCC Panel 4301 - Feeder Drawer 1",
+    "model": "Siemens SIVACON S8 MCCB",
+    "specs": "400V, 100A, 3-Phase, 50Hz, 50kA short-circuit breaking capacity.",
+    "description": "This is a withdrawable motor control center (MCC) drawer. Working: It contains a Molded Case Circuit Breaker (MCCB), contactor, and thermal overload relay. When activated, the contactor closes the circuit to provide 3-phase power to the connected RO plant high-pressure pump motor. Purpose: To safely distribute low voltage power to individual motor loads in the RO plant, providing overload and short-circuit protection.",
+    "status": "Working",
+    "created_at": "2026-07-11 21:45:13"
+  },
+  {
+    "id": 8,
+    "asset_number": "RO-4301-02",
+    "name": "Siemens MCC Panel 4301 - Feeder Drawer 2",
+    "model": "Siemens SIVACON S8 Motor Starter",
+    "specs": "400V, 63A, 3-Phase, 50Hz.",
+    "description": "Direct-on-line (DOL) motor starter drawer. Working: Uses a combination of breaker and contactor to start RO chemical dosing pumps. Includes auxiliary contacts for DCS monitoring. Purpose: Controls and protects smaller auxiliary motors in the RO water treatment process.",
+    "status": "Working",
+    "created_at": "2026-07-11 21:45:13"
+  },
+  {
+    "id": 9,
+    "asset_number": "RO-4302-01",
+    "name": "Siemens MCC Panel 4302 - Feeder Drawer 1",
+    "model": "Siemens SIVACON S8 VFD Feeder",
+    "specs": "400V, 250A, 3-Phase, 50Hz.",
+    "description": "Variable Frequency Drive (VFD) feeder drawer. Working: Supplies regulated power to the VFD which controls the speed of the main RO feed water pump, allowing for variable flow control. Purpose: Main power supply for variable speed control of critical RO pumps, optimizing energy consumption.",
+    "status": "Working",
+    "created_at": "2026-07-11 21:45:13"
+  },
+  {
+    "id": 10,
+    "asset_number": "RO-4302-02",
+    "name": "Siemens MCC Panel 4302 - Feeder Drawer 2",
+    "model": "Siemens SIVACON S8 MCCB",
+    "specs": "400V, 160A, 3-Phase, 50Hz.",
+    "description": "Distribution feeder. Working: Provides isolated power to secondary distribution boards within the RO plant building. Includes manual isolation handle on the front panel. Purpose: Safe distribution of power to lighting and auxiliary panels in the RO facility.",
+    "status": "Working",
+    "created_at": "2026-07-11 21:45:13"
+  },
+  {
+    "id": 11,
+    "asset_number": "RO-GCK1-MAIN",
+    "name": "GCK-System 1 Main ACB",
+    "model": "GCK Low Voltage Switchgear",
+    "specs": "400V, 1600A, 3-Phase, 50Hz, 65kA Icu.",
+    "description": "Main incoming Air Circuit Breaker (ACB) for the GCK panel. Working: Receives power from the step-down transformer and distributes it to the GCK busbars. Features an electronic trip unit for precise overcurrent, short circuit, and ground fault protection. Purpose: Primary isolation and protection for the entire GCK switchgear lineup.",
+    "status": "Working",
+    "created_at": "2026-07-11 21:45:13"
+  },
+  {
+    "id": 12,
+    "asset_number": "RO-GCK1-01",
+    "name": "GCK-System 1 Outgoing Feeder 1",
+    "model": "GCK MCCB Module",
+    "specs": "400V, 400A, 3-Phase.",
+    "description": "Outgoing feeder module. Working: Taps power from the main busbar to supply large RO plant loads such as backwash pumps. Purpose: Secondary power distribution and localized fault protection.",
+    "status": "Working",
+    "created_at": "2026-07-11 21:45:13"
+  },
+  {
+    "id": 13,
+    "asset_number": "RO-GCK2-01",
+    "name": "GCK-System 2 Outgoing Feeder 1",
+    "model": "GCK MCCB Module",
+    "specs": "400V, 250A, 3-Phase.",
+    "description": "Outgoing feeder module. Working: Taps power from the main busbar to supply UV sterilizer units and product water transfer pumps. Purpose: Power distribution for post-treatment equipment in the RO plant.",
+    "status": "Working",
+    "created_at": "2026-07-11 21:45:13"
+  },
+  {
+    "id": 14,
+    "asset_number": "RO-TX-INC",
+    "name": "Transformer / Chemical House Incomer",
+    "model": "Siemens HV/LV Interface",
+    "specs": "11kV/400V Interface, 2000A Busbar.",
+    "description": "Interface panel between the medium voltage transformer and the low voltage switchgear. Working: Houses the main bus ducts, metering CTs/PTs, and surge arresters. The High Voltage / Dangerous sign indicates the presence of primary feed lines. Purpose: To safely transition and meter power from the plant's main transformer to the RO plant MCCs.",
+    "status": "Working",
+    "created_at": "2026-07-11 21:45:13"
   }
 ]

@@ -20,6 +20,11 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Camera, CameraView } from 'expo-camera';
 
+import * as FileSystem from 'expo-file-system';
+import * as MediaLibrary from 'expo-media-library';
+import ImageViewer from 'react-native-image-zoom-viewer';
+
+
 // ─── CONFIGURATION ──────────────────────────────────────────────────────────
 // Raw links of your GitHub Repository files
 const DATABASE_DATA_URL = 'https://raw.githubusercontent.com/muzzamil-nazir-jutt/scanerapp/main/equipment_data.json';
@@ -746,21 +751,44 @@ export default function App() {
         animationType="fade"
         onRequestClose={() => setZoomImage(null)}
       >
-        <View style={styles.zoomModalOverlay}>
-          <TouchableOpacity
-            style={styles.zoomCloseBtn}
-            onPress={() => setZoomImage(null)}
-          >
-            <Text style={styles.zoomCloseBtnText}>✕ Close</Text>
-          </TouchableOpacity>
-          {zoomImage && (
-            <Image
-              source={{ uri: `data:image/jpeg;base64,${zoomImage}` }}
-              style={styles.zoomFullImage}
-              resizeMode="contain"
-            />
+        <ImageViewer
+          imageUrls={zoomImage ? [{ url: `data:image/jpeg;base64,${zoomImage}` }] : []}
+          enableSwipeDown={true}
+          onSwipeDown={() => setZoomImage(null)}
+          renderIndicator={() => null}
+          renderHeader={() => (
+            <View style={{ position: 'absolute', top: 50, left: 0, right: 0, zIndex: 999, flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20 }}>
+              <TouchableOpacity
+                style={{ backgroundColor: 'rgba(0,0,0,0.6)', padding: 10, borderRadius: 8 }}
+                onPress={async () => {
+                  if (!zoomImage) return;
+                  try {
+                    const { status } = await MediaLibrary.requestPermissionsAsync();
+                    if (status !== 'granted') {
+                      Alert.alert('Permission Denied', 'Storage permission is required to save images.');
+                      return;
+                    }
+                    const fileUri = FileSystem.documentDirectory + `voltsync_${Date.now()}.jpg`;
+                    await FileSystem.writeAsStringAsync(fileUri, zoomImage, { encoding: FileSystem.EncodingType.Base64 });
+                    const asset = await MediaLibrary.createAssetAsync(fileUri);
+                    await MediaLibrary.createAlbumAsync('VoltSync', asset, false);
+                    Alert.alert('Success', 'Image saved to gallery!');
+                  } catch (err) {
+                    Alert.alert('Error', 'Failed to save image.');
+                  }
+                }}
+              >
+                <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>📥 Download</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{ backgroundColor: 'rgba(0,0,0,0.6)', padding: 10, borderRadius: 8 }}
+                onPress={() => setZoomImage(null)}
+              >
+                <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>✕ Close</Text>
+              </TouchableOpacity>
+            </View>
           )}
-        </View>
+        />
       </Modal>
     </SafeAreaView>
   );
