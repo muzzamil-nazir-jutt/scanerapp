@@ -63,6 +63,8 @@ export default function App() {
   // Camera States
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+  const [showPanelModal, setShowPanelModal] = useState(false);
+  const [availablePanels, setAvailablePanels] = useState([]);
 
   // ─── Initial Load & Permissions ───────────────────────────────────────────
   useEffect(() => {
@@ -176,91 +178,73 @@ export default function App() {
   };
 
   const triggerDataSync = async (isInitial = false, isSilent = false) => {
-    if (!isSilent) setIsSyncing(true);
     try {
-      const response = await fetch(DATABASE_DATA_URL, {
-        headers: { 'Cache-Control': 'no-cache' }, 
-      });
-      
-      if (!response.ok) {
-        throw new Error(`Server returned status ${response.status}`);
+      if (!isSilent) setIsSyncing(true);
+      const res = await fetch('https://raw.githubusercontent.com/muzzamil-nazir-jutt/scanerapp/main/index.json', { headers: { 'Cache-Control': 'no-cache' } });
+      if (!res.ok) {
+         if (isInitial) {
+             setIsFirstLaunch(false);
+             return;
+         }
+         throw new Error('Could not fetch panels index.');
       }
-
-      const payload = await response.json();
-      const cleanPayload = Array.isArray(payload) ? payload : (payload.data || []);
-      
-      if (Array.isArray(cleanPayload)) {
-        // Retrieve and merge existing images if present
-        const storedImagesRaw = await AsyncStorage.getItem(STORAGE_KEYS.IMAGES_SYNCED);
-        const storedImages = storedImagesRaw ? JSON.parse(storedImagesRaw) : null;
-        const mergedData = mergeImagesIntoData(cleanPayload, storedImages);
-
-        await AsyncStorage.setItem(STORAGE_KEYS.ASSETS, JSON.stringify(mergedData));
-        
-        const timestamp = new Date().toISOString();
-        await AsyncStorage.setItem(STORAGE_KEYS.LAST_SYNC, timestamp);
-        await AsyncStorage.setItem(STORAGE_KEYS.IS_FIRST_LAUNCH, 'false');
-
-        setAssets(mergedData);
-        setLastSynced(new Date(timestamp).toLocaleString());
-        setIsFirstLaunch(false);
-
-        if (!isInitial && !isSilent) {
-          Alert.alert('Sync Complete', `Data updated! Total ${cleanPayload.length} assets downloaded.`);
-        }
-      } else {
-        throw new Error('Invalid JSON format.');
+      const panelsList = await res.json();
+      setAvailablePanels(panelsList);
+      if (!isInitial) {
+         setShowPanelModal(true);
       }
     } catch (err) {
-      console.error('Sync failed:', err);
-      if (!isSilent) {
-        if (isInitial) {
-          Alert.alert(
-            'Offline Mode Active',
-            'Could not download the initial database from GitHub. You can refresh later in the "Sync" tab.',
-            [{ text: 'OK', onPress: () => setIsFirstLaunch(false) }]
-          );
-        } else {
-          Alert.alert('Sync Failed', 'Could not fetch database from GitHub. Using cached offline data.');
-        }
+      if (!isSilent && !isInitial) {
+          Alert.alert('Sync Failed', 'Network Error: ' + err.message);
+      } else if (isInitial) {
+          setIsFirstLaunch(false);
       }
     } finally {
       if (!isSilent) setIsSyncing(false);
     }
   };
 
-  const triggerImageSync = async () => {
+  const syncSpecificPanel = async (panel) => {
+    setShowPanelModal(false);
     setIsSyncing(true);
     try {
-      const response = await fetch(DATABASE_IMAGES_URL, {
-        headers: { 'Cache-Control': 'no-cache' },
-      });
-      if (!response.ok) {
-        throw new Error(`Server returned status ${response.status}`);
+      const dataUrl = `https://raw.githubusercontent.com/muzzamil-nazir-jutt/scanerapp/main/${panel.id}_data.json`;
+      const imagesUrl = `https://raw.githubusercontent.com/muzzamil-nazir-jutt/scanerapp/main/${panel.id}_images.json`;
+      
+      const dataRes = await fetch(dataUrl, { headers: { 'Cache-Control': 'no-cache' } });
+      if (!dataRes.ok) throw new Error('Data fetch returned ' + dataRes.status);
+      const dataPayload = await dataRes.json();
+      const cleanData = Array.isArray(dataPayload) ? dataPayload : (dataPayload.data || []);
+      
+      if (!Array.isArray(cleanData)) {
+        throw new Error('Invalid Data JSON structure.');
       }
-      const imagesPayload = await response.json();
 
-      if (imagesPayload && imagesPayload.images) {
-        await AsyncStorage.setItem(STORAGE_KEYS.IMAGES_SYNCED, JSON.stringify(imagesPayload));
-
-        // Merge with current data
-        const storedDataRaw = await AsyncStorage.getItem(STORAGE_KEYS.ASSETS);
-        const storedData = storedDataRaw ? JSON.parse(storedDataRaw) : [];
-        const mergedData = mergeImagesIntoData(storedData, imagesPayload);
-
-        await AsyncStorage.setItem(STORAGE_KEYS.ASSETS, JSON.stringify(mergedData));
-        setAssets(mergedData);
-
-        Alert.alert('Images Synced', 'All equipment images downloaded and merged successfully.');
-      } else {
-        throw new Error('Invalid Images JSON structure.');
+      let imagesPayload = null;
+      try {
+        const imgRes = await fetch(imagesUrl, { headers: { 'Cache-Control': 'no-cache' } });
+        if (imgRes.ok) imagesPayload = await imgRes.json();
+      } catch (imgErr) {
+        console.warn("Images sync failed:", imgErr);
       }
+
+      const mergedData = mergeImagesIntoData(cleanData, imagesPayload);
+
+      setAssets(mergedData);
+      await AsyncStorage.setItem(STORAGE_KEYS.ASSETS, JSON.stringify(mergedData));
+
+      const now = new Date().toLocaleString();
+      setLastSynced(now);
+      await AsyncStorage.setItem(STORAGE_KEYS.LAST_SYNC, now);
+
+      Alert.alert('Sync Complete', `${panel.name} database restored! Total ${mergedData.length} assets loaded.`);
     } catch (err) {
-      Alert.alert('Image Sync Failed', 'Could not sync images: ' + err.message);
+      Alert.alert('Sync Failed', 'Could not download panel database: ' + err.message);
     } finally {
       setIsSyncing(false);
     }
   };
+
 
   // ─── Handle Scanning ───────────────────────────────────────────────────────
   const handleBarCodeScanned = ({ data }) => {
@@ -606,7 +590,25 @@ export default function App() {
           )}
 
           {/* TAB 3: DATABASE & SYNC */}
-          {activeTab === 'db' && (
+          
+      <Modal visible={showPanelModal} transparent={true} animationType="fade" onRequestClose={() => setShowPanelModal(false)}>
+        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.8)', justifyContent: 'center', alignItems: 'center', padding: 20 }}>
+          <View style={{ backgroundColor: '#0f172a', width: '100%', borderRadius: 16, padding: 20, borderWidth: 1, borderColor: '#1e293b' }}>
+            <Text style={{ color: '#fff', fontSize: 20, fontWeight: 'bold', marginBottom: 20, textAlign: 'center' }}>Select Panel to Sync</Text>
+            {availablePanels.length === 0 && <Text style={{ color: '#94a3b8', textAlign: 'center' }}>No panels found on GitHub.</Text>}
+            {availablePanels.map(p => (
+              <TouchableOpacity key={p.id} style={{ backgroundColor: '#1e293b', padding: 15, borderRadius: 8, marginBottom: 10, borderWidth: 1, borderColor: '#334155' }} onPress={() => syncSpecificPanel(p)}>
+                <Text style={{ color: '#22d3ee', fontSize: 16, fontWeight: 'bold', textAlign: 'center' }}>{p.name}</Text>
+              </TouchableOpacity>
+            ))}
+            <TouchableOpacity style={{ marginTop: 10, padding: 15 }} onPress={() => setShowPanelModal(false)}>
+              <Text style={{ color: '#f87171', textAlign: 'center', fontWeight: 'bold' }}>Cancel</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
+      {activeTab === 'db' && (
             <View style={[styles.tabContentContainer, { paddingHorizontal: 16, paddingTop: 20 }]}>
               <Text style={styles.sectionHeaderTitle}>📦 Offline Database</Text>
               
@@ -629,17 +631,7 @@ export default function App() {
                       <Text style={styles.syncButtonText}>📊 Sync Data</Text>
                     )}
                   </TouchableOpacity>
-                  <TouchableOpacity 
-                    style={[styles.syncButton, { borderColor: 'rgba(251,191,36,0.3)' }]} 
-                    onPress={triggerImageSync}
-                    disabled={isSyncing}
-                  >
-                    {isSyncing ? (
-                      <ActivityIndicator size="small" color="#fbbf24" />
-                    ) : (
-                      <Text style={[styles.syncButtonText, { color: '#fbbf24' }]}>🖼️ Sync Images</Text>
-                    )}
-                  </TouchableOpacity>
+
                 </View>
               </View>
 

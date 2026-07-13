@@ -16,7 +16,8 @@
       "supportsTablet": true,
       "infoPlist": {
         "NSCameraUsageDescription": "VoltSync requires camera access to scan equipment QR codes."
-      }
+      },
+      "bundleIdentifier": "com.muzzamiljutt.powerplanttrackermobile"
     },
     "android": {
       "adaptiveIcon": {
@@ -33,8 +34,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "d556fab5-4d25-4baf-9684-d7924ae17737"
+        "projectId": "15b8e32b-e70b-4870-b969-db8da1ff92bb"
       }
-    }
+    },
+    "owner": "muzzamil-nazir"
   }
 }
