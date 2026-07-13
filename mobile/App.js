@@ -316,18 +316,18 @@ export default function App() {
         {parts.map((part, i) => {
           if (part.startsWith('**') && part.endsWith('**')) {
             return (
-              <Text key={i} style={{ fontWeight: 'bold', color: '#ffffff' }}>
+              <Text key={i} style={{ fontWeight: "bold", color: "#ffffff" }} selectable={true}>
                 {part.slice(2, -2)}
               </Text>
             );
           } else if (part.startsWith('==') && part.endsWith('==')) {
             return (
-              <Text key={i} style={{ backgroundColor: '#fbbf24', color: '#000000', borderRadius: 2, paddingHorizontal: 2 }}>
+              <Text key={i} style={{ backgroundColor: "#fbbf24", color: "#000000", borderRadius: 2, paddingHorizontal: 2 }} selectable={true}>
                 {part.slice(2, -2)}
               </Text>
             );
           }
-          return <Text key={i}>{part}</Text>;
+          return <Text key={i} selectable={true}>{part}</Text>;
         })}
       </Text>
     );
@@ -339,7 +339,7 @@ export default function App() {
     return blocks.map((block) => {
       if (block.type === 'text') {
         return (
-          <Text key={block.id} style={styles.detailsBlockText}>
+          <Text key={block.id} style={styles.detailsBlockText} selectable={true}>
             {renderFormattedText(block.value)}
           </Text>
         );
@@ -421,7 +421,7 @@ export default function App() {
 
                     <View style={styles.detailsCardContent}>
                       <View style={styles.detailsRowHeader}>
-                        <Text style={styles.detailsAssetCode}>Asset #{asset.asset_number}</Text>
+                        <Text style={styles.detailsAssetCode} selectable={true}>Asset #{asset.asset_number}</Text>
                         <View style={[
                           styles.badge,
                           asset.status === 'Working' && styles.badgeWorking,
@@ -440,11 +440,11 @@ export default function App() {
                       {asset.title ? (
                         <Text style={styles.detailsTitle}>{asset.title}</Text>
                       ) : null}
-                      <Text style={styles.detailsName}>{asset.name}</Text>
+                      <Text style={styles.detailsName} selectable={true}>{asset.name}</Text>
                       
                       <View style={styles.detailSection}>
                         <Text style={styles.sectionLabel}>Model / Specification</Text>
-                        <Text style={styles.sectionValue}>{asset.model}</Text>
+                        <Text style={styles.sectionValue} selectable={true}>{asset.model}</Text>
                       </View>
 
                       {/* Display Description and Specs Blocks (or fallback to legacy specs/background/image) */}
@@ -455,8 +455,8 @@ export default function App() {
                         ) : (
                           // Fallbacks for older data structures
                           <View>
-                            {asset.specs ? <Text style={styles.detailsBlockText}>{asset.specs}</Text> : null}
-                            {asset.background ? <Text style={styles.detailsBlockText}>{asset.background}</Text> : null}
+                            {asset.specs ? <Text style={styles.detailsBlockText} selectable={true}>{asset.specs}</Text> : null}
+                            {asset.background ? <Text style={styles.detailsBlockText} selectable={true}>{asset.background}</Text> : null}
                           </View>
                         )}
                       </View>
@@ -469,7 +469,7 @@ export default function App() {
                             {(asset.instructionBlocks && asset.instructionBlocks.length > 0) ? (
                               renderBlockList(asset.instructionBlocks)
                             ) : (
-                              <Text style={styles.descriptionText}>{asset.instructions}</Text>
+                              <Text style={styles.descriptionText} selectable={true}>{asset.instructions}</Text>
                             )}
                           </View>
                         </View>
@@ -901,13 +901,13 @@ const styles = StyleSheet.create({
   noImageText: { color: '#64748b', fontSize: 13, fontWeight: '600' },
   detailsCardContent: { padding: 18 },
   detailsRowHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 },
-  detailsAssetCode: { fontFamily: 'monospace', fontSize: 16, fontWeight: '700', color: '#22d3ee' },
-  detailsName: { fontSize: 18, fontWeight: 'bold', color: '#ffffff', marginBottom: 16 },
+  detailsAssetCode: { fontFamily: 'monospace', fontSize: 20, fontWeight: '700', color: '#22d3ee' },
+  detailsName: { fontSize: 24, fontWeight: 'bold', color: '#ffffff', marginBottom: 16 },
   detailSection: { marginBottom: 16 },
-  sectionLabel: { fontSize: 10, fontWeight: '700', color: '#64748b', textTransform: 'uppercase', marginBottom: 6 },
-  sectionValue: { fontSize: 13, color: '#cbd5e1', lineHeight: 18 },
+  sectionLabel: { fontSize: 12, fontWeight: '700', color: '#64748b', textTransform: 'uppercase', marginBottom: 6 },
+  sectionValue: { fontSize: 16, color: '#f8fafc', lineHeight: 24 },
   descriptionBox: { backgroundColor: 'rgba(255,255,255,0.02)', borderWidth: 1, borderColor: 'rgba(255,255,255,0.04)', borderRadius: 8, padding: 12, marginTop: 4 },
-  descriptionText: { fontSize: 13, color: '#cbd5e1', lineHeight: 18 },
+  descriptionText: { fontSize: 16, color: '#f8fafc', lineHeight: 24 },
 
   badge: { paddingHorizontal: 8, paddingVertical: 4, borderRadius: 99, borderWidth: 1 },
   badgeWorking: { backgroundColor: 'rgba(16, 185, 129, 0.1)', borderColor: 'rgba(16, 185, 129, 0.25)' },
@@ -930,9 +930,9 @@ const styles = StyleSheet.create({
 
   // Block rendering inside Scanner Details Screen
   detailsBlockText: {
-    color: '#cbd5e1',
-    fontSize: 13,
-    lineHeight: 19,
+    color: '#f8fafc',
+    fontSize: 16,
+    lineHeight: 24,
     marginBottom: 8,
   },
   detailsBlockImage: {
