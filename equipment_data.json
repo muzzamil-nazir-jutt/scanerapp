@@ -1,7 +1,7 @@
 {
   "success": true,
   "version": 2,
-  "exported_at": "2026-07-10T12:59:51.238Z",
+  "exported_at": "2026-07-12T17:18:53.933Z",
   "data": [
     {
       "id": 1783310471987,
@@ -15,7 +15,7 @@
         {
           "id": "17833100618760.6345970238732278",
           "type": "text",
-          "value": "    General Overview\n* Asset Tag/ID: JKF3008 (\u68c0\u4fee\u5206\u7bb1 - Access Points Panel)\n* Main Power Source: Incoming supply directly fed from L.V. Room (Panel Ref: GHL-26D5)\n* Main System Capacity: 100 AMP Rating (Total Box Panel controlled via 2Q1 main circuit)\n\n     Internal Component Breakdown\n* Main Busbars: 3-Phase Heavy Duty Copper Busbars (Red, Yellow, Blue) + Neutral Bar mounted with insulation boots on the chassis.\n* Main Molded Case Circuit Breakers (MCCBs): 2x Schneider Electric high-capacity industrial breakers with thermal-magnetic trip units for primary isolation.\n* Miniature Circuit Breakers (MCBs): 3x Chint/Schneider rail-mounted MCBs tagged as 1Q1, 2Q1, and 3Q1 for localized branch circuit distribution.\n* Heavy Duty AC Contactor: 1x Industrial power contactor (wired underneath the MCBs) with secondary auxiliary contacts for automation/remote switching control.\n* Terminal Blocks & Grounding: Multi-port ceramic/phenolic terminal strip array at the bottom right for field wiring connections, linked directly to the sub-station grounding grid.\n\n### External Enclosure Features\n* Enclosure Type: Wall-mounted IP-rated metallic distribution panel with protective top and bottom ventilated red grilles.\n* External Status Indicators: Door-mounted Phase Indication Pilot Lights (1x Green, 1x Red) showing real-time panel live status without opening the door.\n"
+          "value": "    General Overview\n* Asset Tag/ID: JKF3008 (检修分箱 - Access Points Panel)\n* Main Power Source: Incoming supply directly fed from L.V. Room (Panel Ref: GHL-26D5)\n* Main System Capacity: 100 AMP Rating (Total Box Panel controlled via 2Q1 main circuit)\n\n     Internal Component Breakdown\n* Main Busbars: 3-Phase Heavy Duty Copper Busbars (Red, Yellow, Blue) + Neutral Bar mounted with insulation boots on the chassis.\n* Main Molded Case Circuit Breakers (MCCBs): 2x Schneider Electric high-capacity industrial breakers with thermal-magnetic trip units for primary isolation.\n* Miniature Circuit Breakers (MCBs): 3x Chint/Schneider rail-mounted MCBs tagged as 1Q1, 2Q1, and 3Q1 for localized branch circuit distribution.\n* Heavy Duty AC Contactor: 1x Industrial power contactor (wired underneath the MCBs) with secondary auxiliary contacts for automation/remote switching control.\n* Terminal Blocks & Grounding: Multi-port ceramic/phenolic terminal strip array at the bottom right for field wiring connections, linked directly to the sub-station grounding grid.\n\n### External Enclosure Features\n* Enclosure Type: Wall-mounted IP-rated metallic distribution panel with protective top and bottom ventilated red grilles.\n* External Status Indicators: Door-mounted Phase Indication Pilot Lights (1x Green, 1x Red) showing real-time panel live status without opening the door.\n"
         },
         {
           "id": "1783310495642fqn07r",
@@ -70,186 +70,811 @@
       ]
     },
     {
-      "id": 1783788313244,
-      "asset_number": "RO-4301-01",
-      "name": "Siemens MCC Panel 4301 - Feeder Drawer 1",
+      "id": 1783871529160,
+      "asset_number": "12",
+      "name": "Siemens Careco Three-Phase Dry-Type Transformer",
       "title": "",
-      "model": "Model: Siemens SIVACON S8 MCCB",
+      "model": "Siemens CARECO SCB11-500/11",
       "status": "Working",
       "linkedAssets": [],
       "descriptionBlocks": [
         {
-          "id": "17837883132440.123456",
+          "id": "17838708389400.9655770460818334",
           "type": "text",
-          "value": "### General Overview\\n* **Asset Number:** RO-4301-01\\n* **Specifications:** 400V, 100A, 3-Phase, 50Hz, 50kA short-circuit breaking capacity.\\n\\n### Working and Purpose\\nThis is a withdrawable motor control center (MCC) drawer. Working: It contains a Molded Case Circuit Breaker (MCCB), contactor, and thermal overload relay. When activated, the contactor closes the circuit to provide 3-phase power to the connected RO plant high-pressure pump motor. Purpose: To safely distribute low voltage power to individual motor loads in the RO plant, providing overload and short-circuit protection."
+          "value": "\n* **Rated Power (Capacity):** **500 kVA**\n* **Rated Voltage (HV/LV):** **11000 V / 400 V** (Multi-tap options: 11550V, 11275V, 11000V, 10725V, 10450V)\n* **Rated Current:** **26.2 A (High Voltage Side) / 722 A (Low Voltage Side)**\n* **Phase / Frequency:** **3-Phase / 50 Hz**\n* **Connection Symbol:** ==Dyn11==\n* **Insulation Level:** LI75AC35/AC3\n* **Thermal Class:** Class F\n* **Cooling Type:** **AN/AF** (Air Natural / Air Forced)\n* **Impedance:** **3.64%**\n* **Protection Class:** ==IP20==\n* **Total Weight:** **1750 kg**\n* **Manufacturing Year:** 2015\n* **Manufacturer:** Siemens Transformer (Guangzhou) Co., Ltd.\n"
+        },
+        {
+          "id": "17838714702840.07468370148930714",
+          "type": "text",
+          "value": "* **Working:** Yeh ek **Dry-type (Cast Resin) Transformer** hai jo bina kisi oil ke chalta hai, isliye isme short-circuit ya aag lagne ka khatra bohot kam hota hai. Yeh high-voltage grid supply (11 kV) ko step down karke utility level low voltage (400 V) par lekar aata hai. Internal cooling ke liye isme automatic temperature controlled fans (AF) lagaye ja sakte hain.\n* **Purpose:** Iska main maqsad ==Transformer Chemical House== aur pure RO Plant ke low-voltage MNS/GCK distribution panels ko safe aur continuous electricity supply dena hai.\n"
         }
       ],
       "instructionBlocks": [
         {
-          "id": "17837883132440.654321",
+          "id": "17838715044770.6067219487550578",
           "type": "text",
-          "value": "### Maintenance Guide\n1. Isolate power using the front rotary handle.\n2. Rack out the drawer to the test position.\n3. Inspect contactor contacts for pitting.\n4. Verify thermal overload relay settings against motor nameplate."
+          "value": "1. **Isolate power completely** from both High-Voltage (HV) incoming breaker and Low-Voltage (LV) outgoing breaker before opening the doors.\n2. Verify that the enclosure winding temperature indicator (display controller on the side panel) is working and showing normal ambient readings.\n3. Check ventilation louvers and top enclosure vents for blockages to ensure **proper airflow (AN/AF cooling)**.\n4. ==De-dust and vacuum clean== the epoxy resin cast coils periodically using non-metallic extensions to prevent dust accumulation and flashovers.\n5. Inspect all electrical connections, grounding busbars, and cable terminations for tight torque specifications and signs of overheating.\n\n"
+        },
+        {
+          "id": "17838715095890.36492395949339895",
+          "type": "text",
+          "value": "* > ⚠️ **==DANGER: HIGH VOLTAGE (高压危险)==** — Enclosure ke andar live parts hain. Jab tak system completely isolate aur ground na ho jaye, doors ko hargiz na kholein.\n* > 🛑 **Never bypass temperature controllers** or internal thermal relay sensors attached to the transformer core.\n* > Ensure the enclosure ground connection is physically intact before re-energizing the unit.\n"
         }
       ]
     },
     {
-      "id": 1783788313741,
-      "asset_number": "RO-4301-02",
-      "name": "Siemens MCC Panel 4301 - Feeder Drawer 2",
+      "id": 1783872318397,
+      "asset_number": "13",
+      "name": "CONTROL MODULE",
       "title": "",
-      "model": "Model: Siemens SIVACON S8 Motor Starter",
+      "model": "* **Model:** Siemens Digital Monitoring & Control Indicator Module\n* **Panel Reference Name:** ==Siemens MCC Panel 4301 - Top Controller Module==",
       "status": "Working",
       "linkedAssets": [],
       "descriptionBlocks": [
         {
-          "id": "17837883137410.123456",
+          "id": "17838721688500.9423763069045437",
           "type": "text",
-          "value": "### General Overview\\n* **Asset Number:** RO-4301-02\\n* **Specifications:** 400V, 63A, 3-Phase, 50Hz.\\n\\n### Working and Purpose\\nDirect-on-line (DOL) motor starter drawer. Working: Uses a combination of breaker and contactor to start RO chemical dosing pumps. Includes auxiliary contacts for DCS monitoring. Purpose: Controls and protects smaller auxiliary motors in the RO water treatment process."
+          "value": "* **Asset Number:** RO-MCC-4301-CTRL\n* **System Type:** Low-Voltage Control, Monitoring & Signaling Unit\n* **Display Interface:** Dual Digital Micro-controller Displays (Real-time Amperes/Volts parameters)\n* **Control Interfaces:** 1 Local/Remote Manual Selector Switch, 4 Colored Status LED Pilot Lamps (Red/Green indicators)\n* **Panel Line Label:** Panel 4301 Block Link\n"
+        },
+        {
+          "id": "17838721822900.9300826520692012",
+          "type": "text",
+          "value": "* **Working:** Yeh upper panel module incoming circuit ke status parameters ko digital screens par continuously show karta hai. Isme lage colored indicator lamps line connectivity, active power supply, fault status, aur breaker tripping sequences ko visual signal ke zariye display karte hain, jabki rotary switch circuit mode transitions faraham karta hai.\n* **Purpose:** Iska main purpose main feeder line ke electrical variables (Current, Voltage) ko monitor karna aur ==real-time panel functional operations== safety status show karna hai.\n"
+        },
+        {
+          "id": "17838721987950.773943404842931",
+          "type": "text",
+          "value": "1. Verify both digital multi-parameter screen displays are active without showing any distorted system characters.\n2. Check color status indicator pilot lamps for accurate color illumination matching the live breaker status.\n3. Conduct structural checks on internal low-voltage sensor wire terminations behind the fascia board to ensure tight contact joints.\n4. Clean the external protective display surfaces using a dry antistatic cloth block.\n"
         }
       ],
       "instructionBlocks": [
         {
-          "id": "17837883137410.654321",
+          "id": "17838722152830.8217521844372476",
           "type": "text",
-          "value": "### Safety Protocol\nEnsure Lockout/Tagout (LOTO) is applied before opening the drawer. Test for dead voltage at the load terminals before servicing."
+          "value": "* > ⚠️ **==WARNING: CONTROL VOLTAGE CIRCUIT==** — Disconnect secondary control lines or auxiliary fuses before conducting continuity diagnostic procedures behind the panel instrumentation layout.\n* > 🛑 **Never clean diagnostic instrument windows** using conductive fluid or wet cleaning items.\n"
         }
       ]
     },
     {
-      "id": 1783788313764,
-      "asset_number": "RO-4302-01",
-      "name": "Siemens MCC Panel 4302 - Feeder Drawer 1",
+      "id": 1783872497367,
+      "asset_number": "14",
+      "name": "Siemens breaker module.",
       "title": "",
-      "model": "Model: Siemens SIVACON S8 VFD Feeder",
+      "model": "* **Model:** Siemens 3WT / SIVACON Heavy Duty Breaking Switch\n* **Panel Reference Name:** ==Siemens MCC Panel 4301 - Main Breaker Module==",
       "status": "Working",
       "linkedAssets": [],
       "descriptionBlocks": [
         {
-          "id": "17837883137640.123456",
+          "id": "17838723792340.026960873044019236",
           "type": "text",
-          "value": "### General Overview\\n* **Asset Number:** RO-4302-01\\n* **Specifications:** 400V, 250A, 3-Phase, 50Hz.\\n\\n### Working and Purpose\\nVariable Frequency Drive (VFD) feeder drawer. Working: Supplies regulated power to the VFD which controls the speed of the main RO feed water pump, allowing for variable flow control. Purpose: Main power supply for variable speed control of critical RO pumps, optimizing energy consumption."
+          "value": "* **Asset Number:** RO-MCC-4301-BRK\n* **Device Class:** High-capacity Molded Case Circuit Breaker (MCCB) / Air Circuit Switch Unit\n* **Nominal Current Capacity:** **1000 A**\n* **System Operations Interface:** Integrated Manual Charging Trip Handle + Emergency Trip push-button layout\n* **Physical Enclosure Style:** Heavy industrial draw-out framework structure panel\n"
+        },
+        {
+          "id": "17838723981540.4981151118862493",
+          "type": "text",
+          "value": "* **Working:** Yeh module power flow connection lines ko handle karne ke liye mechanical links aur contact plates ka istemal karta hai. Front side par maujood thick operational rotary charging handle ko activate karke dynamic spring power store ki jaati hai, jise single operations handle mechanism switch se emergency conditions par instant trip ya isolate kiya ja sakta hai.\n* **Purpose:** Iska main maqsad heavy electrical loads ko safely switch karna aur sub-distribution layout lines ko ==overload faults aur sudden line short-circuits== se total block layer protection dena hai.\n"
         }
       ],
       "instructionBlocks": [
         {
-          "id": "17837883137640.654321",
+          "id": "17838724305880.953864703796394",
           "type": "text",
-          "value": "### Operation\nThis feeder must be engaged before attempting to start the VFD from the DCS. Ensure cooling fan on the panel door is operational due to higher heat dissipation."
+          "value": "1. Safely switch off connected downstream machinery loads before physically rotating the main mechanical breaker handle frame.\n2. Check breaker mechanical alignment indexes to ensure the draw-out unit slots lock flush into the cabinet structure array.\n3. Run physical insulation status checks over terminal line barriers to verify zero trace oxidation arcs on primary copper tracks.\n4. Manually test manual spring-charging cycle links during planned plant shutdown operations to check smooth trip transitions.\n"
+        },
+        {
+          "id": "17838724876600.1156252459258159",
+          "type": "text",
+          "value": "* > ⚠️ **==DANGER: HEAVY POWER SOURCE ARCS==** — Operational handle manipulation high short-circuit limits ke dauran explosive arcing create kar sakti hai; automatic trip settings calibrate rakhein aur proper thermal PPE use karein.\n* > 🛑 **Do not try dragging or pulling the main switch chassis frame** out from the cubicle guide-rails when line contacts are tightly clamped inside active busbar connections.\n"
         }
       ]
     },
     {
-      "id": 1783788313783,
-      "asset_number": "RO-4302-02",
-      "name": "Siemens MCC Panel 4302 - Feeder Drawer 2",
+      "id": 1783873074077,
+      "asset_number": "15",
+      "name": "Cabinet panel",
       "title": "",
-      "model": "Model: Siemens SIVACON S8 MCCB",
+      "model": "* **Model:** MNS Low-Voltage Switchgear Cabinet Line\n* **Standard Code:** ==GB7251==",
       "status": "Working",
       "linkedAssets": [],
       "descriptionBlocks": [
         {
-          "id": "17837883137830.123456",
+          "id": "17838730476950.2811634977201228",
           "type": "text",
-          "value": "### General Overview\\n* **Asset Number:** RO-4302-02\\n* **Specifications:** 400V, 160A, 3-Phase, 50Hz.\\n\\n### Working and Purpose\\nDistribution feeder. Working: Provides isolated power to secondary distribution boards within the RO plant building. Includes manual isolation handle on the front panel. Purpose: Safe distribution of power to lighting and auxiliary panels in the RO facility."
+          "value": "* **Asset Number:** 15\n* **Nominal Voltage:** **380 V**\n* **Nominal Frequency:** **50 Hz**\n* **Nominal Current:** **1000 A**\n* **Protection Grade:** ==IP40==\n* **Manufacturer:** Suzhou Industrials Park Heshun Electric Co., Ltd.\n"
+        }
+      ],
+      "instructionBlocks": []
+    },
+    {
+      "id": 1783873401599,
+      "asset_number": "16",
+      "name": "==Feeder Module 1 - Top Position==",
+      "title": "",
+      "model": "** **Model:** MNS Draw-out Feeder Module (Size 1)\n**",
+      "status": "Working",
+      "linkedAssets": [],
+      "descriptionBlocks": [
+        {
+          "id": "17838733182570.5726708473620675",
+          "type": "text",
+          "value": "\n* **Operational Voltage / Frequency:** **380V AC / 50Hz**\n* **Component Layout:** 1 Rotary Disconnect Switch Handle, 1 Integrated Digital Parameter Meter Display, 3 Status LED Pilot Indicators (Red/Green/Yellow)\n* **Module Position:** Vertical Rack Section 1 (Top)\n"
+        },
+        {
+          "id": "17838733515340.5791963379239837",
+          "type": "text",
+          "value": "* **Working:** Yeh modular feeder block main structural vertical busbar line se stable internal power draw karta hai. Front facade par lagaya gaya rotary controller circuit connections ko toggle ya manual cut-off switch karta hai, jabki secondary monitoring display and lighting parameters live phase status indicate karte hain.\n* **Purpose:** Iska main purpose downstream sub-loads ko secure input power manage karna aur line currents ko standard safety thresholds ke andar channelize karna hai.\n"
         }
       ],
       "instructionBlocks": [
         {
-          "id": "17837883137830.654321",
+          "id": "17838733807800.9900833910851595",
           "type": "text",
-          "value": "### Inspection\nMonthly thermographic survey is recommended for the outgoing cable terminations to detect any loose connections."
+          "value": "1. Safely switch off downstream terminal loads before operating the dynamic front rotary handle.\n2. Turn the main module latch mechanism to pull and slide the draw-out unit framework clear from active internal busbars.\n3. Use electrical contact cleaner on rear connection power jaw components to remove carbon deposits.\n4. Verify digital monitor readings cycle correctly without showing open circuit system error codes.\n"
+        },
+        {
+          "id": "17838733860100.46454376853473395",
+          "type": "text",
+          "value": "* > ⚠️ **==DANGER: ELECTRICAL ARC HAZARD==** — Fully verify that current flow drops down to zero before manually attempting drawer pulling or extraction operations.\n* > 🛑 **Never manipulate dynamic interior switchgear links** if live status signaling lights are illuminated.\n"
         }
       ]
     },
     {
-      "id": 1783788313801,
-      "asset_number": "RO-GCK1-MAIN",
-      "name": "GCK-System 1 Main ACB",
+      "id": 1783873606390,
+      "asset_number": "17",
+      "name": "==Feeder Module 2 - Upper Center==",
       "title": "",
-      "model": "Model: GCK Low Voltage Switchgear",
+      "model": "* **Model:** MNS Draw-out Feeder Module (Size 2)\n* **Associated Name Tag:** ==Feeder Module 2 - Upper Center==",
       "status": "Working",
       "linkedAssets": [],
       "descriptionBlocks": [
         {
-          "id": "17837883138010.123456",
+          "id": "17838735175420.09438109961696967",
           "type": "text",
-          "value": "### General Overview\\n* **Asset Number:** RO-GCK1-MAIN\\n* **Specifications:** 400V, 1600A, 3-Phase, 50Hz, 65kA Icu.\\n\\n### Working and Purpose\\nMain incoming Air Circuit Breaker (ACB) for the GCK panel. Working: Receives power from the step-down transformer and distributes it to the GCK busbars. Features an electronic trip unit for precise overcurrent, short circuit, and ground fault protection. Purpose: Primary isolation and protection for the entire GCK switchgear lineup."
+          "value": "* **Asset Number:** RO-MNS-FDR-02\n* **Operational Voltage / Frequency:** **380V AC / 50Hz**\n* **Component Layout:** 1 Rotary Disconnect Switch Handle, 1 Integrated Digital Parameter Meter Display, 3 Status LED Pilot Indicators (Red/Green/Yellow)\n* **Module Position:** Vertical Rack Section 2\n"
+        },
+        {
+          "id": "17838735710890.12743104094479646",
+          "type": "text",
+          "value": "* **Working:** Yeh unit individual motor power control standard loop configuration par chalti hai. Heavy internal contactors local starter connections operate karte hain, jise directly manual front selector handle se switch ya isolate kiya jata hai jabki operational indicators active runtime display setup ensure karte hain.\n* **Purpose:** Iska primary function process lines ko electrical overload current spikes se immediate safety isolation aur ==stable line termination protection== dena hai.\n"
         }
       ],
       "instructionBlocks": [
         {
-          "id": "17837883138010.654321",
+          "id": "17838735829270.6055916952968222",
           "type": "text",
-          "value": "### Reset Procedure\nIn case of a trip, identify the fault via the electronic trip unit display before attempting to rack in and close the breaker. Do not reset under loaded conditions without clearance."
+          "value": "1. Move the manual mechanical operation handle smoothly into the absolute OFF latch point.\n2. Disengage guide track anchors to slide the modular frame completely into check inspection alignment.\n3. Conduct visual insulation scans on power line wire sleeves behind the internal metering back-block.\n4. Clean dust accumulations away from display windows using dry cleaning materials.\n"
+        },
+        {
+          "id": "17838735955650.022993814579133014",
+          "type": "text",
+          "value": "* > ⚠️ **==WARNING: LIVE BACKPLANE BUSBAR==** — The back partition area contains live vertical copper links; do not insert tools inside open chassis slots after removal.\n* > 🛑 **Do not swap dynamic module internal fuses** without double checking factory current ratings.\n"
         }
       ]
     },
     {
-      "id": 1783788314135,
-      "asset_number": "RO-GCK1-01",
-      "name": "GCK-System 1 Outgoing Feeder 1",
+      "id": 1783873834221,
+      "asset_number": "18",
+      "name": "==Feeder Module 3 - Center Slot==",
       "title": "",
-      "model": "Model: GCK MCCB Module",
+      "model": "* **Model:** MNS Draw-out Feeder Module (Size 3)\n* **Associated Name Tag:** ==Feeder Module 3 - Center Slot==",
       "status": "Working",
       "linkedAssets": [],
       "descriptionBlocks": [
         {
-          "id": "17837883141350.123456",
+          "id": "17838737145690.7881057600547853",
           "type": "text",
-          "value": "### General Overview\\n* **Asset Number:** RO-GCK1-01\\n* **Specifications:** 400V, 400A, 3-Phase.\\n\\n### Working and Purpose\\nOutgoing feeder module. Working: Taps power from the main busbar to supply large RO plant loads such as backwash pumps. Purpose: Secondary power distribution and localized fault protection."
+          "value": "\n* **Operational Voltage / Frequency:** **380V AC / 50Hz**\n* **Component Layout:** 1 Rotary Disconnect Switch Handle, 1 Integrated Digital Parameter Meter Display, 3 Status LED Pilot Indicators (Red/Green/Yellow)\n* **Module Position:** Vertical Rack Section 3 (Center)\n"
+        },
+        {
+          "id": "17838737567250.053945386571776166",
+          "type": "text",
+          "value": "* **Working:** Central panel component active power distribution sequences ko handle karta hai. Built-in micro-processor relay controls auxiliary loop signaling lines ko filter aur translate karte hain, jabki integrated trip links immediate line separation perform karte hain short-circuits trigger hone par.\n* **Purpose:** Iska main target system utility motor feeds ko direct power line input balance distribute karna aur real-time telemetry parameters pass down karna hai.\n"
         }
       ],
       "instructionBlocks": [
         {
-          "id": "17837883141350.654321",
+          "id": "17838738048740.1299342603433418",
           "type": "text",
-          "value": "### Regular Maintenance\nCheck arc chutes and main contacts annually. Lubricate the withdrawal mechanism with approved dielectric grease."
+          "value": "1. Check that the front panel color indicator lamps correspond with current control system feedback variables.\n2. Carefully rack out the chassis framework box onto secondary slide rails to perform maintenance checks.\n3. Inspect main thermal relay setting values against specific motor nameplate continuous duty current requirements.\n4. Check wire harness connection screws inside terminal tracks for optimal structural tightness.\n"
+        },
+        {
+          "id": "17838738183480.26566434836329994",
+          "type": "text",
+          "value": "* > ⚠️ **==DANGER: CONTROL VOLTAGE SENSING==** — Secondary loop signal fuses remain energized even when the primary power line handle is isolated.\n* > 🛑 **Never block cabinet ventilation slots** located around open cubicle framing edges.\n"
         }
       ]
     },
     {
-      "id": 1783788314162,
-      "asset_number": "RO-GCK2-01",
-      "name": "GCK-System 2 Outgoing Feeder 1",
+      "id": 1783873998464,
+      "asset_number": "19",
+      "name": "==Feeder Module 4 - Lower Center==",
       "title": "",
-      "model": "Model: GCK MCCB Module",
+      "model": "* **Model:** MNS Draw-out Feeder Module (Size 4)\n* **Associated Name Tag:** ==Feeder Module 4 - Lower Center==",
       "status": "Working",
       "linkedAssets": [],
       "descriptionBlocks": [
         {
-          "id": "17837883141620.123456",
+          "id": "17838738988080.2980012472887547",
           "type": "text",
-          "value": "### General Overview\\n* **Asset Number:** RO-GCK2-01\\n* **Specifications:** 400V, 250A, 3-Phase.\\n\\n### Working and Purpose\\nOutgoing feeder module. Working: Taps power from the main busbar to supply UV sterilizer units and product water transfer pumps. Purpose: Power distribution for post-treatment equipment in the RO plant."
+          "value": "* **Asset Number:** RO-MNS-FDR-04\n* **Operational Voltage / Frequency:** **380V AC / 50Hz**\n* **Component Layout:** 1 Rotary Disconnect Switch Handle, 1 Integrated Digital Parameter Meter Display, 3 Status LED Pilot Indicators (Red/Green/Yellow)\n* **Module Position:** Vertical Rack Section 4\n"
+        },
+        {
+          "id": "17838739198430.7300241334624615",
+          "type": "text",
+          "value": "* **Working:** Compartment internal magnetic coil contact links aur overcurrent relays integrate karta hai. External manual rotary control mechanical interlocking links ensure karte hain ke frame structure tab tak slide na ho jab tak active power switch condition entirely disabled na ho jaye.\n* **Purpose:** Iska basic mission pump control ya distribution processing motors ko smooth electrical supply startup execution and loop monitoring dena hai.\n"
         }
       ],
       "instructionBlocks": [
         {
-          "id": "17837883141620.654321",
+          "id": "17838739604480.8465524225126345",
           "type": "text",
-          "value": "### Testing\nUse primary injection testing every 5 years to verify the thermal and magnetic trip curve of the MCCB."
+          "value": "1. Isolate target load lines by completely rotating the front selector handle directly into TRIP/OFF state.\n2. Extract the sliding module partition unit to verify spring retention force on output clip stabs.\n3. Run thermal scanning profiles over terminal track insulation plates to find hidden load hot spots.\n4. Clean display fascia panels thoroughly with clean non-metallic anti-static brushes.\n"
+        },
+        {
+          "id": "17838739831580.3720351698022265",
+          "type": "text",
+          "value": "* > ⚠️ **==CAUTION: MECHANICAL INTELOCK FORCE==** — Do not attempt pulling the framework drawer assembly with excessive power forces if the interlock mechanism stays locked.\n* > 🛑 **Never touch main primary jaw copper contacts** without ensuring verified earth line grounding connections.\n"
         }
       ]
     },
     {
-      "id": 1783788314187,
-      "asset_number": "RO-TX-INC",
-      "name": "Transformer / Chemical House Incomer",
+      "id": 1783874115815,
+      "asset_number": "20",
+      "name": "==Feeder Module 5 - Floor Position==",
       "title": "",
-      "model": "Model: Siemens HV/LV Interface",
+      "model": "* **Model:** MNS Draw-out Feeder Module (Size 5)\n* **Associated Name Tag:** ==Feeder Module 5 - Floor Position==",
       "status": "Working",
       "linkedAssets": [],
       "descriptionBlocks": [
         {
-          "id": "17837883141870.123456",
+          "id": "17838740532660.7064537791490175",
           "type": "text",
-          "value": "### General Overview\\n* **Asset Number:** RO-TX-INC\\n* **Specifications:** 11kV/400V Interface, 2000A Busbar.\\n\\n### Working and Purpose\\nInterface panel between the medium voltage transformer and the low voltage switchgear. Working: Houses the main bus ducts, metering CTs/PTs, and surge arresters. The High Voltage / Dangerous sign indicates the presence of primary feed lines. Purpose: To safely transition and meter power from the plant's main transformer to the RO plant MCCs."
+          "value": "* **Asset Number:** RO-MNS-FDR-05\n* **Operational Voltage / Frequency:** **380V AC / 50Hz**\n* **Component Layout:** 1 Rotary Disconnect Switch Handle, 1 Integrated Digital Parameter Meter Display, 3 Status LED Pilot Indicators (Red/Green/Yellow)\n* **Module Position:** Vertical Rack Section 5 (Bottom)\n"
+        },
+        {
+          "id": "17838740599830.6560976255541333",
+          "type": "text",
+          "value": "* **Asset Number:** RO-MNS-FDR-05\n* **Operational Voltage / Frequency:** **380V AC / 50Hz**\n* **Component Layout:** 1 Rotary Disconnect Switch Handle, 1 Integrated Digital Parameter Meter Display, 3 Status LED Pilot Indicators (Red/Green/Yellow)\n* **Module Position:** Vertical Rack Section 5 (Bottom)\n"
         }
       ],
       "instructionBlocks": [
         {
-          "id": "17837883141870.654321",
+          "id": "17838740794580.21148974247893723",
           "type": "text",
-          "value": "### Extreme Danger\nThis compartment contains unprotected live busbars. Only authorized high-voltage personnel may open this panel. Ensure upstream MV breaker is open and grounded before access."
+          "value": "1. Clear surrounding floor space obstacles away before unlocking the lower tier slider block tracks.\n2. Switch off line execution current and translate the breaker toggle handle completely into horizontal lock format.\n3. Draw out the lower layer functional compartment completely to clean out ambient floor dust accumulation.\n4. Check structural integrity over low-profile instrumentation wire links to ensure stable data outputs.\n"
+        },
+        {
+          "id": "17838740985820.7651202770063329",
+          "type": "text",
+          "value": "* > ⚠️ **==WARNING: STEP VOLTAGE & DUST EXPOSURE==** — Floor level units trap high volumes of atmospheric fine dust particles; ensure precise vacuuming before testing live operations.\n* > 🛑 **Do not bypass primary electrical contact loops** with temporary jumper wire connections.\n"
+        }
+      ]
+    },
+    {
+      "id": 1783874778963,
+      "asset_number": "21",
+      "name": "==Feeder Module 4302 - Top Slot==",
+      "title": "",
+      "model": "* **Model:** MNS Modular Distribution Draw-out Unit (Size 1)\n* **Associated Name Tag:** ==Feeder Module 4302 - Top Slot==",
+      "status": "Working",
+      "linkedAssets": [],
+      "descriptionBlocks": [
+        {
+          "id": "17838747290130.9002493666159592",
+          "type": "text",
+          "value": "* **Asset Number:** RO-MNS-4302-FDR01\n* **Operational Voltage / Frequency:** **380V AC / 50Hz**\n* **Component Layout:** 1 Rotary Switch Handle, 1 Digital Parameter Controller, 3 LED Status Pilot Lamps (Red/Green/Yellow)\n* **Chassis Status:** Sliding draw-out chassis module (Position: Top Tier)\n"
+        },
+        {
+          "id": "17838747339770.13065703960674516",
+          "type": "text",
+          "value": "* **Working:** Yeh top tier modular drawer container main electrical distribution branch line ko power connect karta hai. Isme laga internal switch mechanics load configuration bypass controls handle karta hai aur real-time telemetry parameters pass down karta hai.\n* **Purpose:** Iska essential task auxiliary station equipment blocks ko balanced three-phase inputs terminate aur manage karna hai.\n"
+        }
+      ],
+      "instructionBlocks": [
+        {
+          "id": "17838747536970.26048695148556794",
+          "type": "text",
+          "value": "1. Safely disconnect associated terminal substation loads before altering the operational switch direction.\n2. Rotate the front handle to the complete isolation position to trip line power.\n3. Release the primary mechanical tracks guide frame to slide the drawer unit completely clear.\n4. Wipe structural dust accumulations clean from screen layers with dry anti-static materials.\n"
+        },
+        {
+          "id": "17838747670730.4065189653323707",
+          "type": "text",
+          "value": "* > ⚠️ **==DANGER: HIGH FLASH VOLTAGE==** — Do not pull or perform alignment shifts if secondary line indicators reflect active heavy distribution loads.\n* > 🛑 **Never use conductive utility cleaning sprays** over exposed micro-controller faceplates.\n"
+        }
+      ]
+    },
+    {
+      "id": 1783874861757,
+      "asset_number": "22",
+      "name": "==Raw Water pump#01==",
+      "title": "",
+      "model": "* **Model:** MNS Modular Motor Starter Draw-out Unit\n* **Associated Name Tag:** ==Raw Water pump#01==",
+      "status": "Working",
+      "linkedAssets": [],
+      "descriptionBlocks": [
+        {
+          "id": "17838748068420.9506205953868644",
+          "type": "text",
+          "value": "* **Asset Number:** RO-MNS-RWP-01\n* **Operational Voltage / Frequency:** **380V AC / 50Hz**\n* **Component Layout:** 1 Rotary Operating Switch Handle, 1 Digital Multifunction Parameter Controller LCD, 4 LED Pilot Lamps (Run, Stop, Trip, Source)\n* **Chassis Status:** Draw-out module with mechanical position indicators (IN / OUT / TEST)\n"
+        },
+        {
+          "id": "17838748219650.6045571618995212",
+          "type": "text",
+          "value": "* **Working:** Yeh unit process automatic loop commands receive karti hai raw water line pumping control ke liye. Front rotary bypass breaker load lines ko energize karta hai aur built-in microprocessor circuit parameters aur single phase failures ko track karke live state reflect karta hai.\n* **Purpose:** Iska main objective **Raw Water Pump #01** ko safely run karna, electrical protection provide karna, aur plant supply lines ko continuous flow coordinate karna hai.\n"
+        }
+      ],
+      "instructionBlocks": [
+        {
+          "id": "17838748346880.8802058827715828",
+          "type": "text",
+          "value": "1. Ensure the downstream water pump is completely stationary before switching the power handle.\n2. Turn the selector rotary switch to the absolute OFF or reset coordinate configuration.\n3. Move the lower slide rail mechanical safety lock to smoothly disengage and pull the unit out.\n4. Clean dust accumulations off the digital interface module using dry cleaning cloths.\n"
+        },
+        {
+          "id": "17838748573230.6674256647684566",
+          "type": "text",
+          "value": "* > ⚠️ **==DANGER: HIGH CURRENT TERMINALS==** — Never attempt extraction or alignment changes if the control unit status displays an active dynamic line loop load.\n* > 🛑 **Do not alter or toggle default setting adjustments** inside the overload protection menu structure.\n"
+        }
+      ]
+    },
+    {
+      "id": 1783874956271,
+      "asset_number": "23",
+      "name": "=Neutralization pump#01==",
+      "title": "",
+      "model": "* **Model:** MNS Modular Motor Starter Draw-out Unit\n* **Associated Name Tag:** ==Neutralization pump#01==",
+      "status": "Working",
+      "linkedAssets": [],
+      "descriptionBlocks": [
+        {
+          "id": "17838749059230.31902232123031005",
+          "type": "text",
+          "value": "* **Asset Number:** RO-MNS-NZP-01\n* **Operational Voltage / Frequency:** **380V AC / 50Hz**\n* **Component Layout:** 1 Heavy Rotary Disconnect Handle, 1 Programmable Parameter Screen Interface, 4 Multi-colored Control Signal LED Indicator Windows\n* **Chassis Status:** Drawer type with mechanical interlocking sliders\n"
+        },
+        {
+          "id": "17838749190310.4484946389230708",
+          "type": "text",
+          "value": "* **Working:** Yeh feeder chemical plant neutralization mixing control circuits operate karta hai. Isme system monitoring continuous electrical readings manage karti hai, aur control coils contact links direct overloads aur over-temperature conditions trigger hote hi process line breaker trip execute karte hain.\n* **Purpose:** Iska essential objective water treatment system ke **Neutralization Pump #01** ki mechanical drive ko line short-circuits aur damage factors se save rakhna hai.\n"
+        }
+      ],
+      "instructionBlocks": [
+        {
+          "id": "17838749334030.1799274460725315",
+          "type": "text",
+          "value": "1. Move the mechanical power switch handle directly into the vertical clear isolation position.\n2. Disengage side track mounting alignment clips to pull the draw-out unit out onto inspection rails.\n3. Inspect internal connector line screws for loose links to avoid thermal tracking degradation faults.\n4. Wipe the control display matrix facade clean using clean specialized antistatic brushes.\n"
+        },
+        {
+          "id": "17838749472590.061639775687906496",
+          "type": "text",
+          "value": "* > ⚠️ **==WARNING: CHEMICAL AREA AUXILIARY LOOP==** — Auxiliary signal circuits might carry live voltages from the main PLC cabinet line setup even with the main breaker handle off.\n* > 🛑 **Do not use liquid cleaning chemicals or sprays** directly over open instrumentation faceplates.\n"
+        }
+      ]
+    },
+    {
+      "id": 1783875049941,
+      "asset_number": "24",
+      "name": "==L.P D.M PUMP==",
+      "title": "",
+      "model": "* **Model:** MNS High-Capacity Feeder Starter Module\n* **Associated Name Tag:** ==L.P D.M PUMP==",
+      "status": "Working",
+      "linkedAssets": [],
+      "descriptionBlocks": [
+        {
+          "id": "17838749839170.263765392496645",
+          "type": "text",
+          "value": "* **Asset Number:** RO-MNS-LPDMP-01\n* **Operational Voltage / Frequency:** **380V AC / 50Hz**\n* **Component Layout:** 1 Ergonomic Rotary Switch Break Link, 1 High-resolution Digital Multi-meter Panel, 4 Signal Status LED Lamps (Run/Fault indexes)\n* **Cabinet Location:** Column 4302 - Drawer Position 4\n"
+        },
+        {
+          "id": "17838750226390.18043448400795553",
+          "type": "text",
+          "value": "* **Working:** Module demineralized low-pressure transport pumps operate karne ke liye large current starter paths utilize karta hai. Integrated thermal overload protection links line line load shiftings capture karte hain aur current limits verify karke dynamic operations limit lines block karte hain.\n* **Purpose:** Iska absolute purpose **Low Pressure Demineralized (D.M.) Water Pump** motor ko balanced three-phase power flow feed karna aur thermal over-current damages completely arrest karna hai.\n"
+        }
+      ],
+      "instructionBlocks": [
+        {
+          "id": "17838750265370.16074220263344605",
+          "type": "text",
+          "value": "1. Confirm with the water plant operations station before performing manual isolation on this module loop.\n2. Turn the power handle lock setup clear and translate the draw-out unit outwards along standard slide guides.\n3. Scan rear contact jaw clips to check for potential structural distortion or contact erosion signs.\n4. Test secondary display illumination functionality by cross-checking main feeder active parameter values.\n"
+        },
+        {
+          "id": "17838750377950.038835765682087485",
+          "type": "text",
+          "value": "* > ⚠️ **==DANGER: COMPARTMENT INTERLOCK ARREST==** — Forcing the structural frame slider outwards with maximum physical load while the switch is ON will break the safety mechanical interlocks.\n* > 🛑 **Never apply uncalibrated replacement electrical fuses** inside primary power control loop connections.\n"
+        }
+      ]
+    },
+    {
+      "id": 1783875139457,
+      "asset_number": "25",
+      "name": "==I.W.P 1==",
+      "title": "",
+      "model": "* **Model:** MNS Modular Distribution Motor Starter\n* **Associated Name Tag:** ==I.W.P 1==",
+      "status": "Working",
+      "linkedAssets": [],
+      "descriptionBlocks": [
+        {
+          "id": "17838750806480.6918040902041427",
+          "type": "text",
+          "value": "* **Asset Number:** RO-MNS-IWP-01\n* **Operational Voltage / Frequency:** **380V AC / 50Hz**\n* **Component Layout:** 1 Rugged Operation Selector Handle, 1 Multifunction Digital Processor Screen, 4 Small Functional Running Indication Lamps\n* **Cabinet Location:** Column 4302 - Drawer Position 5 (Second From Bottom)\n"
+        },
+        {
+          "id": "17838751001180.1975272210663056",
+          "type": "text",
+          "value": "* **Working:** Industrial process loop feeds ko power up karne ke liye yeh system local contact links toggle karta hai. Dynamic thermal curve matrix line diagnostics control magnetic switches use karti hain taake system load parameters balanced state mein operate hote rahein.\n* **Purpose:** Iska ultimate duty raw chemical processing loops ke **Industrial Water Pump #1** motor network ko complete phase loss safety parameters block distribution faraham karna hai.\n"
+        }
+      ],
+      "instructionBlocks": [
+        {
+          "id": "17838751036150.6180216169058088",
+          "type": "text",
+          "value": "1. Isolate the operational loop system by moving the manual rotary toggle switch completely down.\n2. Pull and slide the operational chassis tray assembly smooth rail format outwards into check configuration.\n3. Verify that the main core protection relays match default current parameters set on the engineering logs.\n4. Clean the external switch faceplates using high-quality specialized electronic component dry wipes.\n"
+        },
+        {
+          "id": "17838751270990.7514254855336707",
+          "type": "text",
+          "value": "* > ⚠️ **==WARNING: UTILITY SYSTEM PRESSURE LINK==** — Pump lines hold high dynamic physical pressures; ensure both hydraulic and electrical isolation steps clear out before diagnostic check loops.\n* > 🛑 **Do not bridge output contacts** or use secondary terminal bypass configurations.\n"
+        }
+      ]
+    },
+    {
+      "id": 1783875212957,
+      "asset_number": "26",
+      "name": "==H.P D.M PUMP #1==",
+      "title": "",
+      "model": "* **Model:** MNS High-Performance Motor Control Starter Unit\n* **Associated Name Tag:** ==H.P D.M PUMP #1==",
+      "status": "Working",
+      "linkedAssets": [],
+      "descriptionBlocks": [
+        {
+          "id": "17838751608420.5101368201821744",
+          "type": "text",
+          "value": "* **Asset Number:** RO-MNS-HPDMP-01\n* **Operational Voltage / Frequency:** **380V AC / 50Hz**\n* **Component Layout:** 1 Heavy Industrial Rotary Handle Switch, 1 High-accuracy Digital Analysis Interface Unit, 4 Multi-state Status LED Monitoring Windows\n* **Cabinet Location:** Column 4302 - Drawer Position 6 (Floor Level Base Position)\n"
+        },
+        {
+          "id": "17838751777480.08845573856726247",
+          "type": "text",
+          "value": "* **Working:** High pressure systems ko channelize karne ke liye yeh lower unit massive current loop starter sequences handle karti hai. Advanced micro-relays line fluctuations aur short overload surges trace karke protective latch switches instantly run karti hain line drop scenarios bypass karne ke liye.\n* **Purpose:** Iska main purpose high-capacity **High Pressure Demineralized (D.M.) Water Pump** drive ko voltage dips aur single-phasing problems se permanent structural shield faraham karna hai.\n"
+        }
+      ],
+      "instructionBlocks": [
+        {
+          "id": "17838751823310.49716586099744753",
+          "type": "text",
+          "value": "1. Clean surrounding base platform clear areas thoroughly before opening floor tier mechanism lockers.\n2. Turn off core run commands and rotate the industrial handle loop right into absolute horizontal reset layout.\n3. Track and pull out the slider block tray frame carefully to vacuum deep dust layers trapped beneath.\n4. Scan the main block primary clip jaw structures to verify perfect spring retention balance profiles.\n"
+        },
+        {
+          "id": "17838751930860.578951617907132",
+          "type": "text",
+          "value": "* > ⚠️ **==DANGER: MAXIMUM INDUCTIVE KICKBACKS==** — High pressure pumps possess extreme magnetic feedback; ensure complete earth structural loop grounding links before touch diagnostics.\n* > 🛑 **Never try manual drawer adjustments** during high-pressure pump auto processing execution loops.\n"
+        }
+      ]
+    },
+    {
+      "id": 1783875647649,
+      "asset_number": "27",
+      "name": "==Feeder Module 4303 - Top Position==",
+      "title": "",
+      "model": "* **Model:** MNS Modular Distribution Draw-out Unit (Size 1)\n* **Associated Name Tag:** ==Feeder Module 4303 - Top Position==",
+      "status": "Working",
+      "linkedAssets": [],
+      "descriptionBlocks": [
+        {
+          "id": "17838755757460.12692610599260187",
+          "type": "text",
+          "value": "* **Asset Number:** RO-MNS-4303-FDR01\n* **Operational Voltage / Frequency:** **380V AC / 50Hz**\n* **Component Layout:** 1 Rotary Switch Handle, 1 Digital Parameter Controller, 3 LED Status Pilot Lamps (Red/Green/Yellow)\n* **Chassis Status:** Sliding draw-out chassis module (Position: Top Tier)\n"
+        },
+        {
+          "id": "17838755875380.7171120621157233",
+          "type": "text",
+          "value": "* **Working:** Yeh modular drawer container internal vertical main busbar line se incoming supply circuit manage karta hai. Iska front operational loop mechanical switch parameters control karta hai aur real-time diagnostics process monitor karta hai.\n* **Purpose:** Iska primary function process line components ko stable incoming utility branches distribute aur terminate karna hai.\n"
+        }
+      ],
+      "instructionBlocks": [
+        {
+          "id": "17838756047250.17710591346593915",
+          "type": "text",
+          "value": "1. Safely turn off downstream terminal loads before operating the dynamic front rotary handle.\n2. Translate the switch completely to the vertical OFF coordinate checkpoint to break load arcs.\n3. Release the primary mechanical safety track clips to draw out the modular chassis tray assembly.\n4. Clean the external meter display windows using specialized anti-static dry cleaning cloths.\n"
+        },
+        {
+          "id": "17838756142190.0644000336339034",
+          "type": "text",
+          "value": "* > ⚠️ **==DANGER: HIGH FLASH VOLTAGE==** — Do not perform structural removal or alignment adjustments if monitoring lamps indicate continuous heavy loop loading.\n* > 🛑 **Never use conductive utility cleaning sprays** over exposed micro-controller faceplates.\n"
+        }
+      ]
+    },
+    {
+      "id": 1783875727473,
+      "asset_number": "28",
+      "name": "==Raw Water pump#02==",
+      "title": "",
+      "model": "* **Model:** MNS Modular Motor Starter Draw-out Unit\n* **Associated Name Tag:** ==Raw Water pump#02==",
+      "status": "Working",
+      "linkedAssets": [],
+      "descriptionBlocks": [
+        {
+          "id": "17838756734610.34667633123558894",
+          "type": "text",
+          "value": "* **Asset Number:** RO-MNS-RWP-02\n* **Operational Voltage / Frequency:** **380V AC / 50Hz**\n* **Component Layout:** 1 Rotary Operating Switch Handle, 1 Digital Multifunction Parameter Controller LCD, 4 LED Pilot Lamps (Run, Stop, Trip, Source)\n* **Chassis Status:** Draw-out module with mechanical position indicators (IN / OUT / TEST)\n"
+        },
+        {
+          "id": "17838756897160.709196547073581",
+          "type": "text",
+          "value": "* **Working:** Yeh module water treatment process control systems se dynamic commands receive karta hai. Enclosure magnetic switch link raw water pumping configuration control karta hai, aur built-in current relays continuous line fluctuations tracking provide karti hain.\n* **Purpose:** Iska direct task line loops aur motor blocks ko save rakhna aur **Raw Water Pump #02** ko continuous loop supply ensure karna hai.\n"
+        }
+      ],
+      "instructionBlocks": [
+        {
+          "id": "17838757047380.13922581037079929",
+          "type": "text",
+          "value": "1. Ensure the hydraulic lines are safe and pump motor is offline before changing the switch position.\n2. Move the front selector switch loop directly into the horizontal reset or absolute OFF latch format.\n3. Unlock the mechanical slider safety bracket to smoothly extract the sliding compartment.\n4. Vacuum out fine atmospheric dust settlements from interior relay contact components.\n"
+        },
+        {
+          "id": "17838757163140.1288638003237719",
+          "type": "text",
+          "value": "* > ⚠️ **==DANGER: HIGH CURRENT TERMINALS==** — Never pull or rack-out the active module drawer frame while active status signaling indicators reflect ongoing motor loads.\n* > 🛑 **Do not manipulate internal overload current settings** without precise engineering specifications matching logs.\n"
+        }
+      ]
+    },
+    {
+      "id": 1783875825504,
+      "asset_number": "29",
+      "name": "==Neutralization pump#02==",
+      "title": "",
+      "model": "* **Model:** MNS Modular Motor Starter Draw-out Unit\n* **Associated Name Tag:** ==Neutralization pump#02==",
+      "status": "Working",
+      "linkedAssets": [],
+      "descriptionBlocks": [
+        {
+          "id": "17838757499570.27963313961144703",
+          "type": "text",
+          "value": "* **Asset Number:** RO-MNS-NZP-02\n* **Operational Voltage / Frequency:** **380V AC / 50Hz**\n* **Component Layout:** 1 Heavy Rotary Disconnect Handle, 1 Programmable Parameter Screen Interface, 4 Multi-colored Control Signal LED Indicator Windows\n* **Chassis Status:** Drawer type with mechanical interlocking sliders\n"
+        },
+        {
+          "id": "17838757872960.17606656718591993",
+          "type": "text",
+          "value": "* **Working:** Feeder chemical processing loops ke local dosing parameters control karta hai. Internal short-circuit relay curves aur over-temperature monitor sensors line faults track karte hain aur parameters unbalanced paaye jaane par starter connection immediately cut-off karte hain.\n* **Purpose:** Iska baseline function water treatment plant ke **Neutralization Pump #02** mechanical system ko overload conditions aur phase damage elements se save rakhna hai.\n"
+        }
+      ],
+      "instructionBlocks": [
+        {
+          "id": "17838757995710.05201382522951649",
+          "type": "text",
+          "value": "1. Set the primary mechanical disconnect handle right into the absolute isolation vertical coordinate point.\n2. Press down sliding rail mounting clips to slowly extract the unit onto safety maintenance arms.\n3. Check internal line termination loop screw connections for trace wear or localized high heat oxidation marks.\n4. Wipe diagnostic screen surfaces clean with dry clean anti-static utility brushes.\n"
+        },
+        {
+          "id": "17838758097250.6298152046561762",
+          "type": "text",
+          "value": "* > ⚠️ **==WARNING: EXTRA VOLTAGE FEED LOOPS==** — Secondary loop signal fuses are capable of keeping active potentials active even when the primary door handle disconnect is deactivated.\n* > 🛑 **Never apply direct water or conductive cleaning items** on or near open faceplates.\n"
+        }
+      ]
+    },
+    {
+      "id": 1783875910177,
+      "asset_number": "30",
+      "name": "==Feeder Module 4303 - Slot Position 4==",
+      "title": "",
+      "model": "* **Model:** MNS Low-Voltage Feeder Starter Module\n* **Associated Name Tag:** ==Feeder Module 4303 - Slot Position 4==",
+      "status": "Working",
+      "linkedAssets": [],
+      "descriptionBlocks": [
+        {
+          "id": "17838758519850.20028808684770782",
+          "type": "text",
+          "value": "* **Asset Number:** RO-MNS-4303-FDR04\n* **Operational Voltage / Frequency:** **380V AC / 50Hz**\n* **Component Layout:** 1 Ergonomic Rotary Switch Break Link, 1 High-resolution Digital Multi-meter Panel, 4 Signal Status LED Lamps (Run/Fault indexes)\n* **Cabinet Location:** Column 4303 - Compartment Level Tier 4\n"
+        },
+        {
+          "id": "17838758662240.9245632827173851",
+          "type": "text",
+          "value": "* **Working:** Central structural compartment main lines se stable incoming link power manage karta hai. Continuous microprocessor loop elements process signals read karte hain aur internal breakers emergency triggers handle karte hain structural damages avoid karne ke liye.\n* **Purpose:** Iska specific function line loops ko balanced input current ratios distribute karna aur stable operations coordinate rakhna hai.\n"
+        }
+      ],
+      "instructionBlocks": [
+        {
+          "id": "17838758815630.0784311691960794",
+          "type": "text",
+          "value": "1. Check that the current indicators and telemetry lights align with actual station process demands.\n2. Pull out the drawer chassis frame cleanly into test or maintenance track intervals.\n3. Run inspection loops over internal terminal layout contact plates to look for carbon layers.\n4. Keep the frame structural boundary fields clean of dust or loose metallic components.\n"
+        },
+        {
+          "id": "17838758979520.23609906418024967",
+          "type": "text",
+          "value": "* > ⚠️ **==DANGER: RACKING FORCE PROTECTION==** — Trying to forcefully drive or extract the slider system frame while the switch stays ON will destroy internal interlocking mechanisms.\n* > 🛑 **Never bridge primary connector loops** or use manual temporary link bypass options.\n"
+        }
+      ]
+    },
+    {
+      "id": 1783875983359,
+      "asset_number": "31",
+      "name": "==I.W.P #2==",
+      "title": "",
+      "model": "* **Model:** MNS Modular Distribution Motor Starter\n* **Associated Name Tag:** ==I.W.P #2==",
+      "status": "Working",
+      "linkedAssets": [],
+      "descriptionBlocks": [
+        {
+          "id": "17838759393420.1749325602198153",
+          "type": "text",
+          "value": "* **Asset Number:** RO-MNS-IWP-02\n* **Operational Voltage / Frequency:** **380V AC / 50Hz**\n* **Component Layout:** 1 Rugged Operation Selector Handle, 1 Technical Multi-meter Display Screen, 4 Functional LED Runtime Pilot Indicators\n* **Cabinet Location:** Column 4303 - Drawer Position 5 (Second From Bottom)\n"
+        },
+        {
+          "id": "17838759535460.13741110869564657",
+          "type": "text",
+          "value": "* **Working:** Unit industrial line utility networks ko high starting load execution capacity faraham karti hai. Internal protection starter contact plates local input paths drive karti hain aur safety triggers short phase loss loops instantly handle karti hain.\n* **Purpose:** Iska mandatory target plant processing units ke **Industrial Water Pump #2** motor network ko complete multi-phase loop stability protection dena hai.\n"
+        }
+      ],
+      "instructionBlocks": [
+        {
+          "id": "17838759638390.9478447151688504",
+          "type": "text",
+          "value": "1. Move the manual toggle operating handle completely into the bottom absolute safe isolation level.\n2. Smoothly track the slider assembly drawer clear of structural vertical busbar connection contacts.\n3. Check and confirm that the primary starter loop contacts are clear of arcing pitting defects.\n4. Clean down external faceplate elements with standard specialized non-conductive electrical wipes.\n"
+        },
+        {
+          "id": "17838759734320.47954849635004776",
+          "type": "text",
+          "value": "* > ⚠️ **==WARNING: HIGH LINE HYDRAULIC PRESSURE==** — Associated pump structures carry high kinetic liquid pressures; run both electrical switches and gate valves isolation before entry checkpoints.\n* > 🛑 **Do not use temporary jumper configurations** over active phase protective relays.\n"
+        }
+      ]
+    },
+    {
+      "id": 1783876064722,
+      "asset_number": "32",
+      "name": "==H.P D.M PUMP #2==",
+      "title": "",
+      "model": "* **Model:** MNS High-Performance Motor Control Starter Unit\n* **Associated Name Tag:** ==H.P D.M PUMP #2==",
+      "status": "Working",
+      "linkedAssets": [],
+      "descriptionBlocks": [
+        {
+          "id": "17838760152850.13659346053102622",
+          "type": "text",
+          "value": "* **Asset Number:** RO-MNS-HPDMP-02\n* **Operational Voltage / Frequency:** **380V AC / 50Hz**\n* **Component Layout:** 1 Heavy Industrial Rotary Handle Switch, 1 High-accuracy Digital Analysis Interface Unit, 4 Multi-state Status LED Monitoring Windows\n* **Cabinet Location:** Column 4303 - Drawer Position 6 (Floor Base Level)\n"
+        },
+        {
+          "id": "17838760276270.5240897185279466",
+          "type": "text",
+          "value": "* **Working:** High pressure flow delivery modules handle karne ke liye yeh heavy module massive power start-stop operations operate karta hai. Advanced current detection matrices local surge spikes check karti hain aur instant contact break logic run karti hain parameters deviation cross karte hi.\n* **Purpose:** Iska direct application high-load **High Pressure Demineralized (D.M.) Water Pump #02** drive system ko temporary line voltage dips aur severe terminal failures se complete safety bracket dena hai.\n"
+        }
+      ],
+      "instructionBlocks": [
+        {
+          "id": "17838760395350.9015389098586994",
+          "type": "text",
+          "value": "1. Clear external floor boundaries block spaces clean before moving the lowest layer compartment framework.\n2. Shut down running motor commands completely and rotate the main operational switch handle into right horizontal format.\n3. Slide the lower structural drawer frame outward along guides to inspect primary jaw connections.\n4. Check internal transformer wiring paths inside the module to avoid single-phase operational tracking errors.\n"
+        },
+        {
+          "id": "17838760611550.17829672689197756",
+          "type": "text",
+          "value": "* > ⚠️ **==DANGER: INDUCTIVE DISCHARGE RISKS==** — High performance water pumps deliver extreme backward inductive feedback spikes; use tested grounding links before diagnostic check tasks.\n* > 🛑 **Do not attempt running drawer mechanical alterations** while the system controller is working inside active processing cycles.\n"
+        }
+      ]
+    },
+    {
+      "id": 1783876279017,
+      "asset_number": "33",
+      "name": "==MNS Cabinet 4305 - Upper Indication Block==",
+      "title": "",
+      "model": "* **Model:** Low-Voltage Control, Monitoring & Climate Signaling Frame\n* **Panel Reference Name:** ==MNS Cabinet 4305 - Upper Indication Block==",
+      "status": "Working",
+      "linkedAssets": [],
+      "descriptionBlocks": [
+        {
+          "id": "17838762342320.26799782100642655",
+          "type": "text",
+          "value": "* **Asset Number:** RO-MNS-4305-IND\n* **Signaling Interface Nodes:** 4 Colored High-visibility LED Pilot Lamps\n* **Status Labels:** Tripping Signal (Green), Tripping (Red), Closing Signal (Red), Closing (Green)\n* **Climate Controller Unit:** KD-NLX Suzhou China Analog Dew / Temperature Switch Dial\n* **Primary Processor Monitor:** 1 Micro-controller Digital Display Panel with Menu Interface Keys\n"
+        },
+        {
+          "id": "17838762451410.6301246894262452",
+          "type": "text",
+          "value": "* **Working:** Yeh display block breaker status parameters aur enclosure parameters ko monitor karta hai. Lamp sets sequence loops trigger karte hain breaker state show karne ke liye, jabki internal embedded heater relay system panels ke andar air dampness aur target temperatures balance maintain rakhta hai condensation faults trace down karne ke liye.\n* **Purpose:** Iska essential objective switchgear environment variable parameter trends local displays par monitor karna aur operators ko circuit operations logic status path check dena hai.\n"
+        }
+      ],
+      "instructionBlocks": [
+        {
+          "id": "17838762555830.46110087761481366",
+          "type": "text",
+          "value": "1. Confirm that all four status indicator lamps are active and working accurately alongside the breaker physical alignment status.\n2. Turn the analog dial on the KD-NLX unit to verify smooth spring contact activation inside the climate tracking module.\n3. Check and clean the glass viewing screen area over the central digital tracking module.\n4. Open the wiring bay door to inspect secondary signaling terminations for loose connection screws.\n"
+        },
+        {
+          "id": "17838762654090.8250185577536316",
+          "type": "text",
+          "value": "* > ⚠️ **==WARNING: INTERLOCK SENSING VOLTAGE==** — Back-end termination layouts hold persistent auxiliary current pathways; use non-conductive tools during diagnostic checks.\n* > 🛑 **Never recalibrate or modify thermal dial parameters** without matching core plant environment log metrics.\n"
+        }
+      ]
+    },
+    {
+      "id": 1783876365023,
+      "asset_number": "34",
+      "name": "==ETU35WT Electronic Trip Unit Display==",
+      "title": "",
+      "model": "* **Model:** Siemens 3WT8 Air Circuit Breaker (ACB)\n* **Protective Core Processor:** ==ETU35WT Electronic Trip Unit Display==",
+      "status": "Working",
+      "linkedAssets": [],
+      "descriptionBlocks": [
+        {
+          "id": "17838763062500.4049263828593796",
+          "type": "text",
+          "value": "* **Asset Number:** RO-MNS-4305-ACB\n* **Continuous Nominal Current ($I_n$ max):** **1000 A**\n* **Rated Operational Voltage ($U_e$):** **500 V**\n* **Rated Short-Circuit Breaking Capacity ($I_{cs}$):** **66 kA**\n* **Winding Control Mechanics:** Dynamic Manual Spring-Charging Lever System with local mechanical action flags (Ready / Spring Charged)\n* **Protective Relay Settings Dials:** Rotary overload ($I_r$) and short-circuit instantaneous trip ($I_i$) parameter matrices\n"
+        },
+        {
+          "id": "17838763200550.36290309267974136",
+          "type": "text",
+          "value": "* **Working:** Switch links open aur close loop networks toggle karne ke liye air arc-chute grids aur copper contacts engage karte hain. Main micro-controller unit (ETU35WT) real-time line phase shifts evaluate karti hai aur custom current saturation scales reach hote hi protection linkages immediate command signal bhej kar line isolate kar dete hain.\n* **Purpose:** Iska absolute task incoming transformer links safely terminate karna aur low-voltage utility distribution networks ko heavy ==overload arcs aur systematic short-circuits damage protection== dena hai.\n"
+        }
+      ],
+      "instructionBlocks": [
+        {
+          "id": "17838763336120.5697102128433428",
+          "type": "text",
+          "value": "1. Check that the downstream process blocks are neutral before pulling the operational breaker linkage lever framework.\n2. Cycle the mechanical manual close/open trip push-buttons to verify spring storage operational transition speeds.\n3. Slide the chassis outer assembly forward onto maintenance rails to check target jaw clusters layout alignment parameters.\n4. Clean down the main dynamic circuit breaker arc-chutes area using clean localized vacuum tool extractors.\n"
+        },
+        {
+          "id": "17838763466190.02925608133267845",
+          "type": "text",
+          "value": "* > ⚠️ **==DANGER: EXTREME SHORT CIRCUIT ARCS==** — Mechanical isolation adjustments during live active feed operations carry dangerous high energy hazard trajectories; execute isolation commands strictly under verified engineering permits.\n* > 🛑 **Do not manually operate or slide guide framework slots** if the visual indicator status reflects a sealed closed contact status loop.\n"
+        }
+      ]
+    },
+    {
+      "id": 1783876582686,
+      "asset_number": "35",
+      "name": "==N.B. INDUSTRIES (PVT) LTD - Local Pump Control Panel==",
+      "title": "",
+      "model": "* **Model:** Local Relay Automation & Pump Monitoring Enclosure\n* **Panel Reference Name:** ==N.B. INDUSTRIES (PVT) LTD - Local Pump Control Panel==",
+      "status": "Working",
+      "linkedAssets": [],
+      "descriptionBlocks": [
+        {
+          "id": "17838765385840.3860818093287364",
+          "type": "text",
+          "value": "* **Asset Number:** RO-NBI-LCP01\n* **Operational Signaling Matrix:** 3 Rotary Manual Operation Selector Knobs, 12 Custom LED Pilot Status Indicators (Balanced Columns)\n* **Dedicated Load Identifiers:** H.R Pump #01 (High Recovery / Heat Recovery Pump 1) & H.R Pump #02 (High Recovery / Heat Recovery Pump 2)\n* **Manufacturer:** N.B. INDUSTRIES (PVT) LTD (Lahore, Pakistan)\n"
+        },
+        {
+          "id": "17838765416990.12918287622747784",
+          "type": "text",
+          "value": "* **Working:** Yeh standalone automation matrix secondary loop parameters manage karta hai. Front panel par maujood selection toggles loops ko automatic system feedback switches ya absolute localized manual run commands par drive karte hain, jabki run-trip matrix columns pumps ki physical contactor alignment confirm rakhte hain.\n* **Purpose:** Iska primary baseline function water treatment system ke critical **High Recovery Pumps (H.R Pumps)** ki synchronization telemetry, control selections, aur fault monitoring manage karna hai.\n"
+        }
+      ],
+      "instructionBlocks": [
+        {
+          "id": "17838765583700.741891597663633",
+          "type": "text",
+          "value": "1. Inspect the visual indicator alignment grids to verify color feedback circuits function normally without display dimming.\n2. Verify structural terminal tightness for internal relay linkages behind the faceplate framing blocks.\n3. Test physical continuity for manual selector toggles across alternative loop operational coordinates during active shifts.\n4. Clean dirt accumulations away from tracking boundaries using non-abrasive industrial equipment wipes.\n"
+        },
+        {
+          "id": "17838765718110.3803578683239517",
+          "type": "text",
+          "value": "* > ⚠️ **==WARNING: LOW VOLTAGE TELEMETRY ARCING==** — Control tracks terminate automatic system signaling feedback from remote automation centers; isolate secondary control inputs before touch actions.\n* > 🛑 **Never clean localized switch layers or faceplate sheets** using damp conductive rags.\n"
+        }
+      ]
+    },
+    {
+      "id": 1783876731016,
+      "asset_number": "36",
+      "name": "**Cabinet Structural Frame Enclosure:**",
+      "title": "",
+      "model": "* **Model:** GCK Series Low-Voltage Power Supply Switchgear Assembly\n* **Cabinet Structural Frame Enclosure:** ==800mm × 800mm × 2000mm==",
+      "status": "Working",
+      "linkedAssets": [],
+      "descriptionBlocks": [
+        {
+          "id": "17838766238070.561321850921983",
+          "type": "text",
+          "value": "* **Asset Number:** RO-GCK-PND02\n* **Enclosure Factory Series Identifiers:** Tank A (No. 2015061510) & Tank B (No. 2015061511)\n* **Fascia Parameter Gauges:** 1 Analog AC Voltmeter ($0-450\\text{ V}$ Grid Range), 1 Red Three-Phase Measuring Switch, 3 Analog AC Ammeters ($0-800\\text{ A}$ Core Continuous Loading Arrays)\n* **Downstream Sub-Feeder Circuits:** 2nd Stage RO Power Line, Heat Recovery System Main Breaker Link\n* **Manufacturing Profile:** June 2015 by Changzhou Xin Jiangnan Energy Equipment Co., Ltd.\n"
+        },
+        {
+          "id": "17838766937760.37022771161273416",
+          "type": "text",
+          "value": "* **Working:** GCK frame heavy structural switch configurations block power lines distribute karne ke liye apply karta hai. Front layer phase selectors main voltmeter nodes coordinate karte hain different lines ka voltage evaluation clear rakhne ke liye, aur built-in breakers secondary distribution tracks (2nd RO and Heat Recovery networks) ko automatic overcurrent trip safety loops provide karte hain.\n* **Purpose:** Is panel line container ka essential mission main plant sub-process systems, jaise **2nd Stage Reverse Osmosis System** aur **Heat Recovery Units**, ko continuous power inputs deliver aur isolate karna hai.\n"
+        }
+      ],
+      "instructionBlocks": [
+        {
+          "id": "17838767106450.026535590120119863",
+          "type": "text",
+          "value": "1. Cycle the red manual phase tracking switch block to confirm voltage values balance normally across UCA, UAB, and UBC scales.\n2. Check continuous electrical current tracking parameters over the three 0-800A ammeters to confirm load symmetries.\n3. Confirm that modular mechanical toggle linkages smoothly shift coordinates into dynamic break states.\n4. Clean and clear interior distribution busbar bays using specialized clean industrial vacuum tools during shutdown blocks.\n"
+        },
+        {
+          "id": "17838767212050.44689169622363734",
+          "type": "text",
+          "value": "* > ⚠️ **==DANGER: HEAVY CURRENT DISCHARGE PANELS==** — High current loading scales require tight insulation tolerances; thermal checks over internal termination layers must stay regular to avoid fatal flashover accidents.\n* > 🛑 **Never perform operational adjustments over main sub-feeders** without validating load capacity limits with plant operations controllers.\n"
         }
       ]
     }
