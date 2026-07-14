@@ -1,11 +1,7 @@
 {
-  "success": true,
-  "version": 2,
-  "exported_at": "2026-07-10T12:59:51.238Z",
   "images": [
     {
       "asset_id": 1783310471987,
-      "asset_number": "10.001",
       "blocks": [
         {
           "id": "1783310495642fqn07r",
@@ -15,7 +11,6 @@
     },
     {
       "asset_id": 1783319512920,
-      "asset_number": "11",
       "blocks": [
         {
           "id": "1783319510548mehgjp",
