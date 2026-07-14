@@ -1,0 +1,39 @@
+{
+  "data": [
+    {
+      "id": 1783876365023,
+      "asset_number": "34",
+      "section": "Ro",
+      "section_id": 2,
+      "name": "==ETU35WT Electronic Trip Unit Display==",
+      "title": "",
+      "model": "* **Model:** Siemens 3WT8 Air Circuit Breaker (ACB)\n* **Protective Core Processor:** ==ETU35WT Electronic Trip Unit Display==",
+      "status": "Working",
+      "descriptionBlocks": [
+        {
+          "id": "17838763062500.4049263828593796",
+          "type": "text",
+          "value": "* **Asset Number:** RO-MNS-4305-ACB\n* **Continuous Nominal Current ($I_n$ max):** **1000 A**\n* **Rated Operational Voltage ($U_e$):** **500 V**\n* **Rated Short-Circuit Breaking Capacity ($I_{cs}$):** **66 kA**\n* **Winding Control Mechanics:** Dynamic Manual Spring-Charging Lever System with local mechanical action flags (Ready / Spring Charged)\n* **Protective Relay Settings Dials:** Rotary overload ($I_r$) and short-circuit instantaneous trip ($I_i$) parameter matrices\n"
+        },
+        {
+          "id": "17838763200550.36290309267974136",
+          "type": "text",
+          "value": "* **Working:** Switch links open aur close loop networks toggle karne ke liye air arc-chute grids aur copper contacts engage karte hain. Main micro-controller unit (ETU35WT) real-time line phase shifts evaluate karti hai aur custom current saturation scales reach hote hi protection linkages immediate command signal bhej kar line isolate kar dete hain.\n* **Purpose:** Iska absolute task incoming transformer links safely terminate karna aur low-voltage utility distribution networks ko heavy ==overload arcs aur systematic short-circuits damage protection== dena hai.\n"
+        }
+      ],
+      "instructionBlocks": [
+        {
+          "id": "17838763336120.5697102128433428",
+          "type": "text",
+          "value": "1. Check that the downstream process blocks are neutral before pulling the operational breaker linkage lever framework.\n2. Cycle the mechanical manual close/open trip push-buttons to verify spring storage operational transition speeds.\n3. Slide the chassis outer assembly forward onto maintenance rails to check target jaw clusters layout alignment parameters.\n4. Clean down the main dynamic circuit breaker arc-chutes area using clean localized vacuum tool extractors.\n"
+        },
+        {
+          "id": "17838763466190.02925608133267845",
+          "type": "text",
+          "value": "* > ⚠️ **==DANGER: EXTREME SHORT CIRCUIT ARCS==** — Mechanical isolation adjustments during live active feed operations carry dangerous high energy hazard trajectories; execute isolation commands strictly under verified engineering permits.\n* > 🛑 **Do not manually operate or slide guide framework slots** if the visual indicator status reflects a sealed closed contact status loop.\n"
+        }
+      ],
+      "linkedAssets": []
+    }
+  ]
+}
