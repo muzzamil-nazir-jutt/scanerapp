@@ -3,7 +3,6 @@
     "name": "VoltSync Mobile",
     "slug": "power-plant-tracker-mobile",
     "version": "1.0.0",
-    "sdkVersion": "51.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
@@ -37,6 +36,16 @@
         "projectId": "15b8e32b-e70b-4870-b969-db8da1ff92bb"
       }
     },
-    "owner": "muzzamil-nazir"
+    "owner": "muzzamil-nazir",
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "enableJetifier": true
+          }
+        }
+      ]
+    ]
   }
 }
