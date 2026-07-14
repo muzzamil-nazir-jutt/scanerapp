@@ -20,6 +20,7 @@ import * as ImagePicker from 'expo-image-picker';
 import * as ImageManipulator from 'expo-image-manipulator';
 import * as Print from 'expo-print';
 import * as Sharing from 'expo-sharing';
+import base64 from 'base-64';
 import * as FileSystem from 'expo-file-system/legacy'; // Fixed deprecation issue
 import QRCodeLib from 'qrcode';
 
@@ -34,6 +35,13 @@ export default function App() {
   // Navigation State
   const [activeTab, setActiveTab] = useState('list'); // 'list', 'form', 'detail'
   const [selectedAsset, setSelectedAsset] = useState(null);
+
+  const [panels, setPanels] = useState([]);
+  const [currentPanel, setCurrentPanel] = useState(null);
+  const [githubToken, setGithubToken] = useState('');
+  const [githubUser, setGithubUser] = useState('muzzamil-nazir-jutt');
+  const [githubRepo, setGithubRepo] = useState('scanerapp');
+
   
   // Form State
   const [isEditing, setIsEditing] = useState(false);
@@ -50,9 +58,7 @@ export default function App() {
   });
 
   // Load assets on mount
-  useEffect(() => {
-    loadAssets();
-  }, []);
+  
 
   // Handle Android Back Button
   useEffect(() => {
