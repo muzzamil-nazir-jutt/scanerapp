@@ -3,7 +3,7 @@
     {
       "id": 1783310471987,
       "asset_number": "10.001",
-      "section": "",
+      "section": "Ro elect room",
       "section_id": 1,
       "name": "L.V. Access Point Distribution Box (JKF3008)",
       "title": "",
@@ -37,7 +37,7 @@
     {
       "id": 1783319512920,
       "asset_number": "11",
-      "section": "",
+      "section": "Ro elect room",
       "section_id": 1,
       "name": "Honeywell SmartLine Pressure Transmitter",
       "title": "",
@@ -70,7 +70,7 @@
     {
       "id": 1783871529160,
       "asset_number": "12",
-      "section": "",
+      "section": "Ro elect room",
       "section_id": 1,
       "name": "Siemens Careco Three-Phase Dry-Type Transformer",
       "title": "",
@@ -105,7 +105,7 @@
     {
       "id": 1783872318397,
       "asset_number": "13",
-      "section": "",
+      "section": "Ro elect room",
       "section_id": 1,
       "name": "CONTROL MODULE",
       "title": "",
@@ -140,7 +140,7 @@
     {
       "id": 1783872497367,
       "asset_number": "14",
-      "section": "",
+      "section": "Ro elect room",
       "section_id": 1,
       "name": "Siemens breaker module.",
       "title": "",
@@ -175,7 +175,7 @@
     {
       "id": 1783873074077,
       "asset_number": "15",
-      "section": "",
+      "section": "Ro elect room",
       "section_id": 1,
       "name": "Cabinet panel",
       "title": "",
@@ -194,7 +194,7 @@
     {
       "id": 1783873401599,
       "asset_number": "16",
-      "section": "",
+      "section": "Ro elect room",
       "section_id": 1,
       "name": "==Feeder Module 1 - Top Position==",
       "title": "",
@@ -229,7 +229,7 @@
     {
       "id": 1783873606390,
       "asset_number": "17",
-      "section": "",
+      "section": "Ro elect room",
       "section_id": 1,
       "name": "==Feeder Module 2 - Upper Center==",
       "title": "",
@@ -264,7 +264,7 @@
     {
       "id": 1783873834221,
       "asset_number": "18",
-      "section": "",
+      "section": "Ro elect room",
       "section_id": 1,
       "name": "==Feeder Module 3 - Center Slot==",
       "title": "",
@@ -299,7 +299,7 @@
     {
       "id": 1783873998464,
       "asset_number": "19",
-      "section": "",
+      "section": "Ro elect room",
       "section_id": 1,
       "name": "==Feeder Module 4 - Lower Center==",
       "title": "",
@@ -334,7 +334,7 @@
     {
       "id": 1783874115815,
       "asset_number": "20",
-      "section": "",
+      "section": "Ro elect room",
       "section_id": 1,
       "name": "==Feeder Module 5 - Floor Position==",
       "title": "",
@@ -369,7 +369,7 @@
     {
       "id": 1783874778963,
       "asset_number": "21",
-      "section": "",
+      "section": "Ro elect room",
       "section_id": 1,
       "name": "==Feeder Module 4302 - Top Slot==",
       "title": "",
@@ -404,7 +404,7 @@
     {
       "id": 1783874861757,
       "asset_number": "22",
-      "section": "",
+      "section": "Ro elect room",
       "section_id": 1,
       "name": "==Raw Water pump#01==",
       "title": "",
@@ -439,7 +439,7 @@
     {
       "id": 1783874956271,
       "asset_number": "23",
-      "section": "",
+      "section": "Ro elect room",
       "section_id": 1,
       "name": "=Neutralization pump#01==",
       "title": "",
@@ -474,7 +474,7 @@
     {
       "id": 1783875049941,
       "asset_number": "24",
-      "section": "",
+      "section": "Ro elect room",
       "section_id": 1,
       "name": "==L.P D.M PUMP==",
       "title": "",
@@ -509,7 +509,7 @@
     {
       "id": 1783875139457,
       "asset_number": "25",
-      "section": "",
+      "section": "Ro elect room",
       "section_id": 1,
       "name": "==I.W.P 1==",
       "title": "",
@@ -544,7 +544,7 @@
     {
       "id": 1783875212957,
       "asset_number": "26",
-      "section": "",
+      "section": "Ro elect room",
       "section_id": 1,
       "name": "==H.P D.M PUMP #1==",
       "title": "",
@@ -579,7 +579,7 @@
     {
       "id": 1783875647649,
       "asset_number": "27",
-      "section": "",
+      "section": "Ro elect room",
       "section_id": 1,
       "name": "==Feeder Module 4303 - Top Position==",
       "title": "",
@@ -614,7 +614,7 @@
     {
       "id": 1783875727473,
       "asset_number": "28",
-      "section": "",
+      "section": "Ro elect room",
       "section_id": 1,
       "name": "==Raw Water pump#02==",
       "title": "",
@@ -649,7 +649,7 @@
     {
       "id": 1783875825504,
       "asset_number": "29",
-      "section": "",
+      "section": "Ro elect room",
       "section_id": 1,
       "name": "==Neutralization pump#02==",
       "title": "",
@@ -684,7 +684,7 @@
     {
       "id": 1783875910177,
       "asset_number": "30",
-      "section": "",
+      "section": "Ro elect room",
       "section_id": 1,
       "name": "==Feeder Module 4303 - Slot Position 4==",
       "title": "",
@@ -719,7 +719,7 @@
     {
       "id": 1783875983359,
       "asset_number": "31",
-      "section": "",
+      "section": "Ro elect room",
       "section_id": 1,
       "name": "==I.W.P #2==",
       "title": "",
@@ -754,7 +754,7 @@
     {
       "id": 1783876064722,
       "asset_number": "32",
-      "section": "",
+      "section": "Ro elect room",
       "section_id": 1,
       "name": "==H.P D.M PUMP #2==",
       "title": "",
@@ -789,7 +789,7 @@
     {
       "id": 1783876279017,
       "asset_number": "33",
-      "section": "",
+      "section": "Ro elect room",
       "section_id": 1,
       "name": "==MNS Cabinet 4305 - Upper Indication Block==",
       "title": "",
@@ -824,7 +824,7 @@
     {
       "id": 1783876582686,
       "asset_number": "35",
-      "section": "",
+      "section": "Ro elect room",
       "section_id": 1,
       "name": "==N.B. INDUSTRIES (PVT) LTD - Local Pump Control Panel==",
       "title": "",
@@ -859,7 +859,7 @@
     {
       "id": 1783876731016,
       "asset_number": "36",
-      "section": "",
+      "section": "Ro elect room",
       "section_id": 1,
       "name": "**Cabinet Structural Frame Enclosure:**",
       "title": "",
