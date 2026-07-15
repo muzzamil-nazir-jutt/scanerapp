@@ -72,67 +72,35 @@
       "asset_number": "12",
       "section": "Ro elect room",
       "section_id": 1,
-      "name": "Siemens Careco Three-Phase Dry-Type Transformer",
-      "title": "",
+      "name": "Chemical House Transformer",
+      "title": "Dry-Type Cast Resin Power Transformer",
       "model": "Siemens CARECO SCB11-500/11",
       "status": "Working",
       "descriptionBlocks": [
         {
-          "id": "17838708389400.9655770460818334",
+          "id": "17840943989010.6686255573940383",
           "type": "text",
-          "value": "\n* **Rated Power (Capacity):** **500 kVA**\n* **Rated Voltage (HV/LV):** **11000 V / 400 V** (Multi-tap options: 11550V, 11275V, 11000V, 10725V, 10450V)\n* **Rated Current:** **26.2 A (High Voltage Side) / 722 A (Low Voltage Side)**\n* **Phase / Frequency:** **3-Phase / 50 Hz**\n* **Connection Symbol:** ==Dyn11==\n* **Insulation Level:** LI75AC35/AC3\n* **Thermal Class:** Class F\n* **Cooling Type:** **AN/AF** (Air Natural / Air Forced)\n* **Impedance:** **3.64%**\n* **Protection Class:** ==IP20==\n* **Total Weight:** **1750 kg**\n* **Manufacturing Year:** 2015\n* **Manufacturer:** Siemens Transformer (Guangzhou) Co., Ltd.\n"
+          "value": "### **Technical Overview**\n* **Location:** Transformer Chemical House, Power Plant\n* **Type:** Dry-Type (Cast Resin) Transformer\n* **Manufacturer:** Siemens\n* **Temperature Controller:** TECSYSTEM NT935 Temperature Monitoring Unit\n* **Main Protection / Switching:** Vacuum Circuit Breaker / LOP Panel\n\n### **Key Components Observed**\n1. **Three-Phase Windings (Coils):** High-quality cast resin encapsulated windings (red cylinders) labeled with phase terminals:\n   * **2U**\n   * **2V**\n   * **2W**\n   * **2N** (Neutral Connection)\n2. **Temperature Control Unit:** TECSYSTEM NT935 device monitors real-time temperature profiles of the windings to trigger alarm or trip commands in case of overheating.\n3. **Busbar & Cabling:** Sturdy copper/aluminum busbar linkages with color-coded insulated high-voltage terminal cables leading to the distribution panel.\n"
         },
         {
-          "id": "17838714702840.07468370148930714",
-          "type": "text",
-          "value": "* **Working:** Yeh ek **Dry-type (Cast Resin) Transformer** hai jo bina kisi oil ke chalta hai, isliye isme short-circuit ya aag lagne ka khatra bohot kam hota hai. Yeh high-voltage grid supply (11 kV) ko step down karke utility level low voltage (400 V) par lekar aata hai. Internal cooling ke liye isme automatic temperature controlled fans (AF) lagaye ja sakte hain.\n* **Purpose:** Iska main maqsad ==Transformer Chemical House== aur pure RO Plant ke low-voltage MNS/GCK distribution panels ko safe aur continuous electricity supply dena hai.\n"
+          "type": "image_ref",
+          "id": "1784094578910bqbspb"
         }
       ],
       "instructionBlocks": [
         {
-          "id": "17838715044770.6067219487550578",
+          "id": "17840944274630.3685935955356309",
           "type": "text",
-          "value": "1. **Isolate power completely** from both High-Voltage (HV) incoming breaker and Low-Voltage (LV) outgoing breaker before opening the doors.\n2. Verify that the enclosure winding temperature indicator (display controller on the side panel) is working and showing normal ambient readings.\n3. Check ventilation louvers and top enclosure vents for blockages to ensure **proper airflow (AN/AF cooling)**.\n4. ==De-dust and vacuum clean== the epoxy resin cast coils periodically using non-metallic extensions to prevent dust accumulation and flashovers.\n5. Inspect all electrical connections, grounding busbars, and cable terminations for tight torque specifications and signs of overheating.\n\n"
+          "value": "### **Standard Inspection Procedure**\n1. **Visual Health Check:** Check for any dust accumulation, cracking on the cast resin body, or signs of localized overheating at connection joints.\n2. **Temperature Controller Readings:** Verify the TECSYSTEM NT935 display regularly. Ensure the temperature remains within safe working limits and no 'Alarm' or 'Trip' indicators are active.\n3. **Cable Check:** Inspect the insulation of incoming and outgoing terminal cables (2U, 2V, 2W, 2N) for wear or physical damage.\n4. **Enclosure Security:** Keep the enclosure doors securely locked during operation due to high-voltage hazards (indicated by the Dangerous / High Voltage warnings).\n"
         },
         {
-          "id": "17838715095890.36492395949339895",
+          "id": "17840944403550.8529285575276333",
           "type": "text",
-          "value": "* > ⚠️ **==DANGER: HIGH VOLTAGE (高压危险)==** — Enclosure ke andar live parts hain. Jab tak system completely isolate aur ground na ho jaye, doors ko hargiz na kholein.\n* > 🛑 **Never bypass temperature controllers** or internal thermal relay sensors attached to the transformer core.\n* > Ensure the enclosure ground connection is physically intact before re-energizing the unit.\n"
-        }
-      ],
-      "linkedAssets": []
-    },
-    {
-      "id": 1783872318397,
-      "asset_number": "13",
-      "section": "Ro elect room",
-      "section_id": 1,
-      "name": "CONTROL MODULE",
-      "title": "",
-      "model": "* **Model:** Siemens Digital Monitoring & Control Indicator Module\n* **Panel Reference Name:** ==Siemens MCC Panel 4301 - Top Controller Module==",
-      "status": "Working",
-      "descriptionBlocks": [
-        {
-          "id": "17838721688500.9423763069045437",
-          "type": "text",
-          "value": "* **Asset Number:** RO-MCC-4301-CTRL\n* **System Type:** Low-Voltage Control, Monitoring & Signaling Unit\n* **Display Interface:** Dual Digital Micro-controller Displays (Real-time Amperes/Volts parameters)\n* **Control Interfaces:** 1 Local/Remote Manual Selector Switch, 4 Colored Status LED Pilot Lamps (Red/Green indicators)\n* **Panel Line Label:** Panel 4301 Block Link\n"
+          "value": "### 1. SAFETY & HAZARD AWARENESS (Hifazati Hidayat)\n* **High Voltage Danger:** Always treat the transformer area as highly dangerous. Do not touch or open the enclosure doors unless the system is fully de-energized, locked out, and tagged out (LOTO).\n* **Personal Protective Equipment (PPE):** Safety helmet, electrical-rated safety shoes, insulated gloves, and arc flash protective gear must be worn during any maintenance or inspection tasks.\n* **Fire Hazard Prevention:** Ensure no chemical materials, moisture, or flammable substances are stored near the \"Transformer Chemical House\" enclosure.\n\n### 2. WORKING & STANDARD OPERATING PROCEDURES (SOPs)\n* **Routine Inspection:** \n  * Check the TECSYSTEM NT935 temperature controller display daily. Normal operating temperatures must be maintained well below the preset 'Alarm' and 'Trip' thresholds.\n  * Verify that all status indicator lights (Working/Green, Maintenance/Yellow, Faulty/Red) on the main switchgear panel are functioning correctly.\n* **Dust & Ventilation Maintenance:** Dry-type transformers rely on air cooling. Periodically check that the ventilation grills on the panel doors are clear of dust, debris, or any blockages to ensure proper airflow.\n* **Emergency Shutdown:** In case of an active 'Trip' or 'Fault' signal on the temperature controller, immediately notify the control room and verify that the Vacuum Circuit Breaker (VCB) has safely tripped before investigating.\n"
         },
         {
-          "id": "17838721822900.9300826520692012",
-          "type": "text",
-          "value": "* **Working:** Yeh upper panel module incoming circuit ke status parameters ko digital screens par continuously show karta hai. Isme lage colored indicator lamps line connectivity, active power supply, fault status, aur breaker tripping sequences ko visual signal ke zariye display karte hain, jabki rotary switch circuit mode transitions faraham karta hai.\n* **Purpose:** Iska main purpose main feeder line ke electrical variables (Current, Voltage) ko monitor karna aur ==real-time panel functional operations== safety status show karna hai.\n"
-        },
-        {
-          "id": "17838721987950.773943404842931",
-          "type": "text",
-          "value": "1. Verify both digital multi-parameter screen displays are active without showing any distorted system characters.\n2. Check color status indicator pilot lamps for accurate color illumination matching the live breaker status.\n3. Conduct structural checks on internal low-voltage sensor wire terminations behind the fascia board to ensure tight contact joints.\n4. Clean the external protective display surfaces using a dry antistatic cloth block.\n"
-        }
-      ],
-      "instructionBlocks": [
-        {
-          "id": "17838722152830.8217521844372476",
-          "type": "text",
-          "value": "* > ⚠️ **==WARNING: CONTROL VOLTAGE CIRCUIT==** — Disconnect secondary control lines or auxiliary fuses before conducting continuity diagnostic procedures behind the panel instrumentation layout.\n* > 🛑 **Never clean diagnostic instrument windows** using conductive fluid or wet cleaning items.\n"
+          "type": "image_ref",
+          "id": "1784094504314n3xa5c"
         }
       ],
       "linkedAssets": []
@@ -142,53 +110,28 @@
       "asset_number": "14",
       "section": "Ro elect room",
       "section_id": 1,
-      "name": "Siemens breaker module.",
-      "title": "",
-      "model": "* **Model:** Siemens 3WT / SIVACON Heavy Duty Breaking Switch\n* **Panel Reference Name:** ==Siemens MCC Panel 4301 - Main Breaker Module==",
+      "name": "LV Power Distribution Cabinet Monitoring Panel",
+      "title": "Sub-Panel Metering & Protection Interface",
+      "model": "Multiple Component (Panel Integrator)",
       "status": "Working",
       "descriptionBlocks": [
         {
-          "id": "17838723792340.026960873044019236",
+          "id": "17840949309100.7120828481583048",
           "type": "text",
-          "value": "* **Asset Number:** RO-MCC-4301-BRK\n* **Device Class:** High-capacity Molded Case Circuit Breaker (MCCB) / Air Circuit Switch Unit\n* **Nominal Current Capacity:** **1000 A**\n* **System Operations Interface:** Integrated Manual Charging Trip Handle + Emergency Trip push-button layout\n* **Physical Enclosure Style:** Heavy industrial draw-out framework structure panel\n"
+          "value": "### **A. Panel Specification & Ratings (image_32.png)**\n*   **Cabinet Type:** Low-voltage AC Power Distributing Cabinet\n*   **Specification/Type:** MNS\n*   **Nominal Voltage (Un):** 380 V\n*   **Nominal Frequency:** 50 Hz\n*   **Nominal Current (In):** 1000 A\n*   **Standard Code:** GB7251\n*   **Protection Grade:** IP40\n*   **Manufacturer:** Suzhou Industrials Park Heshun Electric Co., Ltd.\n*   **Date of Production:** 2015 9 (September 2015)\n\n### **B. Core Components & Interface Devices (image_30.png, image_36.png)**\n\n#### **1. Digital Metering Devices:**\n*   **Primary Digital Multi-meter (Top Left - YH396E-E) (image_34.png):** Measures Line-to-Line voltages (Ua, Ub, Uc) and frequency (Hz).\n    *   *Real-time Reading:* 222.8 V, 222.0 V, 222.3 V @ 50.08 Hz.\n*   **Secondary Digital Power Meter (Top Right) (image_36.png):** Displays three-phase current or power parameters.\n    *   *Real-time Reading:* (Approx.) 102.1, 102.1, 102. V\n\n#### **2. Protection & Control:**\n*   **Siemens 3WT8 Air Circuit Breaker (ACB) (image_39.png):** Main LV breaker with a detailed technical rating plate (image_38.png).\n    *   *Rated Current (In max):* 1000 A\n    *   *Rated Impulse Voltage (Uimp):* 12 kV\n    *   *Rated Operational Voltage (Ue):* 500 V\n    *   *Rated Breaking Capacity (Ics/Icu):* 66 kA / 66 kA @ 500V\n    *   *Protection Unit:* ETU35WT (Electronic Trip Unit) (image_37.png)\n*   **Temperature / Dew Controller (Left-Center - KD-NLX) (image_30.png):** Manages internal panel temperature and anti-condensation heating.\n*   **Breaker Status Indicating Lights & Buttons (Center) (image_30.png):**\n    *   **Tripping (Green Light):** Tripped/Open Status.\n    *   **Closing (Red Light):** Closed/Live Status.\n    *   **Tripping (Red Button):** Manual Open control.\n    *   **Closing (Green Button):** Manual Close control.\n*   **Signal Relays (Right-Center - DX-31 & Low Voltage signal) (image_35.png):** Provides annunciator signals for low voltage conditions.\n"
         },
         {
-          "id": "17838723981540.4981151118862493",
-          "type": "text",
-          "value": "* **Working:** Yeh module power flow connection lines ko handle karne ke liye mechanical links aur contact plates ka istemal karta hai. Front side par maujood thick operational rotary charging handle ko activate karke dynamic spring power store ki jaati hai, jise single operations handle mechanism switch se emergency conditions par instant trip ya isolate kiya ja sakta hai.\n* **Purpose:** Iska main maqsad heavy electrical loads ko safely switch karna aur sub-distribution layout lines ko ==overload faults aur sudden line short-circuits== se total block layer protection dena hai.\n"
+          "type": "image_ref",
+          "id": "17840962026630kceva"
         }
       ],
       "instructionBlocks": [
         {
-          "id": "17838724305880.953864703796394",
+          "id": "17840949596710.892725409071272",
           "type": "text",
-          "value": "1. Safely switch off connected downstream machinery loads before physically rotating the main mechanical breaker handle frame.\n2. Check breaker mechanical alignment indexes to ensure the draw-out unit slots lock flush into the cabinet structure array.\n3. Run physical insulation status checks over terminal line barriers to verify zero trace oxidation arcs on primary copper tracks.\n4. Manually test manual spring-charging cycle links during planned plant shutdown operations to check smooth trip transitions.\n"
-        },
-        {
-          "id": "17838724876600.1156252459258159",
-          "type": "text",
-          "value": "* > ⚠️ **==DANGER: HEAVY POWER SOURCE ARCS==** — Operational handle manipulation high short-circuit limits ke dauran explosive arcing create kar sakti hai; automatic trip settings calibrate rakhein aur proper thermal PPE use karein.\n* > 🛑 **Do not try dragging or pulling the main switch chassis frame** out from the cubicle guide-rails when line contacts are tightly clamped inside active busbar connections.\n"
+          "value": "Working & Safety Instructions\n(A. Safety & Hazards)\n(Insani hifazat sab se pehle hai)\n{High Voltage Danger}: Is low-voltage panel (380V) par kaam karte waqt hamesha =={insulation gloves}== aur =={safety shoes}== pehnein. Khule conductors ko hargiz na chuwein.\n{Arc Flash Risk}: Breaker ko operate (Close/Open) karte waqt panel door band hona chahiye. Arc flash ka khatra hamesha rehta hai.\n{Lock Out Tag Out (LOTO)}: Kisi bhi kism ki maintenance se pehle panel ko =={fully de-energize}== karein aur =={LOTO}== procedure apply karein.\n(B. Working Procedures)\n(Panel ko operate karne ka tariqa)\n{Breaker Operation}: Siemens 3WT8 ACB ko operate karne ke liye =={manual closing/tripping buttons}== (Red/Green buttons) ka use karein. Breaker status (Open/Close) indicator lights se verify karein.\n{Monitoring}: YH396E-E digital meter par =={voltage}== (Ua, Ub, Uc) aur =={frequency}== regularly check karein ke wo parameters ke mutabiq hain (around 220V Line-to-Neutral).\n{Temperature Control}: KD-NLX dew controller par temperature check karein aur ensure karein ke =={internal heating}== function condensation (nami) ko rokhne ke liye working condition mein ho."
         }
       ],
-      "linkedAssets": []
-    },
-    {
-      "id": 1783873074077,
-      "asset_number": "15",
-      "section": "Ro elect room",
-      "section_id": 1,
-      "name": "Cabinet panel",
-      "title": "",
-      "model": "* **Model:** MNS Low-Voltage Switchgear Cabinet Line\n* **Standard Code:** ==GB7251==",
-      "status": "Working",
-      "descriptionBlocks": [
-        {
-          "id": "17838730476950.2811634977201228",
-          "type": "text",
-          "value": "* **Asset Number:** 15\n* **Nominal Voltage:** **380 V**\n* **Nominal Frequency:** **50 Hz**\n* **Nominal Current:** **1000 A**\n* **Protection Grade:** ==IP40==\n* **Manufacturer:** Suzhou Industrials Park Heshun Electric Co., Ltd.\n"
-        }
-      ],
-      "instructionBlocks": [],
       "linkedAssets": []
     },
     {
@@ -196,32 +139,26 @@
       "asset_number": "16",
       "section": "Ro elect room",
       "section_id": 1,
-      "name": "==Feeder Module 1 - Top Position==",
-      "title": "",
-      "model": "** **Model:** MNS Draw-out Feeder Module (Size 1)\n**",
+      "name": "Salt Water System LV Distribution Panel",
+      "title": "20 Tons of Salt Water System Control Panel",
+      "model": "MNS / Suzhou Industrials Park Heshun Electric Co., Ltd.",
       "status": "Working",
       "descriptionBlocks": [
         {
-          "id": "17838733182570.5726708473620675",
+          "id": "17840962670740.572486883378933",
           "type": "text",
-          "value": "\n* **Operational Voltage / Frequency:** **380V AC / 50Hz**\n* **Component Layout:** 1 Rotary Disconnect Switch Handle, 1 Integrated Digital Parameter Meter Display, 3 Status LED Pilot Indicators (Red/Green/Yellow)\n* **Module Position:** Vertical Rack Section 1 (Top)\n"
+          "value": "(A. Panel Ratings & Specifications)\n* =={System Label}==: 20 tons of salt water system\n* =={Cabinet Type}==: Low-voltage AC Power Distributing Cabinet (MNS)\n* =={Nominal Voltage}==: 380 V\n* =={Nominal Frequency}==: 50 Hz\n* =={Nominal Current}==: 1000 A\n* =={Protection Grade}==: IP40\n* =={Standard Code}==: GB7251\n* =={Manufacturer}==: Suzhou Industrials Park Heshun Electric Co., Ltd.\n\n(B. Component Interface)\n* =={Rotary Switch}==: Multi-position control switch with TRIP, ON, OFF, and RESET OFF positions.\n* =={Digital Multimeter}==: YH372L-E digital display measuring live phase voltages (approx. 222V - 223V) and system frequency (50.08 Hz).\n* =={Status Indicators}==: Dedicated lights for POWER SIGNAL and TRIPPING SIGNAL.\n* =={Position Mechanical Indicator}==: Small viewport window displaying breaker physical state via color/text (Disconnect, Connect, Test)."
         },
         {
-          "id": "17838733515340.5791963379239837",
-          "type": "text",
-          "value": "* **Working:** Yeh modular feeder block main structural vertical busbar line se stable internal power draw karta hai. Front facade par lagaya gaya rotary controller circuit connections ko toggle ya manual cut-off switch karta hai, jabki secondary monitoring display and lighting parameters live phase status indicate karte hain.\n* **Purpose:** Iska main purpose downstream sub-loads ko secure input power manage karna aur line currents ko standard safety thresholds ke andar channelize karna hai.\n"
+          "type": "image_ref",
+          "id": "1784096591781oypjbi"
         }
       ],
       "instructionBlocks": [
         {
-          "id": "17838733807800.9900833910851595",
+          "id": "17840962852110.4599763800149866",
           "type": "text",
-          "value": "1. Safely switch off downstream terminal loads before operating the dynamic front rotary handle.\n2. Turn the main module latch mechanism to pull and slide the draw-out unit framework clear from active internal busbars.\n3. Use electrical contact cleaner on rear connection power jaw components to remove carbon deposits.\n4. Verify digital monitor readings cycle correctly without showing open circuit system error codes.\n"
-        },
-        {
-          "id": "17838733860100.46454376853473395",
-          "type": "text",
-          "value": "* > ⚠️ **==DANGER: ELECTRICAL ARC HAZARD==** — Fully verify that current flow drops down to zero before manually attempting drawer pulling or extraction operations.\n* > 🛑 **Never manipulate dynamic interior switchgear links** if live status signaling lights are illuminated.\n"
+          "value": "(A. Pre-Operation Check)\n* Verify the current status on the =={YH372L-E digital meter}== before performing any mechanical movement.\n* Ensure the rotary handle is turned to the =={OFF / TRIP}== position before attempting to change the module position.\n\n(B. Draw-Out / Rack-Out Procedure)\n* 1. Press or release the mechanical lock latch located at the bottom slot labeled =={OUT / IN}==.\n* 2. Use the designated racking handle in the =={RACK OUT}== slot and rotate counter-clockwise (Left arrow direction as shown on the instruction sticker).\n* 3. Monitor the mechanical indicator window until it shifts from RED (Connect) to GREEN (Test), and finally to BLACK =={DISCONNECT}== position.\n* 4. Once fully disconnected, safely pull the drawer module out using the main black handle.\n\n(C. Rack-In Procedure)\n* 1. Align the drawer module correctly with the guide rails and push it firmly inside the compartment.\n* 2. Insert the racking handle into the operating port and rotate clockwise toward the =={RACK IN}== position (Right arrow direction).\n* 3. Continue rotating until the internal mechanism locks and the mechanical indicator explicitly confirms the =={CONNECT}== state.\n* 4. Turn the front rotary switch back to the =={ON}== position to energize the sub-feeder circuit.\n"
         }
       ],
       "linkedAssets": []
@@ -231,32 +168,26 @@
       "asset_number": "17",
       "section": "Ro elect room",
       "section_id": 1,
-      "name": "==Feeder Module 2 - Upper Center==",
-      "title": "",
-      "model": "* **Model:** MNS Draw-out Feeder Module (Size 2)\n* **Associated Name Tag:** ==Feeder Module 2 - Upper Center==",
+      "name": "Lighting & Air Conditioning LV Distribution Panel",
+      "title": "Lighting and Air Conditioning System Control Panel",
+      "model": "MNS / Suzhou Industrials Park Heshun Electric Co., Ltd.",
       "status": "Working",
       "descriptionBlocks": [
         {
-          "id": "17838735175420.09438109961696967",
+          "id": "17840967405660.4560066035623218",
           "type": "text",
-          "value": "* **Asset Number:** RO-MNS-FDR-02\n* **Operational Voltage / Frequency:** **380V AC / 50Hz**\n* **Component Layout:** 1 Rotary Disconnect Switch Handle, 1 Integrated Digital Parameter Meter Display, 3 Status LED Pilot Indicators (Red/Green/Yellow)\n* **Module Position:** Vertical Rack Section 2\n"
+          "value": "(A. Panel Ratings & Specifications)\n* =={System Label}==: Lighting, air conditioning\n* =={Cabinet Type}==: Low-voltage AC Power Distributing Cabinet (MNS)\n* =={Nominal Voltage}==: 380 V\n* =={Nominal Frequency}==: 50 Hz\n* =={Nominal Current}==: 1000 A\n* =={Protection Grade}==: IP40\n* =={Standard Code}==: GB7251\n* =={Manufacturer}==: Suzhou Industrials Park Heshun Electric Co., Ltd.\n\n(B. Component Interface)\n* =={Rotary Switch}==: Multi-position control switch with TRIP, ON, OFF, and RESET OFF positions.\n* =={Digital Multimeter}==: YH372L-E digital display measuring live phase voltages (approx. 221V - 222V) and system frequency (50.07 Hz).\n* =={Status Indicators}==: Dedicated lights for POWER SIGNAL and TRIPPING SIGNAL.\n* =={Position Mechanical Indicator}==: Small viewport window displaying breaker physical state via color/text (Disconnect, Connect, Test).\n"
         },
         {
-          "id": "17838735710890.12743104094479646",
-          "type": "text",
-          "value": "* **Working:** Yeh unit individual motor power control standard loop configuration par chalti hai. Heavy internal contactors local starter connections operate karte hain, jise directly manual front selector handle se switch ya isolate kiya jata hai jabki operational indicators active runtime display setup ensure karte hain.\n* **Purpose:** Iska primary function process lines ko electrical overload current spikes se immediate safety isolation aur ==stable line termination protection== dena hai.\n"
+          "type": "image_ref",
+          "id": "1784097468005makm24"
         }
       ],
       "instructionBlocks": [
         {
-          "id": "17838735829270.6055916952968222",
+          "id": "17840967881990.6723743466720647",
           "type": "text",
-          "value": "1. Move the manual mechanical operation handle smoothly into the absolute OFF latch point.\n2. Disengage guide track anchors to slide the modular frame completely into check inspection alignment.\n3. Conduct visual insulation scans on power line wire sleeves behind the internal metering back-block.\n4. Clean dust accumulations away from display windows using dry cleaning materials.\n"
-        },
-        {
-          "id": "17838735955650.022993814579133014",
-          "type": "text",
-          "value": "* > ⚠️ **==WARNING: LIVE BACKPLANE BUSBAR==** — The back partition area contains live vertical copper links; do not insert tools inside open chassis slots after removal.\n* > 🛑 **Do not swap dynamic module internal fuses** without double checking factory current ratings.\n"
+          "value": "(A. Pre-Operation Check)\n* Verify the current status on the =={YH372L-E digital meter}== before performing any mechanical movement.\n* Ensure the rotary handle is turned to the =={OFF / TRIP}== position before attempting to change the module position.\n\n(B. Draw-Out / Rack-Out Procedure)\n* 1. Press or release the mechanical lock latch located at the bottom slot labeled =={OUT / IN}==.\n* 2. Use the designated racking handle in the =={RACK OUT}== slot and rotate counter-clockwise (Left arrow direction as shown on the instruction sticker).\n* 3. Monitor the mechanical indicator window until it shifts from RED (Connect) to GREEN (Test), and finally to BLACK =={DISCONNECT}== position.\n* 4. Once fully disconnected, safely pull the drawer module out using the main black handle.\n\n(C. Rack-In Procedure)\n* 1. Align the drawer module correctly with the guide rails and push it firmly inside the compartment.\n* 2. Insert the racking handle into the operating port and rotate clockwise toward the =={RACK IN}== position (Right arrow direction).\n* 3. Continue rotating until the internal mechanism locks and the mechanical indicator explicitly confirms the =={CONNECT}== state.\n* 4. Turn the front rotary switch back to the =={ON}== position to energize the sub-feeder circuit.\n"
         }
       ],
       "linkedAssets": []
@@ -266,32 +197,30 @@
       "asset_number": "18",
       "section": "Ro elect room",
       "section_id": 1,
-      "name": "==Feeder Module 3 - Center Slot==",
-      "title": "",
-      "model": "* **Model:** MNS Draw-out Feeder Module (Size 3)\n* **Associated Name Tag:** ==Feeder Module 3 - Center Slot==",
+      "name": "Overhaul System LV Distribution Panel",
+      "title": "Overhaul System Control Panel",
+      "model": "MNS / Suzhou Industrials Park Heshun Electric Co., Ltd.",
       "status": "Working",
       "descriptionBlocks": [
         {
-          "id": "17838737145690.7881057600547853",
+          "id": "17840976678020.5838570460576858",
           "type": "text",
-          "value": "\n* **Operational Voltage / Frequency:** **380V AC / 50Hz**\n* **Component Layout:** 1 Rotary Disconnect Switch Handle, 1 Integrated Digital Parameter Meter Display, 3 Status LED Pilot Indicators (Red/Green/Yellow)\n* **Module Position:** Vertical Rack Section 3 (Center)\n"
+          "value": "(A. Panel Ratings & Specifications)\n* =={System Label}==: Overhaul\n* =={Cabinet Type}==: Low-voltage AC Power Distributing Cabinet (MNS)\n* =={Nominal Voltage}==: 380 V\n* =={Nominal Frequency}==: 50 Hz\n* =={Nominal Current}==: 1000 A\n* =={Protection Grade}==: IP40\n* =={Standard Code}==: GB7251\n* =={Manufacturer}==: Suzhou Industrials Park Heshun Electric Co., Ltd.\n\n(B. Component Interface)\n* =={Rotary Switch}==: Multi-position control switch with TRIP, ON, OFF, and RESET OFF positions.\n* =={Digital Multimeter}==: YH372L-E digital display measuring live phase voltages (approx. 221V - 222V) and system frequency (50.07 Hz).\n* =={Status Indicators}==: Dedicated lights for POWER SIGNAL and TRIPPING SIGNAL.\n* =={Position Mechanical Indicator}==: Small viewport window displaying breaker physical state via color/text (Disconnect, Connect, Test).\n"
         },
         {
-          "id": "17838737567250.053945386571776166",
-          "type": "text",
-          "value": "* **Working:** Central panel component active power distribution sequences ko handle karta hai. Built-in micro-processor relay controls auxiliary loop signaling lines ko filter aur translate karte hain, jabki integrated trip links immediate line separation perform karte hain short-circuits trigger hone par.\n* **Purpose:** Iska main target system utility motor feeds ko direct power line input balance distribute karna aur real-time telemetry parameters pass down karna hai.\n"
+          "type": "image_ref",
+          "id": "17840979078861pqfbe"
         }
       ],
       "instructionBlocks": [
         {
-          "id": "17838738048740.1299342603433418",
+          "id": "17840976814100.47763660568203764",
           "type": "text",
-          "value": "1. Check that the front panel color indicator lamps correspond with current control system feedback variables.\n2. Carefully rack out the chassis framework box onto secondary slide rails to perform maintenance checks.\n3. Inspect main thermal relay setting values against specific motor nameplate continuous duty current requirements.\n4. Check wire harness connection screws inside terminal tracks for optimal structural tightness.\n"
+          "value": "(A. Pre-Operation Check)\n* Verify the current status on the =={YH372L-E digital meter}== before performing any mechanical movement.\n* Ensure the rotary handle is turned to the =={OFF / TRIP}== position before attempting to change the module position.\n\n(B. Draw-Out / Rack-Out Procedure)\n* 1. Press or release the mechanical lock latch located at the bottom slot labeled =={OUT / IN}==.\n* 2. Use the designated racking handle in the =={RACK OUT}== slot and rotate counter-clockwise (Left arrow direction as shown on the instruction sticker).\n* 3. Monitor the mechanical indicator window until it shifts from RED (Connect) to GREEN (Test), and finally to BLACK =={DISCONNECT}== position.\n* 4. Once fully disconnected, safely pull the drawer module out using the main black handle.\n\n(C. Rack-In Procedure)\n* 1. Align the drawer module correctly with the guide rails and push it firmly inside the compartment.\n* 2. Insert the racking handle into the operating port and rotate clockwise toward the =={RACK IN}== position (Right arrow direction).\n* 3. Continue rotating until the internal mechanism locks and the mechanical indicator explicitly confirms the =={CONNECT}== state.\n* 4. Turn the front rotary switch back to the =={ON}== position to energize the sub-feeder circuit.\n"
         },
         {
-          "id": "17838738183480.26566434836329994",
-          "type": "text",
-          "value": "* > ⚠️ **==DANGER: CONTROL VOLTAGE SENSING==** — Secondary loop signal fuses remain energized even when the primary power line handle is isolated.\n* > 🛑 **Never block cabinet ventilation slots** located around open cubicle framing edges.\n"
+          "type": "image_ref",
+          "id": "1784097912758m8wbgn"
         }
       ],
       "linkedAssets": []
@@ -367,71 +296,30 @@
       "linkedAssets": []
     },
     {
-      "id": 1783874778963,
-      "asset_number": "21",
-      "section": "Ro elect room",
-      "section_id": 1,
-      "name": "==Feeder Module 4302 - Top Slot==",
-      "title": "",
-      "model": "* **Model:** MNS Modular Distribution Draw-out Unit (Size 1)\n* **Associated Name Tag:** ==Feeder Module 4302 - Top Slot==",
-      "status": "Working",
-      "descriptionBlocks": [
-        {
-          "id": "17838747290130.9002493666159592",
-          "type": "text",
-          "value": "* **Asset Number:** RO-MNS-4302-FDR01\n* **Operational Voltage / Frequency:** **380V AC / 50Hz**\n* **Component Layout:** 1 Rotary Switch Handle, 1 Digital Parameter Controller, 3 LED Status Pilot Lamps (Red/Green/Yellow)\n* **Chassis Status:** Sliding draw-out chassis module (Position: Top Tier)\n"
-        },
-        {
-          "id": "17838747339770.13065703960674516",
-          "type": "text",
-          "value": "* **Working:** Yeh top tier modular drawer container main electrical distribution branch line ko power connect karta hai. Isme laga internal switch mechanics load configuration bypass controls handle karta hai aur real-time telemetry parameters pass down karta hai.\n* **Purpose:** Iska essential task auxiliary station equipment blocks ko balanced three-phase inputs terminate aur manage karna hai.\n"
-        }
-      ],
-      "instructionBlocks": [
-        {
-          "id": "17838747536970.26048695148556794",
-          "type": "text",
-          "value": "1. Safely disconnect associated terminal substation loads before altering the operational switch direction.\n2. Rotate the front handle to the complete isolation position to trip line power.\n3. Release the primary mechanical tracks guide frame to slide the drawer unit completely clear.\n4. Wipe structural dust accumulations clean from screen layers with dry anti-static materials.\n"
-        },
-        {
-          "id": "17838747670730.4065189653323707",
-          "type": "text",
-          "value": "* > ⚠️ **==DANGER: HIGH FLASH VOLTAGE==** — Do not pull or perform alignment shifts if secondary line indicators reflect active heavy distribution loads.\n* > 🛑 **Never use conductive utility cleaning sprays** over exposed micro-controller faceplates.\n"
-        }
-      ],
-      "linkedAssets": []
-    },
-    {
       "id": 1783874861757,
       "asset_number": "22",
       "section": "Ro elect room",
       "section_id": 1,
-      "name": "==Raw Water pump#01==",
-      "title": "",
-      "model": "* **Model:** MNS Modular Motor Starter Draw-out Unit\n* **Associated Name Tag:** ==Raw Water pump#01==",
+      "name": "Raw Water Pump #01 LV Distribution Panel",
+      "title": "Raw Water Pump #01 Control Panel",
+      "model": "MNS / Suzhou Industrials Park Heshun Electric Co., Ltd.",
       "status": "Working",
       "descriptionBlocks": [
         {
-          "id": "17838748068420.9506205953868644",
+          "id": "17840983808330.14651239305967168",
           "type": "text",
-          "value": "* **Asset Number:** RO-MNS-RWP-01\n* **Operational Voltage / Frequency:** **380V AC / 50Hz**\n* **Component Layout:** 1 Rotary Operating Switch Handle, 1 Digital Multifunction Parameter Controller LCD, 4 LED Pilot Lamps (Run, Stop, Trip, Source)\n* **Chassis Status:** Draw-out module with mechanical position indicators (IN / OUT / TEST)\n"
+          "value": "(A. Panel Ratings & Specifications)\n* =={System Label}==: Raw Water pump#01\n* =={Cabinet Type}==: Low-voltage AC Power Distributing Cabinet (MNS)\n* =={Nominal Voltage}==: 380 V\n* =={Nominal Frequency}==: 50 Hz\n* =={Nominal Current}==: 1000 A\n* =={Protection Grade}==: IP40\n* =={Standard Code}==: GB7251\n* =={Manufacturer}==: Suzhou Industrials Park Heshun Electric Co., Ltd.\n\n(B. Component Interface)\n* =={Rotary Switch}==: Multi-position control switch with TRIP, ON, OFF, and RESET OFF positions.\n* =={Digital Multimeter}==: YH372L-E digital display measuring live phase voltages (approx. 380V phase-to-phase / system level) and frequency (50.0 Hz).\n* =={Status Indicators}==: Dedicated lights for POWER SIGNAL (Orange) and TRIPPING SIGNAL (Red) to monitor circuit health.\n* =={Position Mechanical Indicator}==: Small viewport window displaying breaker physical state via color/text (Disconnect, Connect, Test).\n"
         },
         {
-          "id": "17838748219650.6045571618995212",
-          "type": "text",
-          "value": "* **Working:** Yeh unit process automatic loop commands receive karti hai raw water line pumping control ke liye. Front rotary bypass breaker load lines ko energize karta hai aur built-in microprocessor circuit parameters aur single phase failures ko track karke live state reflect karta hai.\n* **Purpose:** Iska main objective **Raw Water Pump #01** ko safely run karna, electrical protection provide karna, aur plant supply lines ko continuous flow coordinate karna hai.\n"
+          "type": "image_ref",
+          "id": "17840984092721z4rma"
         }
       ],
       "instructionBlocks": [
         {
-          "id": "17838748346880.8802058827715828",
+          "id": "17840983936740.3477972330809015",
           "type": "text",
-          "value": "1. Ensure the downstream water pump is completely stationary before switching the power handle.\n2. Turn the selector rotary switch to the absolute OFF or reset coordinate configuration.\n3. Move the lower slide rail mechanical safety lock to smoothly disengage and pull the unit out.\n4. Clean dust accumulations off the digital interface module using dry cleaning cloths.\n"
-        },
-        {
-          "id": "17838748573230.6674256647684566",
-          "type": "text",
-          "value": "* > ⚠️ **==DANGER: HIGH CURRENT TERMINALS==** — Never attempt extraction or alignment changes if the control unit status displays an active dynamic line loop load.\n* > 🛑 **Do not alter or toggle default setting adjustments** inside the overload protection menu structure.\n"
+          "value": "(A. Pre-Operation Check)\n* Verify the current status on the =={YH372L-E digital display}== before performing any mechanical movement or racking operations.\n* Ensure the rotary handle is turned to the =={OFF / TRIP}== position before attempting to change the module position.\n\n(B. Draw-Out / Rack-Out Procedure)\n* 1. Press or release the mechanical lock latch located at the bottom slot labeled =={OUT / IN}==.\n* 2. Use the designated racking handle in the =={RACK OUT}== slot and rotate counter-clockwise (Left arrow direction as shown on the instruction sticker).\n* 3. Monitor the mechanical indicator window until it shifts from RED (Connect) to GREEN (Test), and finally to BLACK =={DISCONNECT}== position.\n* 4. Once fully disconnected, safely pull the drawer module out using the main black handle.\n\n(C. Rack-In Procedure)\n* 1. Align the drawer module correctly with the guide rails and push it firmly inside the compartment.\n* 2. Insert the racking handle into the operating port and rotate clockwise toward the =={RACK IN}== position (Right arrow direction).\n* 3. Continue rotating until the internal mechanism locks and the mechanical indicator explicitly confirms the =={CONNECT}== state.\n* 4. Turn the front rotary switch back to the =={ON}== position to energize the Raw Water Pump #01 sub-feeder circuit.\n"
         }
       ],
       "linkedAssets": []
@@ -441,32 +329,26 @@
       "asset_number": "23",
       "section": "Ro elect room",
       "section_id": 1,
-      "name": "=Neutralization pump#01==",
-      "title": "",
-      "model": "* **Model:** MNS Modular Motor Starter Draw-out Unit\n* **Associated Name Tag:** ==Neutralization pump#01==",
+      "name": "Neutralization Pump #01 LV Distribution Panel",
+      "title": "Neutralization Pump #01 Control Panel",
+      "model": "MNS / Suzhou Industrials Park Heshun Electric Co., Ltd.",
       "status": "Working",
       "descriptionBlocks": [
         {
-          "id": "17838749059230.31902232123031005",
+          "id": "17840985513830.5326134577565135",
           "type": "text",
-          "value": "* **Asset Number:** RO-MNS-NZP-01\n* **Operational Voltage / Frequency:** **380V AC / 50Hz**\n* **Component Layout:** 1 Heavy Rotary Disconnect Handle, 1 Programmable Parameter Screen Interface, 4 Multi-colored Control Signal LED Indicator Windows\n* **Chassis Status:** Drawer type with mechanical interlocking sliders\n"
+          "value": "(A. Panel Ratings & Specifications)\n* =={System Label}==: Neutralization pump#01\n* =={Cabinet Type}==: Low-voltage AC Power Distributing Cabinet (MNS)\n* =={Nominal Voltage}==: 380 V\n* =={Nominal Frequency}==: 50 Hz\n* =={Nominal Current}==: 1000 A\n* =={Protection Grade}==: IP40\n* =={Standard Code}==: GB7251\n* =={Manufacturer}==: Suzhou Industrials Park Heshun Electric Co., Ltd.\n\n(B. Component Interface & Control)\n* =={Rotary Switch}==: Multi-position selector switch (TRIP, ON, OFF, RESET OFF).\n* =={Digital Parameter Display}==: Measures system three-phase voltages (U1, U2, U3) set at nominal 380V and grid frequency (50.0 Hz).\n* =={Status Lights}==: \n  - STOP SIGNAL (Green lamp) indicating the motor/feeder is currently idle.\n  - RUN SIGNAL (Red lamp) indicating the system is actively running/energized.\n  - STOP (Orange push-button) for manual stop command.\n"
         },
         {
-          "id": "17838749190310.4484946389230708",
-          "type": "text",
-          "value": "* **Working:** Yeh feeder chemical plant neutralization mixing control circuits operate karta hai. Isme system monitoring continuous electrical readings manage karti hai, aur control coils contact links direct overloads aur over-temperature conditions trigger hote hi process line breaker trip execute karte hain.\n* **Purpose:** Iska essential objective water treatment system ke **Neutralization Pump #01** ki mechanical drive ko line short-circuits aur damage factors se save rakhna hai.\n"
+          "type": "image_ref",
+          "id": "17840985799262lbjgj"
         }
       ],
       "instructionBlocks": [
         {
-          "id": "17838749334030.1799274460725315",
+          "id": "17840985676210.9482800422395304",
           "type": "text",
-          "value": "1. Move the mechanical power switch handle directly into the vertical clear isolation position.\n2. Disengage side track mounting alignment clips to pull the draw-out unit out onto inspection rails.\n3. Inspect internal connector line screws for loose links to avoid thermal tracking degradation faults.\n4. Wipe the control display matrix facade clean using clean specialized antistatic brushes.\n"
-        },
-        {
-          "id": "17838749472590.061639775687906496",
-          "type": "text",
-          "value": "* > ⚠️ **==WARNING: CHEMICAL AREA AUXILIARY LOOP==** — Auxiliary signal circuits might carry live voltages from the main PLC cabinet line setup even with the main breaker handle off.\n* > 🛑 **Do not use liquid cleaning chemicals or sprays** directly over open instrumentation faceplates.\n"
+          "value": "(A. Pre-Operation Check)\n* Confirm display readouts on the digital meter before initiating any physical handling.\n* Ensure that the local Rotary Switch is turned to the \"OFF / TRIP\" position to avoid arcing during mechanical movement.\n\n(B. Draw-Out / Rack-Out Procedure)\n* 1. Release or press the bottom slide latch marked < OUT / IN > to open the racking mechanism.\n* 2. Insert the racking tool/handle and rotate counter-clockwise (racking out).\n* 3. Observe the mechanical indicator window transition from RED (Connect) to GREEN (Test) and eventually to BLACK (Disconnect).\n* 4. Once disconnected, pull the drawer system completely out utilizing the main handles.\n\n(C. Rack-In Procedure)\n* 1. Slide the module back onto its compartment alignment rails until firmly seated.\n* 2. Rotate the racking handle clockwise to rack-in.\n* 3. Ensure the mechanical window shifts back to \"CONNECT\" state (marked in RED).\n* 4. Switch the rotary selector to the \"ON\" position to restore power to the Neutralization Pump.\n"
         }
       ],
       "linkedAssets": []
@@ -476,32 +358,26 @@
       "asset_number": "24",
       "section": "Ro elect room",
       "section_id": 1,
-      "name": "==L.P D.M PUMP==",
-      "title": "",
-      "model": "* **Model:** MNS High-Capacity Feeder Starter Module\n* **Associated Name Tag:** ==L.P D.M PUMP==",
+      "name": "L.P D.M Pump Control Panel Sub-Feeder",
+      "title": "L.P D.M Pump Control Panel",
+      "model": "MNS / Suzhou Industrials Park Heshun Electric Co., Ltd.",
       "status": "Working",
       "descriptionBlocks": [
         {
-          "id": "17838749839170.263765392496645",
+          "id": "17840987129860.8890900488467902",
           "type": "text",
-          "value": "* **Asset Number:** RO-MNS-LPDMP-01\n* **Operational Voltage / Frequency:** **380V AC / 50Hz**\n* **Component Layout:** 1 Ergonomic Rotary Switch Break Link, 1 High-resolution Digital Multi-meter Panel, 4 Signal Status LED Lamps (Run/Fault indexes)\n* **Cabinet Location:** Column 4302 - Drawer Position 4\n"
+          "value": "(A. Panel Ratings & Specifications)\n* =={System Label}==: L.P D.M PUMP\n* =={Cabinet Type}==: Low-voltage AC Power Distributing Cabinet (MNS)\n* =={Nominal Voltage}==: 380 V\n* =={Nominal Frequency}==: 50 Hz\n* =={Nominal Current}==: 1000 A\n* =={Protection Grade}==: IP40\n* =={Standard Code}==: GB7251\n* =={Manufacturer}==: Suzhou Industrials Park Heshun Electric Co., Ltd.\n\n(B. Component Interface & Signals)\n* =={Rotary Control Switch}==: Multi-position manual rotary switch (TRIP, ON, OFF, RESET OFF) for local circuit isolation.\n* =={Digital Parameter Display}==: Measures live three-phase voltages (Ua, Ub, Uc) set around nominal 380V and network frequency (50.0 Hz).\n* =={Status Signaling Indicators}==:\n  - STOP SIGNAL (Green Indicator): Confirms that the pump circuit is currently de-energized/idle.\n  - RUN SIGNAL (Red Indicator): Confirms that the pump circuit is active, closed, and running.\n  - STOP (Orange/Amber Push Button): Direct manual override to command a system stop.\n  - RUN (Green Push Button): Manual local override to command a system start.\n"
         },
         {
-          "id": "17838750226390.18043448400795553",
-          "type": "text",
-          "value": "* **Working:** Module demineralized low-pressure transport pumps operate karne ke liye large current starter paths utilize karta hai. Integrated thermal overload protection links line line load shiftings capture karte hain aur current limits verify karke dynamic operations limit lines block karte hain.\n* **Purpose:** Iska absolute purpose **Low Pressure Demineralized (D.M.) Water Pump** motor ko balanced three-phase power flow feed karna aur thermal over-current damages completely arrest karna hai.\n"
+          "type": "image_ref",
+          "id": "1784098743347yef0x8e"
         }
       ],
       "instructionBlocks": [
         {
-          "id": "17838750265370.16074220263344605",
+          "id": "17840987270090.39566290750047106",
           "type": "text",
-          "value": "1. Confirm with the water plant operations station before performing manual isolation on this module loop.\n2. Turn the power handle lock setup clear and translate the draw-out unit outwards along standard slide guides.\n3. Scan rear contact jaw clips to check for potential structural distortion or contact erosion signs.\n4. Test secondary display illumination functionality by cross-checking main feeder active parameter values.\n"
-        },
-        {
-          "id": "17838750377950.038835765682087485",
-          "type": "text",
-          "value": "* > ⚠️ **==DANGER: COMPARTMENT INTERLOCK ARREST==** — Forcing the structural frame slider outwards with maximum physical load while the switch is ON will break the safety mechanical interlocks.\n* > 🛑 **Never apply uncalibrated replacement electrical fuses** inside primary power control loop connections.\n"
+          "value": "(A. Pre-Operation Verification)\n* Check the current state of the L.P D.M Pump via the YH372L-E digital interface before starting any physical draw-out operations.\n* Always switch the front local Rotary Selector to the \"OFF / TRIP\" position to secure the circuit before performing mechanical racking.\n\n(B. Drawer Draw-Out (Rack-Out) Procedure)\n* 1. Locate the mechanical slider latch labeled < OUT / IN > at the bottom right of the switch panel.\n* 2. Insert the racking tool into the operating port and rotate counter-clockwise (racking out).\n* 3. Closely monitor the mechanical position indicator viewport as it shifts states from RED (Connect) to GREEN (Test) and then to BLACK (Disconnect).\n* 4. Once fully isolated, grip the bottom black pull-handles and slide the drawer module completely out of the cabinet frame.\n\n(C. Drawer Insert (Rack-In) Procedure)\n* 1. Align the L.P D.M Pump drawer unit perfectly onto its compartment guide rails and slide it smoothly inward.\n* 2. Put the racking handle into the port and rotate clockwise (racking in).\n* 3. Confirm that the mechanical indicator window fully registers the \"CONNECT\" status (denoted by a solid RED indicator).\n* 4. Rotate the front selector switch back to the \"ON\" position to restore local and remote command control to the pump.\n"
         }
       ],
       "linkedAssets": []
@@ -511,32 +387,26 @@
       "asset_number": "25",
       "section": "Ro elect room",
       "section_id": 1,
-      "name": "==I.W.P 1==",
-      "title": "",
-      "model": "* **Model:** MNS Modular Distribution Motor Starter\n* **Associated Name Tag:** ==I.W.P 1==",
+      "name": "I.W.P #1 (Industrial Water Pump #01) Control Panel",
+      "title": "I.W.P #1 Sub-Feeder Control Module",
+      "model": "MNS / Suzhou Industrials Park Heshun Electric Co., Ltd.",
       "status": "Working",
       "descriptionBlocks": [
         {
-          "id": "17838750806480.6918040902041427",
+          "id": "17840990822620.48069445523104976",
           "type": "text",
-          "value": "* **Asset Number:** RO-MNS-IWP-01\n* **Operational Voltage / Frequency:** **380V AC / 50Hz**\n* **Component Layout:** 1 Rugged Operation Selector Handle, 1 Multifunction Digital Processor Screen, 4 Small Functional Running Indication Lamps\n* **Cabinet Location:** Column 4302 - Drawer Position 5 (Second From Bottom)\n"
+          "value": "(A. Panel Ratings & Specifications)\n* =={System Label}==: I.W.P #1\n* =={Cabinet Type}==: Low-voltage AC Power Distributing Cabinet (MNS)\n* =={Nominal Voltage}==: 380 V\n* =={Nominal Frequency}==: 50 Hz\n* =={Nominal Current}==: 1000 A\n* =={Protection Grade}==: IP40\n* =={Standard Code}==: GB7251\n* =={Manufacturer}==: Suzhou Industrials Park Heshun Electric Co., Ltd.\n\n(B. Component Interface & Signals)\n* =={Rotary Switch}==: Multi-position selector switch (TRIP, ON, OFF, RESET OFF) for main local electrical isolation.\n* =={Digital Display}==: Measures live three-phase parameters (Ua, Ub, Uc) and grid frequency (50.06 Hz).\n* =={Remote/Local Switch}==: Dedicated rotary switch on the right side of the control area to toggle between \"Remote\" (Auto) and \"Local\" (Manual) control.\n* =={Status Signaling Indicators}==:\n  - STOP SIGNAL (Green Indicator): Confirms that the pump circuit is currently idle / stopped.\n  - RUN SIGNAL (Red Indicator): Confirms that the pump circuit is actively energized / running.\n  - STOP (Orange/Amber Push Button): Direct local stop control.\n  - RUN (Green Push Button): Direct local start control.\n"
         },
         {
-          "id": "17838751001180.1975272210663056",
-          "type": "text",
-          "value": "* **Working:** Industrial process loop feeds ko power up karne ke liye yeh system local contact links toggle karta hai. Dynamic thermal curve matrix line diagnostics control magnetic switches use karti hain taake system load parameters balanced state mein operate hote rahein.\n* **Purpose:** Iska ultimate duty raw chemical processing loops ke **Industrial Water Pump #1** motor network ko complete phase loss safety parameters block distribution faraham karna hai.\n"
+          "type": "image_ref",
+          "id": "1784099096710k2bz6y"
         }
       ],
       "instructionBlocks": [
         {
-          "id": "17838751036150.6180216169058088",
+          "id": "17840990994830.25416016455158397",
           "type": "text",
-          "value": "1. Isolate the operational loop system by moving the manual rotary toggle switch completely down.\n2. Pull and slide the operational chassis tray assembly smooth rail format outwards into check configuration.\n3. Verify that the main core protection relays match default current parameters set on the engineering logs.\n4. Clean the external switch faceplates using high-quality specialized electronic component dry wipes.\n"
-        },
-        {
-          "id": "17838751270990.7514254855336707",
-          "type": "text",
-          "value": "* > ⚠️ **==WARNING: UTILITY SYSTEM PRESSURE LINK==** — Pump lines hold high dynamic physical pressures; ensure both hydraulic and electrical isolation steps clear out before diagnostic check loops.\n* > 🛑 **Do not bridge output contacts** or use secondary terminal bypass configurations.\n"
+          "value": "(A. Pre-Operation Check)\n* Monitor the digital meter parameters to ensure no active faults exist before racking.\n* Secure the local Rotary Selector switch to the \"OFF / TRIP\" position to isolate electrical terminals.\n\n(B. Drawer Draw-Out (Rack-Out) Procedure)\n* 1. Release or slide open the mechanical racking access latch < OUT / IN >.\n* 2. Insert the racking tool/crank and rotate counter-clockwise (racking out).\n* 3. Confirm that the mechanical viewport indicator transitions from RED (Connect) to GREEN (Test) and finally BLACK (Disconnect).\n* 4. Once fully isolated, firmly grip the bottom drawer handles and slide the module out of the cabinet chassis.\n\n(C. Drawer Insert (Rack-In) Procedure)\n* 1. Align the I.W.P #1 module with the chamber guide tracks and push it smoothly inward.\n* 2. Rotate the racking crank clockwise to engage the electrical plug-in contacts.\n* 3. Make sure the mechanical indicator window shifts back to \"CONNECT\" state (denoted in RED).\n* 4. Set the Remote/Local switch to your desired mode and turn the main rotary switch to \"ON\" to restore power.\n"
         }
       ],
       "linkedAssets": []
@@ -546,32 +416,26 @@
       "asset_number": "26",
       "section": "Ro elect room",
       "section_id": 1,
-      "name": "==H.P D.M PUMP #1==",
-      "title": "",
-      "model": "* **Model:** MNS High-Performance Motor Control Starter Unit\n* **Associated Name Tag:** ==H.P D.M PUMP #1==",
+      "name": "H.P D.M Pump #1 Control Panel Sub-Feeder",
+      "title": "H.P D.M Pump #1 Control Module",
+      "model": "MNS / Suzhou Industrials Park Heshun Electric Co., Ltd.",
       "status": "Working",
       "descriptionBlocks": [
         {
-          "id": "17838751608420.5101368201821744",
+          "id": "17840994327720.7111755026472343",
           "type": "text",
-          "value": "* **Asset Number:** RO-MNS-HPDMP-01\n* **Operational Voltage / Frequency:** **380V AC / 50Hz**\n* **Component Layout:** 1 Heavy Industrial Rotary Handle Switch, 1 High-accuracy Digital Analysis Interface Unit, 4 Multi-state Status LED Monitoring Windows\n* **Cabinet Location:** Column 4302 - Drawer Position 6 (Floor Level Base Position)\n"
+          "value": "(A. Panel Ratings & Specifications)\n* System Label: H.P D.M PUMP #1\n* Cabinet Type: Low-voltage AC Power Distributing Cabinet (MNS)\n* Nominal Voltage: 380 V\n* Nominal Frequency: 50 Hz\n* Nominal Current: 1000 A\n* Protection Grade: IP40\n* Standard Code: GB7251\n* Manufacturer: Suzhou Industrials Park Heshun Electric Co., Ltd.\n\n(B. Component Interface & Signals)\n* Rotary Control Switch: Multi-position local rotary switch (TRIP, ON, OFF, RESET OFF) for manual circuit isolation.\n* Digital Parameter Display: High-accuracy YH372L-E style display showing phase-to-neutral voltages (Ua, Ub, Uc) nominally at 222V / system level 380V and network frequency (50.00 Hz).\n* Local/Remote Toggle Switch: Dedicated selector switch on the right of the indicator panel to shift control from manual 'Local' mode to automated 'Remote' system mode.\n* Status Signaling Indicators:\n  - STOP SIGNAL (Green Indicator): Lit when the high-pressure demineralized water pump is idle/de-energized.\n  - RUN SIGNAL (Red Indicator): Lit when the sub-feeder contacts are closed and the pump is actively running.\n  - STOP (Orange/Amber Push Button): Direct local manual stop command override.\n  - RUN (Green Push Button): Direct local manual start command override.\n"
         },
         {
-          "id": "17838751777480.08845573856726247",
-          "type": "text",
-          "value": "* **Working:** High pressure systems ko channelize karne ke liye yeh lower unit massive current loop starter sequences handle karti hai. Advanced micro-relays line fluctuations aur short overload surges trace karke protective latch switches instantly run karti hain line drop scenarios bypass karne ke liye.\n* **Purpose:** Iska main purpose high-capacity **High Pressure Demineralized (D.M.) Water Pump** drive ko voltage dips aur single-phasing problems se permanent structural shield faraham karna hai.\n"
+          "type": "image_ref",
+          "id": "1784099461248ib3kr4"
         }
       ],
       "instructionBlocks": [
         {
-          "id": "17838751823310.49716586099744753",
+          "id": "17840994462810.015192685012875042",
           "type": "text",
-          "value": "1. Clean surrounding base platform clear areas thoroughly before opening floor tier mechanism lockers.\n2. Turn off core run commands and rotate the industrial handle loop right into absolute horizontal reset layout.\n3. Track and pull out the slider block tray frame carefully to vacuum deep dust layers trapped beneath.\n4. Scan the main block primary clip jaw structures to verify perfect spring retention balance profiles.\n"
-        },
-        {
-          "id": "17838751930860.578951617907132",
-          "type": "text",
-          "value": "* > ⚠️ **==DANGER: MAXIMUM INDUCTIVE KICKBACKS==** — High pressure pumps possess extreme magnetic feedback; ensure complete earth structural loop grounding links before touch diagnostics.\n* > 🛑 **Never try manual drawer adjustments** during high-pressure pump auto processing execution loops.\n"
+          "value": "(A. Pre-Operation Check)\n* Confirm that all phase voltages (Ua, Ub, Uc) on the digital parameters meter are stable at ~222V before commencing mechanical handling.\n* Always turn the front Rotary Switch to \"OFF / TRIP\" to safely de-energize the primary auxiliary contacts before sliding the drawer.\n\n(B. Drawer Draw-Out (Rack-Out) Procedure)\n* 1. Release or slide the mechanical lock slider labeled < OUT / IN > at the bottom right.\n* 2. Insert the racking tool/crank into the port and rotate counter-clockwise (Left direction toward RACK OUT).\n* 3. Closely check the mechanical viewport indicator next to the slider until it successfully transitions to \"DISCONNECT\" (indicated by BLACK color).\n* 4. Once fully disengaged, pull the module out smoothly using the robust black bottom handles.\n\n(C. Drawer Insert (Rack-In) Procedure)\n* 1. Align the H.P D.M Pump #1 drawer unit with the cabinet compartment side rails and slide it firmly inside.\n* 2. Insert the racking tool and rotate clockwise (Right direction toward RACK IN).\n* 3. Verify that the mechanical indicator window shifts to RED, displaying \"CONNECT\" status to ensure power terminals are locked.\n* 4. Switch the Local/Remote toggle to the required setting, then rotate the main control handle to the \"ON\" position to run the pump.\n"
         }
       ],
       "linkedAssets": []
