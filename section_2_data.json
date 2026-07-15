@@ -34,6 +34,19 @@
         }
       ],
       "linkedAssets": []
+    },
+    {
+      "id": 1784129275371,
+      "asset_number": "37",
+      "section": "Ro",
+      "section_id": 2,
+      "name": "Kv",
+      "title": "Cg",
+      "model": "Bj",
+      "status": "Working",
+      "descriptionBlocks": [],
+      "instructionBlocks": [],
+      "linkedAssets": []
     }
   ]
 }
